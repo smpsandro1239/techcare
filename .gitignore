@@ -1,0 +1,48 @@
+# Arquivos de ambiente
+.env
+.env.backup
+.env.production
+
+# Dependências
+/vendor
+/node_modules
+
+# Arquivos de build e temporários (frontend)
+/public/build
+/public/hot
+/public/storage
+npm-debug.log
+yarn-error.log
+
+# Arquivos de cache e logs do Laravel
+/storage/*.key
+/storage/pail
+/storage/framework/*
+/storage/logs/*
+!storage/framework/.gitignore
+!storage/logs/.gitignore
+
+# Arquivos de cache gerados pelo Laravel
+/bootstrap/cache/*
+!bootstrap/cache/.gitignore
+
+# Ferramentas de teste
+/.phpunit.cache
+.phpunit.result.cache
+
+# Configurações de ferramentas específicas
+.phpactor.json
+Homestead.json
+Homestead.yaml
+/auth.json
+
+# Configurações de editores
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed
+
+# Arquivos adicionais do Laragon (opcional)
+/laragon.ini
+/laragon.log
