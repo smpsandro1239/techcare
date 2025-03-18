@@ -4,7 +4,6 @@ use App\Http\Controllers\Admin\AdminMainController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductAttributeController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\ProductDiscountController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\AgendamentoController;
 use App\Http\Controllers\Customer\CustomerMainController;
@@ -17,25 +16,31 @@ use App\Http\Controllers\Seller\SellerStoreController;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\ProductCatalog;
 
+// Rota pública para agendamentos JSON (acessível por todos)
+Route::get('/agendamentos/json', [AgendamentoController::class, 'getAgendamentos'])->name('agendamentos.json');
+
+// Rota pública para a página inicial
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Rota pública para procurar produtos (acessível sem login)
+// Rotas públicas para procurar produtos (acessíveis sem login)
 Route::get('/product/procurar', [ProductController::class, 'procurar'])->name('product.procurar');
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
 
 Route::get('/catalogo', ProductCatalog::class)->name('catalogo');
 
-// Admin routes
-Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->group(function () {
-    // Agendamento - admin
+// Rotas de agendamento (acessíveis por todos os usuários, sem login)
+Route::prefix('agendamento')->group(function () {
     Route::controller(AgendamentoController::class)->group(function () {
-        Route::get('/agendamento', 'create')->name('admin.agendamento.create');
-        Route::post('/agendamento', 'store')->name('admin.agendamento.store');
-        Route::get('/agendamentos', 'index')->name('admin.agendamentos.index');
+        Route::get('/', 'create')->name('agendamento.create');
+        Route::post('/', 'store')->name('agendamento.store');
+        Route::get('/lista', 'index')->name('agendamento.index');
     });
+});
 
+// Admin routes (mantêm restrição de autenticação e role)
+Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->group(function () {
     Route::controller(AdminMainController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('admin');
         Route::get('/settings', 'setting')->name('admin.settings');
@@ -68,36 +73,10 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->g
         Route::post('/product_attribute/update/{id}', 'updateattribute')->name('product_attribute.update');
         Route::delete('/product_attribute/delete/{id}', 'deleteattribute')->name('product_attribute.delete');
     });
-
-    Route::controller(ProductDiscountController::class)->group(function () {
-        Route::get('/discount/create', 'index')->name('discount.create');
-        Route::get('/discount/manage', 'manage')->name('discount.manage');
-    });
-
-    Route::controller(MasterCategoryController::class)->group(function () {
-        Route::post('/store/category', 'storecat')->name('store.cat');
-        Route::get('/category/{id}', 'showcat')->name('show.cat');
-        Route::put('/category/update/{id}', 'updatecat')->name('update.cat');
-        Route::delete('/category/delete/{id}', 'deletecat')->name('delete.cat');
-    });
-
-    Route::controller(MasterSubCategoryController::class)->group(function () {
-        Route::post('/store/subcategory', 'storesubcat')->name('store.subcat');
-        Route::get('/subcategory/{id}', 'showsubcat')->name('show.subcat');
-        Route::put('/subcategory/update/{id}', 'updatesubcat')->name('update.subcat');
-        Route::delete('/subcategory/delete/{id}', 'deletesubcat')->name('delete.subcat');
-    });
 });
 
-// Vendor routes
+// Vendor routes (mantêm restrição de autenticação e role)
 Route::middleware(['auth', 'verified', 'rolemanager:vendor'])->prefix('vendor')->group(function () {
-    // Agendamento - vendor
-    Route::controller(AgendamentoController::class)->group(function () {
-        Route::get('/agendamento', 'create')->name('vendor.agendamento.create');
-        Route::post('/agendamento', 'store')->name('vendor.agendamento.store');
-        Route::get('/agendamentos', 'index')->name('vendor.agendamentos.index');
-    });
-
     Route::controller(SellerMainController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('vendor');
         Route::get('/order/history', 'orderhistory')->name('vendor.order.history');
@@ -116,7 +95,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])->prefix('vendor')-
     });
 });
 
-// Customer routes
+// Customer routes (mantêm restrição de autenticação e role)
 Route::middleware(['auth', 'verified', 'rolemanager:customer'])->prefix('user')->group(function () {
     Route::controller(CustomerMainController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
@@ -130,15 +109,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->group(function () {
-    Route::get('/agendamentos/json', [AgendamentoController::class, 'getAgendamentos'])->name('agendamentos.json');
-});
-// Agendamento - customer
-Route::controller(AgendamentoController::class)->group(function () {
-    Route::get('/agendamento', 'create')->name('admin.agendamento.create');
-    Route::post('/agendamento', 'store')->name('admin.agendamento.store');
-    Route::get('/agendamentos', 'index')->name('admin.agendamentos.index');
 });
 
 require __DIR__ . '/auth.php';

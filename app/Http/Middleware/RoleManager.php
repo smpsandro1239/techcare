@@ -2,53 +2,35 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Support\Facades\Auth; // Importe a facade Auth
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class RoleManager
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    public function handle(Request $request, Closure $next, $role): Response
+    public function handle(Request $request, Closure $next, $role)
     {
         if (!Auth::check()) {
-            return redirect()->route('login');
+            return redirect('/login')->with('error', 'Por favor, faça login para acessar esta página.');
         }
 
-        $authUserRole = Auth::user()->role;
+        $userRole = Auth::user()->role;
+        $roleMap = [
+            1 => 'admin',
+            2 => 'vendor',
+            3 => 'customer',
+        ];
 
-        switch ($role) {
-            case 'admin':
-                if ($authUserRole == 0) {
-                    return $next($request);
-                }
-                break;
-            case 'vendor':
-                if ($authUserRole == 1) {
-                    return $next($request);
-                }
-                break;
-            case 'customer':
-                if ($authUserRole == 2) {
-                    return $next($request);
-                }
-                break;
+        $userRoleName = $roleMap[$userRole] ?? null;
+
+        if ($userRoleName === $role) {
+            return $next($request);
         }
 
-        switch ($authUserRole) {
-            case 0:
-                return redirect()->route('admin');
-            case 1:
-                return redirect()->route('vendor');
-            case 2:
-                return redirect()->route('dashboard');
+        if ($userRoleName) {
+            return redirect("/{$userRoleName}/dashboard")->with('error', 'Acesso não autorizado para esta área.');
         }
 
-        return redirect()->route('login');
+        return redirect('/')->with('error', 'Acesso não autorizado.');
     }
 }

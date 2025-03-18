@@ -25,26 +25,25 @@ class Agendamento extends Model
 
     /**
      * Indica se o modelo deve usar timestamps (created_at e updated_at).
-     * Por padrão, está habilitado, mas pode ser desativado se necessário.
      *
      * @var bool
      */
     public $timestamps = true;
 
     /**
-     * Definir os campos que devem ser tratados como datas/caras.
-     * 'data' e 'hora' serão automaticamente convertidos para instâncias Carbon.
+     * Definir os campos que devem ser tratados como datas.
+     * Apenas 'data' é uma data real; 'hora' é uma string no formato HH:mm.
      *
      * @var array
      */
     protected $dates = [
         'data',
-        'hora',
+        'created_at',
+        'updated_at',
     ];
 
     /**
      * Definir os atributos que devem ser convertidos para tipos nativos.
-     * 'duracao' será tratado como um número decimal.
      *
      * @var array
      */

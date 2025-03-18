@@ -6,35 +6,35 @@
     <title>Tech Care</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    
+
     <style>
         /* Estilo geral do site */
         body {
-            background-color: #000; /* Fundo ainda mais escuro */
-            color: #ddd; /* Texto mais claro para contraste */
+            background-color: #000;
+            color: #ddd;
         }
 
         /* Navbar extremamente escura */
         .navbar {
-            background-color: #111 !important; 
+            background-color: #111 !important;
         }
 
         .navbar a {
-            color: #bbb !important; /* Cinza claro para melhor contraste */
+            color: #bbb !important;
         }
 
         .navbar a:hover {
-            color: #28a745 !important; /* Verde para hover */
+            color: #28a745 !important;
         }
 
-        /* Input de busca (mantido o mesmo) */
+        /* Input de busca */
         .form-control {
             background-color: #333;
             color: white;
             border: 1px solid #555;
         }
 
-        /* Botão de busca (mantido o mesmo) */
+        /* Botão de busca */
         .btn-outline-success {
             border-color: #28a745;
             color: #28a745;
@@ -45,13 +45,13 @@
             color: white;
         }
 
-        /* Rodapé ainda mais escuro */
+        /* Rodapé */
         footer {
             position: fixed;
             bottom: 0;
             width: 100%;
-            background-color: #111; /* Fundo ainda mais escuro */
-            color: #bbb; /* Texto cinza claro */
+            background-color: #111;
+            color: #bbb;
             text-align: center;
             padding: 10px 0;
         }
@@ -67,7 +67,7 @@
             color: #28a745;
             font-size: 36px;
             margin-bottom: 40px;
-            color: white; /* Título da seção em branco */
+            color: white;
         }
 
         .features .feature-item {
@@ -75,7 +75,7 @@
             margin: 20px;
             padding: 20px;
             background-color: #222;
-            color: white; /* Texto dentro dos itens da feature em branco */
+            color: white;
             border-radius: 10px;
             width: 250px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
@@ -89,7 +89,7 @@
         .features .feature-item i {
             font-size: 50px;
             margin-bottom: 15px;
-            color: white; /* Ícones em branco */
+            color: white;
         }
 
         /* Imagem de Banner com efeito */
@@ -116,10 +116,10 @@
             color: white;
             font-size: 1.2rem;
             border: none;
-            border-radius: 30px; /* Bordas arredondadas */
+            border-radius: 30px;
             text-transform: uppercase;
             width: auto;
-            text-align: center; /* Garantindo que o texto do botão esteja centralizado */
+            text-align: center;
         }
 
         .banner-button:hover {
@@ -129,12 +129,12 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        /* Responsividade: Ajustes para telas menores */
+        /* Responsividade */
         @media (max-width: 768px) {
             .banner-button {
                 font-size: 1rem;
                 padding: 12px 25px;
-                width: auto; /* Ajuste do tamanho do botão */
+                width: auto;
             }
         }
 
@@ -144,7 +144,6 @@
             animation: fadeIn 2s ease-out forwards;
         }
 
-        /* Adicionando um efeito de animação para a imagem techicon */
         .techicon-logo img {
             width: 100%;
             max-height: 600px;
@@ -152,16 +151,9 @@
         }
 
         @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
-
     </style>
 
     @livewireStyles
@@ -183,7 +175,7 @@
                 <a class="nav-link" href="{{ route('catalogo') }}">Catálogo</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.agendamento.create') }}">Agende sua Reparação</a>
+                <a class="nav-link" href="{{ auth()->check() ? route('agendamento.create') : route('login') }}">Agende sua Reparação</a>
             </li>
         </ul>
         <form class="form-inline mx-auto" action="{{ route('product.procurar') }}" method="GET">
@@ -222,7 +214,7 @@
 <!-- Banner com imagem e botão -->
 <div class="banner">
     <img src="{{ asset('admin_asset/img/banner2.png') }}" alt="Banner da Loja">
-    <a href="{{ route('admin.agendamento.create') }}" class="banner-button">Agende Agora</a>
+    <a href="{{ auth()->check() ? route('agendamento.create') : route('login') }}" class="banner-button">Agende Agora</a>
 </div>
 
 <!-- Seção de Destaques -->
@@ -247,7 +239,7 @@
 
 <!-- Rodapé -->
 <footer>
-    &copy; {{ date('Y') }} Tech Care - Todos os direitos reservados.
+    © {{ date('Y') }} Tech Care - Todos os direitos reservados.
 </footer>
 
 <!-- Scripts -->

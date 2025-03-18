@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    
+
     <style>
         /* Estilo geral do site */
         body {
@@ -17,7 +17,7 @@
 
         /* Navbar extremamente escura */
         .navbar {
-            background-color: #111 !important; 
+            background-color: #111 !important;
         }
 
         .navbar a {
@@ -77,7 +77,7 @@
                 <a class="nav-link" href="{{ route('catalogo') }}">Catálogo</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.agendamento.create') }}">Agende sua Reparação</a>
+                <a class="nav-link" href="{{ auth()->check() ? (auth()->user()->role == 1 ? route('admin.agendamento.create') : (auth()->user()->role == 2 ? route('vendor.agendamento.create') : route('customer.agendamento.create'))) : '#' }}">Agendar reparação</a>
             </li>
         </ul>
         <form class="form-inline mx-auto" action="{{ route('product.procurar') }}" method="GET">
