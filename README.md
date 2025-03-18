@@ -1,5 +1,3 @@
-Aqui está um modelo detalhado de um arquivo `README.md` para o seu projeto "Tech Care". Este README inclui instruções passo a passo para clonar o projeto, configurá-lo, e colaborar em conjunto, além de uma visão geral do projeto. Você pode personalizá-lo conforme necessário.
-
 ---
 
 # Tech Care - Sistema de Agendamento e Gerenciamento de Serviços
@@ -47,10 +45,9 @@ Para colaborar no desenvolvimento do Tech Care, siga os passos abaixo. Certifiqu
    - Abra o terminal e navegue até o diretório onde deseja armazenar o projeto.
    - Execute o comando abaixo para clonar o repositório:
      ```bash
-     git clone https://github.com/seu-usuario/techcare.git
+     git clone https://github.com/smpsandro1239/techcare.git
      ```
-     (Substitua `https://github.com/seu-usuario/techcare.git` pelo URL real do seu repositório.)
-
+     
 2. **Acesse o Diretório do Projeto**
    - Entre no diretório clonado:
      ```bash
@@ -180,5 +177,3 @@ git add README.md
 git commit -m "Adicionado README com instruções de configuração e colaboração"
 git push origin main
 ```
-
-Se precisar de ajuda para corrigir o erro 500 ou expandir o README, me avise!
