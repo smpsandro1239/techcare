@@ -1,67 +1,184 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Aqui está um modelo detalhado de um arquivo `README.md` para o seu projeto "Tech Care". Este README inclui instruções passo a passo para clonar o projeto, configurá-lo, e colaborar em conjunto, além de uma visão geral do projeto. Você pode personalizá-lo conforme necessário.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+---
 
-## About Laravel
+# Tech Care - Sistema de Agendamento e Gerenciamento de Serviços
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Bem-vindo ao **Tech Care**, um sistema web desenvolvido para gerenciar agendamentos de serviços técnicos, como instalação de sistemas operacionais, manutenção de hardware e configuração de redes. Este projeto utiliza o framework Laravel, FullCalendar para a interface de agendamento, e oferece um ambiente colaborativo para desenvolvedores trabalharem juntos.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Visão Geral do Projeto
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+O Tech Care é uma aplicação voltada para:
+- **Agendamento de serviços**: Permite que clientes agendem serviços técnicos com base em horários disponíveis.
+- **Gerenciamento de usuários**: Suporta múltiplos papéis (admin, vendor, customer) com autenticação e autorização.
+- **Catálogo de produtos**: Inclui uma seção para procurar e exibir produtos (futuro desenvolvimento).
+- **Interface amigável**: Utiliza Bootstrap e FullCalendar para uma experiência visual atraente e funcional.
 
-## Learning Laravel
+### Tecnologias Utilizadas
+- **Backend**: Laravel 10.x
+- **Frontend**: HTML, CSS, JavaScript, Bootstrap 4, FullCalendar 6.1.11
+- **Banco de Dados**: MySQL (via Laravel migrations)
+- **Outros**: Livewire (para catálogos dinâmicos), SweetAlert2 (para notificações)
+- **Controle de Versão**: Git
+- **Ambiente de Desenvolvimento**: Laragon (recomendado)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Estrutura do Projeto
+- `app/`: Contém os controladores, modelos e middleware.
+- `resources/views/`: Templates Blade para as páginas (ex.: `agendamento/create.blade.php`, `agendamento/index.blade.php`).
+- `database/migrations/`: Definições de tabelas (ex.: `agendamentos`).
+- `routes/`: Definições de rotas (ex.: `web.php`).
+- `public/`: Arquivos estáticos como CSS, JS e imagens.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Como Contribuir
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Para colaborar no desenvolvimento do Tech Care, siga os passos abaixo. Certifique-se de ter permissões de acesso ao repositório no GitHub.
 
-## Laravel Sponsors
+### Pré-requisitos
+- **Git**: Para clonar e gerenciar o repositório.
+- **PHP 8.1 ou superior**: Versão compatível com Laravel 10.
+- **Composer**: Gerenciador de dependências PHP.
+- **Node.js e NPM**: Para compilar assets (opcional, se necessário).
+- **Laragon** (recomendado) ou outro servidor local (ex.: XAMPP, WAMP) com MySQL.
+- **Editor de Código**: VS Code, PhpStorm ou similar.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Passo a Passo para Configuração
 
-### Premium Partners
+1. **Clone o Repositório**
+   - Abra o terminal e navegue até o diretório onde deseja armazenar o projeto.
+   - Execute o comando abaixo para clonar o repositório:
+     ```bash
+     git clone https://github.com/seu-usuario/techcare.git
+     ```
+     (Substitua `https://github.com/seu-usuario/techcare.git` pelo URL real do seu repositório.)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+2. **Acesse o Diretório do Projeto**
+   - Entre no diretório clonado:
+     ```bash
+     cd techcare
+     ```
 
-## Contributing
+3. **Instale as Dependências**
+   - Instale as dependências do PHP via Composer:
+     ```bash
+     composer install
+     ```
+   - (Opcional) Instale dependências JavaScript via NPM, se houver assets personalizados:
+     ```bash
+     npm install && npm run dev
+     ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. **Configure o Ambiente**
+   - Renomeie o arquivo `.env.example` para `.env`:
+     ```bash
+     cp .env.example .env
+     ```
+   - Edite o arquivo `.env` com suas configurações:
+     - **DB_DATABASE**: Nome do banco de dados (ex.: `techcare_db`).
+     - **DB_USERNAME**: Usuário do MySQL (ex.: `root`).
+     - **DB_PASSWORD**: Senha do MySQL (deixe em branco se não houver senha no Laragon).
+     - **APP_URL**: URL do projeto (ex.: `http://techcare.test`).
+   - Gere a chave do aplicativo:
+     ```bash
+     php artisan key:generate
+     ```
 
-## Code of Conduct
+5. **Configure o Banco de Dados**
+   - Crie um banco de dados MySQL chamado `techcare_db` (ou o nome que você definiu no `.env`).
+   - Execute as migrações para criar as tabelas:
+     ```bash
+     php artisan migrate
+     ```
+   - (Opcional) Popule o banco com dados de exemplo (se houver seeders):
+     ```bash
+     php artisan db:seed
+     ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+6. **Inicie o Servidor**
+   - Se estiver usando Laragon, inicie o ambiente (Apache e MySQL) e aponte o virtual host para o diretório `techcare`.
+   - Ou use o servidor embutido do Laravel:
+     ```bash
+     php artisan serve
+     ```
+   - Acesse o projeto em `http://localhost:8000` ou o URL configurado no `.env`.
 
-## Security Vulnerabilities
+7. **Autenticação Inicial**
+   - Registre um novo usuário em `http://localhost:8000/register` ou use o comando Artisan para criar um admin:
+     ```bash
+     php artisan tinker
+     User::create(['name' => 'Admin', 'email' => 'admin@techcare.com', 'password' => bcrypt('password'), 'role' => 1])
+     ```
+   - Faça login com as credenciais criadas.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+8. **Teste o Agendamento**
+   - Acesse `http://localhost:8000/agendamento` para criar um agendamento.
+   - Verifique se o calendário carrega e se o modal de horários aparece corretamente.
 
-## License
+### Estrutura de Colaboração
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-"# techcare" 
+- **Branching Strategy**:
+  - Use a branch principal `main` para a versão estável.
+  - Crie branches de funcionalidades (ex.: `feature/agendamento`, `feature/catalogo`) para novos desenvolvimentos.
+  - Submeta pull requests (PRs) para revisão antes de mesclar com `main`.
+
+- **Pull Requests**:
+  - Descreva as mudanças no PR.
+  - Peça revisão a pelo menos um colega.
+  - Teste localmente antes de submeter.
+
+- **Comandos Úteis**:
+  - Criar uma nova branch:
+    ```bash
+    git checkout -b feature/nova-funcionalidade
+    ```
+  - Enviar alterações:
+    ```bash
+    git add .
+    git commit -m "Descrição da mudança"
+    git push origin feature/nova-funcionalidade
+    ```
+  - Atualizar o repositório local:
+    ```bash
+    git pull origin main
+    ```
+
+### Funcionalidades Atuais
+- **Agendamento**: Interface com FullCalendar para selecionar datas e horários, com suporte a feriados e horários ocupados.
+- **Autenticação**: Login, registro e verificação de e-mail via Laravel Breeze.
+- **Gerenciamento de Roles**: Admin, vendor e customer com middleware personalizado (`RoleManager`).
+- **Catálogo**: Página inicial com busca de produtos (em desenvolvimento).
+
+### Problemas Conhecidos
+- Erro 500 ao carregar horários disponíveis no modal de agendamento (em processo de correção).
+- Integração com catálogo de produtos ainda incompleta.
+
+### Contribuições Futuras
+- Adicionar sistema de pagamento.
+- Melhorar a interface do usuário com animações.
+- Implementar notificações por e-mail para agendamentos.
+
+### Contato
+- **Mantenedor**: [Seu Nome] (seu.email@example.com)
+- **Repositório**: [https://github.com/smpsandro1239/techcare](https://github.com/seu-usuario/techcare)
+- **Issues**: Abra uma issue no GitHub para relatar bugs ou sugerir melhorias.
+
+### Licença
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+
+---
+
+### Personalização
+- Substitua `https://github.com/User/techcare.git` pelo URL real do seu repositório.
+- Adicione detalhes específicos do seu ambiente (ex.: portas do Laragon, configurações de banco de dados).
+- Inclua seções adicionais, como "Guia de Estilo" ou "Documentação da API", se aplicável.
+
+### Próximos Passos
+Depois de criar o `README.md`, coloque-o na raiz do projeto e faça o commit:
+```bash
+echo "# Tech Care - Sistema de Agendamento e Gerenciamento de Serviços" > README.md
+# Copie o conteúdo acima para README.md
+git add README.md
+git commit -m "Adicionado README com instruções de configuração e colaboração"
+git push origin main
+```
+
+Se precisar de ajuda para corrigir o erro 500 ou expandir o README, me avise!
