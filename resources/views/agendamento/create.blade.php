@@ -4,43 +4,67 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agendamento</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FullCalendar CSS -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
+    <!-- Estilos personalizados -->
+    <style>
+        #calendar {
+            max-width: 70%; /* Reduzido para 50% */
+            margin: 20px auto;
+            height: 500px; /* Reduzido para 400px */
+        }
+        #eventModal {
+            max-width: 400px;
+            width: 90%;
+        }
+        body {
+            padding-top: 56px; /* Espaço para a navbar fixa */
+        }
+    </style>
 </head>
 <body>
-    <h1>Agendar Serviço</h1>
+    <!-- Incluir a navbar -->
+    @include('layouts.partials.navbar')
 
-    <div id="calendar"></div>
+    <div class="container mt-4">
+        <h1 class="text-center">Agendar Serviço</h1>
+        <div id="calendar"></div>
+    </div>
 
     <!-- Modal para seleção de hora e serviço -->
     <div id="eventModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 1px solid #ccc; z-index: 1000;">
         <h2>Escolha o Horário e Serviço</h2>
         <form id="agendamentoForm" method="POST" action="{{ route('agendamento.store') }}">
             @csrf
-            <div>
-                <label for="nome_cliente">Nome do Cliente</label>
+            <div class="mb-3">
+                <label for="nome_cliente" class="form-label">Nome do Cliente</label>
                 <input type="text" name="nome_cliente" id="nome_cliente" value="{{ auth()->check() ? auth()->user()->name : old('nome_cliente') }}" class="form-control" placeholder="Digite seu nome (opcional)">
             </div>
             <input type="hidden" name="data" id="selectedDate">
-            <div>
-                <label>Hora</label>
-                <select name="hora" id="horaSelect" required>
+            <div class="mb-3">
+                <label for="horaSelect" class="form-label">Hora</label>
+                <select name="hora" id="horaSelect" class="form-select" required>
                     <!-- Opções de hora serão preenchidas dinamicamente -->
                 </select>
             </div>
-            <div>
-                <label>Serviço</label>
-                <select name="servico" id="servicoSelect" required>
+            <div class="mb-3">
+                <label for="servicoSelect" class="form-label">Serviço</label>
+                <select name="servico" id="servicoSelect" class="form-select" required>
                     <option value="">Selecione um serviço</option>
                     <option value="Instalação de Windows|2">Instalação de Windows (2 horas)</option>
                     <option value="Manutenção de Hardware|1">Manutenção de Hardware (1 hora)</option>
                     <option value="Configuração de Rede|1.5">Configuração de Rede (1h30)</option>
                 </select>
             </div>
-            <button type="submit">Agendar</button>
-            <button type="button" onclick="closeModal()">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Agendar</button>
+            <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
         </form>
     </div>
 
+    <!-- Bootstrap JS e FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
