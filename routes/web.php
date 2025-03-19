@@ -12,7 +12,6 @@ use App\Http\Controllers\MasterSubCategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Seller\SellerMainController;
 use App\Http\Controllers\Seller\SellerProductController;
-use App\Http\Controllers\Seller\SellerStoreController;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\ProductCatalog;
 
@@ -50,16 +49,21 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->g
         Route::get('/order/history', 'order_history')->name('admin.order.history');
     });
 
+    // Rota da categoria
     Route::controller(CategoryController::class)->group(function () {
-        Route::get('/category/create', 'index')->name('category.create');
-        Route::get('/category/manage', 'manage')->name('category.manage');
+        Route::get('/category/create', 'index')->name('category.create'); // Formulário para criar categoria
+        Route::get('/category/manage', 'manage')->name('category.manage'); // Gerenciar categorias
+        Route::post('/category/store', 'store')->name('category.store'); // Rota para armazenar categoria
     });
 
+    // Rota da subcategoria
     Route::controller(SubCategoryController::class)->group(function () {
-        Route::get('/subcategory/create', 'index')->name('subcategory.create');
-        Route::get('/subcategory/manage', 'manage')->name('subcategory.manage');
+        Route::get('/subcategory/create', 'index')->name('subcategory.create'); // Formulário para criar subcategoria
+        Route::get('/subcategory/manage', 'manage')->name('subcategory.manage'); // Gerenciar subcategorias
+        Route::post('/subcategory/store', 'store')->name('store.subcat'); // Rota para armazenar subcategoria
     });
 
+    // Outras rotas (produto, atributo do produto, etc.)
     Route::controller(ProductController::class)->group(function () {
         Route::get('/product/manage', 'index')->name('product.manage');
         Route::get('/product/review/manage', 'review_manage')->name('product.review.manage');
@@ -73,9 +77,25 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->g
         Route::post('/product_attribute/update/{id}', 'updateattribute')->name('product_attribute.update');
         Route::delete('/product_attribute/delete/{id}', 'deleteattribute')->name('product_attribute.delete');
     });
+
+    // Rota do MasterCategoryController
+    Route::controller(MasterCategoryController::class)->group(function(){
+        Route::post('/store/category','storecat')->name('store.cat');
+        Route::get('/category/{id}','showcat')->name('show.cat');
+        Route::put('/category/update/{id}','updatecat')->name('update.cat');
+        Route::delete('/category/delete/{id}','deletecat')->name('delete.cat');
+    });
+
+    // Rota do MasterSubCategoryController
+    Route::controller(MasterSubCategoryController::class)->group(function(){
+        Route::post('/store/subcategory','storesubcat')->name('store.subcat');
+        Route::get('/subcategory/{id}','showsubcat')->name('show.subcat');
+        Route::put('/subcategory/update/{id}','updatesubcat')->name('update.subcat');
+        Route::delete('/subcategory/delete/{id}','deletesubcat')->name('delete.subcat');
+    });
 });
 
-// Vendor routes (mantêm restrição de autenticação e role)
+// Vendor routes
 Route::middleware(['auth', 'verified', 'rolemanager:vendor'])->prefix('vendor')->group(function () {
     Route::controller(SellerMainController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('vendor');
@@ -87,15 +107,9 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])->prefix('vendor')-
         Route::post('/product/create', 'storeproduct')->name('vendor.product.store');
         Route::get('/product/manage', 'manage')->name('vendor.product.manage');
     });
-
-    Route::controller(SellerStoreController::class)->group(function () {
-        Route::get('/store/create', 'index')->name('vendor.store');
-        Route::get('/store/manage', 'manage')->name('vendor.store.manage');
-        Route::post('/store/publish', 'store')->name('create.store');
-    });
 });
 
-// Customer routes (mantêm restrição de autenticação e role)
+// Customer routes
 Route::middleware(['auth', 'verified', 'rolemanager:customer'])->prefix('user')->group(function () {
     Route::controller(CustomerMainController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
@@ -103,12 +117,6 @@ Route::middleware(['auth', 'verified', 'rolemanager:customer'])->prefix('user')-
         Route::get('/setting/payment', 'payment')->name('customer.payment');
         Route::get('/affiliate', 'affiliate')->name('customer.affiliate');
     });
-});
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__ . '/auth.php';

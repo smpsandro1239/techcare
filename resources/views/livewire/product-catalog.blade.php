@@ -24,8 +24,7 @@
                 <!-- Informações -->
                 <p class="card-text text-white"> <!-- Alterado para text-white -->
                     <strong>Categoria:</strong> {{ optional($product->category)->category_name ?? 'Sem categoria' }}<br>
-                    <strong>Subcategoria:</strong> {{ optional($product->subcategory)->subcategory_name ?? 'Sem subcategoria' }}<br>
-                    <strong>Loja:</strong> {{ optional($product->store)->store_name ?? 'Sem loja' }}
+                    <strong>Subcategoria:</strong> {{ optional($product->subcategory)->subcategory_name ?? 'Sem subcategoria' }}
                 </p>
 
                 <!-- Preço e botão -->
