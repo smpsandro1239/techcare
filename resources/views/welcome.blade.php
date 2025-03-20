@@ -1,10 +1,13 @@
+<!-- resources/views/welcome.blade.php -->
 <!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Care</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <style>
@@ -12,37 +15,6 @@
         body {
             background-color: #000;
             color: #ddd;
-        }
-
-        /* Navbar extremamente escura */
-        .navbar {
-            background-color: #111 !important;
-        }
-
-        .navbar a {
-            color: #bbb !important;
-        }
-
-        .navbar a:hover {
-            color: #28a745 !important;
-        }
-
-        /* Input de busca */
-        .form-control {
-            background-color: #333;
-            color: white;
-            border: 1px solid #555;
-        }
-
-        /* Botão de busca */
-        .btn-outline-success {
-            border-color: #28a745;
-            color: #28a745;
-        }
-
-        .btn-outline-success:hover {
-            background-color: #28a745;
-            color: white;
         }
 
         /* Rodapé */
@@ -159,93 +131,49 @@
     @livewireStyles
 </head>
 <body>
+    <!-- Incluir a navbar parcial -->
+    @include('layouts.partials.navbar')
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand text-success" href="{{ url('/') }}">Tech Care</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mx-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ url('/') }}">Início</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('catalogo') }}">Catálogo</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ auth()->check() ? route('agendamento.create') : route('login') }}">Agende sua Reparação</a>
-            </li>
-        </ul>
-        <form class="form-inline mx-auto" action="{{ route('product.procurar') }}" method="GET">
-            <input class="form-control mr-sm-2" type="search" placeholder="Procurar" name="search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Procurar</button>
-        </form>
-        <ul class="navbar-nav">
-            @guest
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('register') }}">Registrar</a>
-                </li>
-            @endguest
-            @auth
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                </li>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            @endauth
-        </ul>
+    <!-- Imagem Tech Care Logo com animação -->
+    <div class="container-fluid p-0 techicon-logo">
+        <img src="{{ asset('admin_asset/img/techicon.png') }}" alt="Tech Care Logo">
     </div>
-</nav>
 
-<!-- Imagem Tech Care Logo com animação -->
-<div class="container-fluid p-0 techicon-logo">
-    <img src="{{ asset('admin_asset/img/techicon.png') }}" alt="Tech Care Logo">
-</div>
-
-<!-- Banner com imagem e botão -->
-<div class="banner">
-    <img src="{{ asset('admin_asset/img/banner2.png') }}" alt="Banner da Loja">
-    <a href="{{ auth()->check() ? route('agendamento.create') : route('login') }}" class="banner-button">Agende Agora</a>
-</div>
-
-<!-- Seção de Destaques -->
-<div class="features">
-    <h2>Porque Escolher-nos?</h2>
-    <div class="feature-item">
-        <i class="fas fa-tools"></i>
-        <h4>Melhores Técnicos</h4>
-        <p>Profissionais altamente qualificados prontos para ajudar.</p>
+    <!-- Banner com imagem e botão -->
+    <div class="banner">
+        <img src="{{ asset('admin_asset/img/banner2.png') }}" alt="Banner da Loja">
+        <a href="{{ auth()->check() ? route('agendamento.create') : route('login') }}" class="banner-button">Agende Agora</a>
     </div>
-    <div class="feature-item">
-        <i class="fas fa-users"></i>
-        <h4>Mais de 1 milhão de clientes satisfeitos</h4>
-        <p>Temos uma base de clientes fiel e satisfeita com nossos serviços.</p>
-    </div>
-    <div class="feature-item">
-        <i class="fas fa-map-marker-alt"></i>
-        <h4>Número 1 no Norte</h4>
-        <p>Nosso serviço é o mais procurado na região norte.</p>
-    </div>
-</div>
 
-<!-- Rodapé -->
-<footer>
-    © {{ date('Y') }} Tech Care - Todos os direitos reservados.
-</footer>
+    <!-- Seção de Destaques -->
+    <div class="features">
+        <h2>Porque Escolher-nos?</h2>
+        <div class="feature-item">
+            <i class="fas fa-tools"></i>
+            <h4>Melhores Técnicos</h4>
+            <p>Profissionais altamente qualificados prontos para ajudar.</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-users"></i>
+            <h4>Mais de 1 milhão de clientes satisfeitos</h4>
+            <p>Temos uma base de clientes fiel e satisfeita com nossos serviços.</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <h4>Número 1 no Norte</h4>
+            <p>Nosso serviço é o mais procurado na região norte.</p>
+        </div>
+    </div>
 
-<!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-@livewireScripts
+    <!-- Rodapé -->
+    <footer>
+        © {{ date('Y') }} Tech Care - Todos os direitos reservados.
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @livewireScripts
 </body>
 </html>
