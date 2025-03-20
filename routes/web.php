@@ -80,6 +80,12 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->g
         Route::put('/subcategory/update/{id}','updatesubcat')->name('update.subcat');
         Route::delete('/subcategory/delete/{id}','deletesubcat')->name('delete.subcat');
     });
+
+    Route::controller(AgendamentoController::class)->group(function () {
+        Route::get('agendamento/create', 'create')->name('admin.agendamento.create');
+        Route::post('/', 'store')->name('admin.agendamento.store');
+        Route::get('/lista', 'index')->name('admin.agendamento.index');
+    });
 });
 
 // Vendor routes
@@ -112,6 +118,12 @@ Route::middleware(['auth', 'verified', 'rolemanager:customer'])->prefix('user')-
         Route::get('/order/history', 'history')->name('customer.history');
         Route::get('/setting/payment', 'payment')->name('customer.payment');
         Route::get('/affiliate', 'affiliate')->name('customer.affiliate');
+    });
+
+    Route::controller(AgendamentoController::class)->group(function () {
+        Route::get('agendamento/create', 'create')->name('customer.agendamento.create');
+        Route::post('/', 'store')->name('agendamento.store');
+        Route::get('/lista', 'index')->name('agendamento.index');
     });
 });
 
