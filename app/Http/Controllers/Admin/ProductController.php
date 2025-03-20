@@ -42,7 +42,7 @@ class ProductController extends Controller
     public function show($id)
     {
         // Carrega o produto e suas relações (categoria, subcategoria, loja e imagens)
-        $produto = Product::with('category', 'subcategory', 'store', 'images')->findOrFail($id);
+        $produto = Product::with('category', 'subcategory', 'images')->findOrFail($id);
         
         // Retorna a view com os detalhes do produto
         return view('admin.product.detalhes', compact('produto'));

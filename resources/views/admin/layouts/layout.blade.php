@@ -199,24 +199,6 @@
               <i class="align-middle" data-feather="list"></i> <span class="align-middle">Manage</span>
             </a>
 					</li>
-
-					
-					<li class="sidebar-header">
-						Discount
-					</li>
-
-					<li class="sidebar-item{{request()->routeIs('discount.create')?'active':''}}">
-						<a class="sidebar-link" href="{{route('discount.create')}}">
-              <i class="align-middle" data-feather="plus"></i> <span class="align-middle">Create</span>
-            </a>
-					</li>
-
-					<li class="sidebar-item{{request()->routeIs('discount.manage')?'active':''}}">
-						<a class="sidebar-link" href="{{route('discount.manage')}}">
-              <i class="align-middle" data-feather="list"></i> <span class="align-middle">Manage</span>
-            </a>
-					</li>
-
 					<li class="sidebar-header">
 						Product
 					</li>

@@ -5,7 +5,7 @@
 @endsection
 
 @section('admin_layout')
-<h3>Create Category Page</h3>
+<h3>Create Sub Category Page</h3>
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -34,7 +34,7 @@
                     @csrf
 
                     <label for="subcategory_name" class="fw-bold mb-2">Give Name of Your Sub Category</label>
-                    <input type="text" class="form-control" name="subcategory_name" placeholder="Computer">
+                    <input type="text" class="form-control" name="subcategory_name">
 
                     <label for="category_id" class="fw-bold mb-2">Select Category</label>
                     <select name="category_id" class="form-control" id="category_id">

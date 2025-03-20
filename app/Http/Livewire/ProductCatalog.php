@@ -11,7 +11,7 @@ class ProductCatalog extends Component
     public function mount()
     {
         // Carregar os produtos com as imagens e as relações associadas
-        $this->products = Product::with(['images', 'category', 'subcategory', 'store'])->get();
+        $this->products = Product::with(['images', 'category', 'subcategory'])->get();
     }
 
     public function render()

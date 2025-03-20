@@ -1,6 +1,7 @@
 @extends('seller.layouts.layout')
+
 @section('seller_page_title')
-Manage Product
+    Manage Product
 @endsection
 
 @section('seller_layout')
@@ -8,14 +9,15 @@ Manage Product
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title mb-0">All Product Added by You</h5> 
+                <h5 class="card-title mb-0">All Products Added by You</h5> 
             </div>
 
             @if (session('message'))
-  <div class="alert alert-success my-2">
-    {{session('message')}}
-  </div>
-@endif
+                <div class="alert alert-success my-2">
+                    {{ session('message') }}
+                </div>
+            @endif
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table">
@@ -23,7 +25,6 @@ Manage Product
                             <tr>
                                 <th>#</th>
                                 <th>Product Name</th>
-                                <th>Quantity</th>
                                 <th>Price</th>
                                 <th>Action</th>
                             </tr>
@@ -31,18 +32,22 @@ Manage Product
                         <tbody>
                          @foreach ($products as $product)
                             <tr>
-                                <td>{{$product->id}}</td>
-                                <td>{{$product->product_name}}</td>
-                                <td>{{$product->stock_quantity}}</td>
-                                <td>{{$product->regular_price}}</td>
+                                <td>{{ $product->id }}</td>
+                                <td>{{ $product->product_name }}</td>
+                                <td>{{ number_format($product->regular_price, 2, ',', '.') }}€</td>
                                 <td>
-                                    <a href="{{}}" class="btn btn-info">Edit</a>
+                                    <!-- Link to Edit Product - You can modify the route as needed -->
+                                    <a href="{{ route('vendor.product.edit', $product->id) }}" class="btn btn-info">Edit</a>
                                     
-                                    <for action="" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="submit" value="Delete" class="btn btn-danger">
-                                    </for>
+                                    <!-- Delete Product Form -->
+                                    <form action="{{ route('vendor.product.destroy', $product->id) }}" method="POST" style="display: inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja deletar este produto?')">
+                                      Deletar
+                                    </button>
+                                 </form>
+
                                 </td>
                             </tr>
                          @endforeach
