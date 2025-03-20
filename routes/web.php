@@ -104,6 +104,12 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
         Route::put('/subcategory/update/{id}', 'updatesubcat')->name('subcategory.update');
         Route::delete('/subcategory/delete/{id}', 'deletesubcat')->name('subcategory.delete');
     });
+
+    Route::controller(AgendamentoController::class)->group(function () {
+        Route::get('agendamento/create', 'create')->name('admin.agendamento.create');
+        Route::post('/', 'store')->name('admin.agendamento.store');
+        Route::get('/lista', 'index')->name('admin.agendamento.index');
+    });
 });
 
 // Rotas do Vendedor
@@ -132,6 +138,12 @@ Route::middleware(['auth', 'verified', 'rolemanager:customer'])->prefix('user')-
         Route::get('/order/history', 'history')->name('order.history');
         Route::get('/setting/payment', 'payment')->name('setting.payment');
         Route::get('/affiliate', 'affiliate')->name('affiliate');
+    });
+
+    Route::controller(AgendamentoController::class)->group(function () {
+        Route::get('agendamento/create', 'create')->name('customer.agendamento.create');
+        Route::post('/', 'store')->name('agendamento.store');
+        Route::get('/lista', 'index')->name('agendamento.index');
     });
 });
 
