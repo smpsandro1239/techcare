@@ -88,11 +88,6 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])->prefix('vendor')-
         Route::get('/product/manage', 'manage')->name('vendor.product.manage');
     });
 
-    Route::controller(SellerStoreController::class)->group(function () {
-        Route::get('/store/create', 'index')->name('vendor.store');
-        Route::get('/store/manage', 'manage')->name('vendor.store.manage');
-        Route::post('/store/publish', 'store')->name('create.store');
-    });
 });
 
 // Customer routes (mantêm restrição de autenticação e role)
