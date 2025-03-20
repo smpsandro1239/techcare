@@ -42,10 +42,7 @@ Route::prefix('agendamento')->group(function () {
 Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->group(function () {
     Route::controller(AdminMainController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('admin');
-        Route::get('/settings', 'setting')->name('admin.settings');
         Route::get('/manage/users', 'manage_user')->name('admin.manage.user');
-        Route::get('/manage/stores', 'manage_stores')->name('admin.manage.store');
-        Route::get('/cart/history', 'cart_history')->name('admin.cart.history');
         Route::get('/order/history', 'order_history')->name('admin.order.history');
     });
 
@@ -66,16 +63,6 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->g
     // Outras rotas (produto, atributo do produto, etc.)
     Route::controller(ProductController::class)->group(function () {
         Route::get('/product/manage', 'index')->name('product.manage');
-        Route::get('/product/review/manage', 'review_manage')->name('product.review.manage');
-    });
-
-    Route::controller(ProductAttributeController::class)->group(function () {
-        Route::get('/product_attribute/create', 'index')->name('product_attribute.create');
-        Route::get('/product_attribute/manage', 'manage')->name('product_attribute.manage');
-        Route::post('/product_attribute/create', 'createattribute')->name('attribute.create');
-        Route::get('/product_attribute/edit/{id}', 'showattribute')->name('product_attribute.edit');
-        Route::post('/product_attribute/update/{id}', 'updateattribute')->name('product_attribute.update');
-        Route::delete('/product_attribute/delete/{id}', 'deleteattribute')->name('product_attribute.delete');
     });
 
     // Rota do MasterCategoryController
