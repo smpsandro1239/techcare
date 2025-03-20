@@ -47,7 +47,7 @@ Para colaborar no desenvolvimento do Tech Care, siga os passos abaixo. Certifiqu
      ```bash
      git clone https://github.com/smpsandro1239/techcare.git
      ```
-     
+
 2. **Acesse o Diretório do Projeto**
    - Entre no diretório clonado:
      ```bash
@@ -163,13 +163,16 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 
 ---
 
-### Personalização
-- Substitua `https://github.com/User/techcare.git` pelo URL real do seu repositório.
-- Adicione detalhes específicos do seu ambiente (ex.: portas do Laragon, configurações de banco de dados).
-- Inclua seções adicionais, como "Guia de Estilo" ou "Documentação da API", se aplicável.
+### Instruções de Configuração e Personalização
+
+-   Substitua `https://github.com/User/techcare.git` pelo URL real do seu repositório.
+-   Adicione detalhes específicos do seu ambiente (ex.: portas do Laragon, configurações de banco de dados).
+-   Inclua seções adicionais, como "Guia de Estilo" ou "Documentação da API", se aplicável.
 
 ### Próximos Passos
+
 Depois de criar o `README.md`, coloque-o na raiz do projeto e faça o commit:
+
 ```bash
 echo "# Tech Care - Sistema de Agendamento e Gerenciamento de Serviços" > README.md
 # Copie o conteúdo acima para README.md
@@ -177,3 +180,5 @@ git add README.md
 git commit -m "Adicionado README com instruções de configuração e colaboração"
 git push origin main
 ```
+
+y
