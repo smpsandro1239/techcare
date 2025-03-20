@@ -25,7 +25,7 @@
                     <p class="card-text text-white">
                         <strong>Categoria:</strong> {{ optional($produto->category)->category_name ?? 'Sem categoria' }}<br>
                         <strong>Subcategoria:</strong> {{ optional($produto->subcategory)->subcategory_name ?? 'Sem subcategoria' }}<br>
-                        <strong>Loja:</strong> {{ optional($produto->store)->store_name ?? 'Sem loja' }}
+                        {{-- Removido o campo "Loja", pois a relação foi removida --}}
                     </p>
 
                     <p class="text-white">{{ $produto->description }}</p> <!-- Alterado para text-white -->

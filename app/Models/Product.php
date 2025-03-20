@@ -16,7 +16,6 @@ class Product extends Model
         'seller_id',
         'category_id',
         'subcategory_id',
-        'store_id',
         'regular_price',
         'discounted_price',
         'tax_rate',
@@ -36,10 +35,6 @@ class Product extends Model
     public function subcategory(){
         return $this->belongsTo(Subcategory::class);
         }
-
-        public function store(){
-            return $this->belongsTo(Store::class);
-            }
 
             public function seller(){
                 return $this->belongsTo(User::class);
