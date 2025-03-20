@@ -106,6 +106,15 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])->prefix('vendor')-
         Route::get('/product/create', 'index')->name('vendor.product');
         Route::post('/product/create', 'storeproduct')->name('vendor.product.store');
         Route::get('/product/manage', 'manage')->name('vendor.product.manage');
+        Route::get('/product/edit/{id}', 'edit')->name('vendor.product.edit');
+        Route::post('/product/update/{id}', 'update')->name('vendor.product.update');
+        Route::delete('/product/destroy/{id}', 'destroy')->name('vendor.product.destroy'); 
+    });
+
+    Route::controller(AgendamentoController::class)->group(function () {
+        Route::get('agendamento/create', 'create')->name('vendor.agendamento.create');
+        Route::post('/', 'store')->name('agendamento.store');
+        Route::get('/lista', 'index')->name('agendamento.index');
     });
 });
 

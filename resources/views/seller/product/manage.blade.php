@@ -41,10 +41,13 @@
                                     
                                     <!-- Delete Product Form -->
                                     <form action="{{ route('vendor.product.destroy', $product->id) }}" method="POST" style="display: inline-block;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="submit" value="Delete" class="btn btn-danger">
-                                    </form>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja deletar este produto?')">
+                                      Deletar
+                                    </button>
+                                 </form>
+
                                 </td>
                             </tr>
                          @endforeach
