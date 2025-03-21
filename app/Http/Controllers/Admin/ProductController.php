@@ -3,48 +3,54 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;  
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    // Método para a página inicial de gerenciamento de produtos
-    public function index()
+    // Método para listar os produtos com paginação
+    public function index(Request $request)
 {
-    // Busca todos os produtos no banco de dados
-    $products = Product::all();  // 
+    // Recupera os produtos com paginação
+    $products = Product::with('images', 'category', 'subcategory', 'seller')->get();
     
+    // Depuração: Mostra o conteúdo da variável $products
+    dd($products);
+
     // Retorna a view com os produtos
-    return view('admin.product.manage', compact('products'));
+    return view('livewire.product-catalog', compact('products'));
 }
 
-    // Método para revisar o gerenciamento de produtos
-    public function review_manage() {
+
+    // Método para gerenciar avaliações dos produtos
+    public function review_manage()
+    {
         return view('admin.product.manage_product_review');
     }
 
-    // Método para procurar os produtos com base no termo inserido
+    // Método para buscar produtos com base no termo inserido
     public function procurar(Request $request)
     {
-        // Captura o valor da pesquisa que o usuário digitou
         $termo = $request->input('search');
-        
-        // Realiza a pesquisa no banco de dados nas colunas `product_name` e `description`
+
+        // Pesquisa por nome ou descrição do produto com paginação
         $produtos = Product::where('product_name', 'like', '%' . $termo . '%')
                             ->orWhere('description', 'like', '%' . $termo . '%')
-                            ->get();  // Obtém os produtos encontrados
-        
-        // Retorna a view com os resultados da pesquisa
+                            ->paginate(10);
+
         return view('admin.product.resultados', compact('produtos'));
     }
 
-    // Método para exibir os detalhes de um produto
-    public function show($id)
+    // Método para exibir os detalhes de um produto pelo slug
+    public function show($slug)
     {
-        // Carrega o produto e suas relações (categoria, subcategoria, loja e imagens)
-        $produto = Product::with('category', 'subcategory', 'images')->findOrFail($id);
-        
-        // Retorna a view com os detalhes do produto
+        // Busca o produto pelo slug, carregando categoria, subcategoria e imagens
+        $produto = Product::with('category', 'subcategory', 'images')->where('slug', $slug)->first();
+
+        if (!$produto) {
+            abort(404, 'Produto não encontrado.');
+        }
+
         return view('admin.product.detalhes', compact('produto'));
     }
 }

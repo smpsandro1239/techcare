@@ -26,7 +26,7 @@
             var calendarEl = document.getElementById('calendar');
             window.calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
-                events: '{{ route('agendamentos.json') }}',
+                events: '{{ route('agendamento.json') }}',
                 slotMinTime: '09:00:00',
                 slotMaxTime: '19:00:00',
                 slotDuration: '00:30:00',

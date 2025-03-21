@@ -77,8 +77,20 @@
                 <a class="nav-link" href="{{ route('catalogo') }}">Catálogo</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ auth()->check() ? (auth()->user()->role == 1 ? route('admin.agendamento.create') : (auth()->user()->role == 2 ? route('vendor.agendamento.create') : route('customer.agendamento.create'))) : '#' }}">Agendar reparação</a>
-            </li>
+            <a class="nav-link" href="{{ 
+    auth()->check() 
+    ? (auth()->user()->role == 1 
+        ? route('admin.agendamento.create') 
+        : (auth()->user()->role == 2 
+            ? route('vendor.agendamento.create') 
+            : (auth()->user()->role == 3 
+                ? route('user.agendamento.create') 
+                : '#')
+        )
+    ) 
+    : '#' 
+}}">Agendar reparação</a>
+        </li>
         </ul>
         <form class="form-inline mx-auto" action="{{ route('product.procurar') }}" method="GET">
     <input class="form-control mr-sm-2" type="search" placeholder="Procurar" name="search" aria-label="Search">
