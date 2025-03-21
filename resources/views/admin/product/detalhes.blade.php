@@ -1,4 +1,3 @@
-<!-- resources/views/admin/product/detalhes.blade.php -->
 @extends('layouts.app')
 
 @section('title', 'Detalhes do Produto')
@@ -151,29 +150,9 @@
                             <p class="card-text">
                                 <strong>Categoria:</strong> {{ optional($produto->category)->name ?? 'Sem categoria' }}<br>
                                 <strong>Subcategoria:</strong> {{ optional($produto->subcategory)->name ?? 'Sem subcategoria' }}<br>
-                                {{-- Removido o campo "Loja", pois a relação foi removida --}}
-                                <strong>Vendedor:</strong> {{ optional($produto->seller)->name ?? 'Sem vendedor' }}<br>
-                                <strong>Preço Regular:</strong> R$ {{ number_format($produto->regular_price, 2, ',', '.') }}<br>
-                                @if($produto->discounted_price)
-                                    <strong>Preço com Desconto:</strong> R$ {{ number_format($produto->discounted_price, 2, ',', '.') }}<br>
-                                @endif
-                                @if($produto->tax_rate)
-                                    <strong>Taxa de Imposto:</strong> {{ $produto->tax_rate }}%<br>
-                                @endif
-                                <strong>Quantidade em Estoque:</strong> {{ $produto->stock_quantity }}<br>
-                                <strong>Status do Estoque:</strong> 
-                                <span class="stock-status {{ $produto->stock_status }}">{{ ucfirst(str_replace('_', ' ', $produto->stock_status)) }}</span><br>
-                                <strong>Visibilidade:</strong> {{ $produto->visibility ? 'Visível' : 'Oculto' }}<br>
-                                <strong>Status:</strong> {{ $produto->status ? 'Ativo' : 'Inativo' }}<br>
-                                @if($produto->meta_title)
-                                    <strong>Meta Título (SEO):</strong> {{ $produto->meta_title }}<br>
-                                @endif
-                                @if($produto->meta_description)
-                                    <strong>Meta Descrição (SEO):</strong> {{ $produto->meta_description }}<br>
-                                @endif
+                                <strong>Preço Regular:</strong> {{ number_format($produto->regular_price, 2, '.', ' ') }}<br> <!-- Corrigido formato -->
+                                <strong>Descrição:</strong> {{ $produto->description ?? 'Sem descrição disponível.' }}<br>
                             </p>
-
-                            <p class="card-text">{{ $produto->description ?? 'Sem descrição disponível.' }}</p>
 
                             <div class="d-flex justify-content-between align-items-center mt-4">
                                 <div>
