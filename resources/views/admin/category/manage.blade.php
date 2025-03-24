@@ -32,9 +32,9 @@ Manage Category
                                 <td>{{$cat->id}}</td>
                                 <td>{{$cat->category_name}}</td>
                                 <td>
-                                    <a href="{{route('show.cat', $cat->id)}}" class="btn btn-info">Edit</a>
+                                    <a href="{{route('admin.category.show', $cat->id)}}" class="btn btn-info">Edit</a>
                                     
-                                    <form action="{{route('delete.cat', $cat->id)}}" method="POST" style="display:inline;">
+                                    <form action="{{route('admin.category.delete', $cat->id)}}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
                                         <input type="submit" value="Delete" class="btn btn-danger">

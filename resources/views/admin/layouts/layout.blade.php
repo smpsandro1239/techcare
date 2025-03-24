@@ -135,7 +135,7 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="{{route('admin')}}">
+				<a class="sidebar-brand" href="{{route('admin.dashboard')}}">
           <span class="align-middle">Admin Dashboard</span>
         </a>
 
@@ -145,7 +145,7 @@
 					</li>
 
 					<li class="sidebar-item{{request()->routeIs('admin')?'active':''}}">
-						<a class="sidebar-link" href="{{route('admin')}}">
+						<a class="sidebar-link" href="{{route('admin.dashboard')}}">
               <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
             </a>
 					</li>
@@ -155,13 +155,13 @@
 					</li>
 
 					<li class="sidebar-item{{request()->routeIs('category.create')?'active':''}}">
-						<a class="sidebar-link" href="{{route('category.create')}}">
+						<a class="sidebar-link" href="{{route('admin.category.create')}}">
               <i class="align-middle" data-feather="plus"></i> <span class="align-middle">Create</span>
             </a>
 					</li>
 
 					<li class="sidebar-item{{request()->routeIs('category.manage')?'active':''}}">
-						<a class="sidebar-link" href="{{route('category.manage')}}">
+						<a class="sidebar-link" href="{{route('admin.category.manage')}}">
               <i class="align-middle" data-feather="list"></i> <span class="align-middle">Manage</span>
             </a>
 					</li>
@@ -172,13 +172,13 @@
 					</li>
 
 					<li class="sidebar-item{{request()->routeIs('subcategory.create')?'active':''}}">
-						<a class="sidebar-link" href="{{route('subcategory.create')}}">
+						<a class="sidebar-link" href="{{route('admin.subcategory.create')}}">
               <i class="align-middle" data-feather="plus"></i> <span class="align-middle">Create</span>
             </a>
 					</li>
 
 					<li class="sidebar-item{{request()->routeIs('subcategory.manage')?'active':''}}">
-						<a class="sidebar-link" href="{{route('subcategory.manage')}}">
+						<a class="sidebar-link" href="{{route('admin.subcategory.manage')}}">
               <i class="align-middle" data-feather="list"></i> <span class="align-middle">Manage</span>
             </a>
 					</li>
@@ -187,7 +187,7 @@
 					</li>
 
 					<li class="sidebar-item{{request()->routeIs('product.manage')?'active':''}}">
-						<a class="sidebar-link" href="{{route('product.manage')}}">
+						<a class="sidebar-link" href="{{route('admin.product.index')}}">
               <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Manage Product</span>
             </a>
 					</li>
