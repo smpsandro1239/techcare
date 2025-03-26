@@ -31,7 +31,7 @@
                     @endif
 
                     <!-- Formulário para adicionar categoria -->
-                    <form action="{{ route('category.store') }}" method="POST">
+                    <form action="{{ route('admin.category.store') }}" method="POST">
                         @csrf
 
                         <label for="category_name" class="fw-bold mb-2">Give Name of Your Category</label>

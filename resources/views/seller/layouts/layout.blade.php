@@ -134,7 +134,7 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="{{route('vendor')}}">
+				<a class="sidebar-brand" href="{{route('vendor.dashboard')}}">
           <span class="align-middle">Seller Dashboard</span>
 </a>
 
@@ -144,7 +144,7 @@
     </li>
 
     <li class="sidebar-item{{request()->routeIs('vendor')?'active':''}}">
-        <a class="sidebar-link" href="{{route('vendor')}}">
+        <a class="sidebar-link" href="{{route('vendor.dashboard')}}">
 <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
 </a>
     </li>
@@ -160,7 +160,7 @@
     </li>
 
     <li class="sidebar-item{{request()->routeIs('vendor.product')?'active':''}}">
-        <a class="sidebar-link" href="{{route('vendor.product')}}">
+        <a class="sidebar-link" href="{{route('vendor.product.create')}}">
 <i class="align-middle" data-feather="plus"></i> <span class="align-middle">Create</span>
 </a>
     </li>

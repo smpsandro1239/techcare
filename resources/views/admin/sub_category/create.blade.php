@@ -30,7 +30,7 @@
                     </div>
                 @endif
 
-                <form action="{{route('store.subcat')}}" method="POST">
+                <form action="{{route('admin.subcategory.store')}}" method="POST">
                     @csrf
 
                     <label for="subcategory_name" class="fw-bold mb-2">Give Name of Your Sub Category</label>

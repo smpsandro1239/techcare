@@ -26,7 +26,7 @@
     {{session('message')}}
   </div>
 @endif
-<form action="{{route('update.cat', $category_info->id)}}"method="POST">
+<form action="{{route('admin.category.update', $category_info->id)}}"method="POST">
     @csrf
     @method ('PUT')
 <label for="category_name"class="fw-bold mb-2">Give Name of Your Category</label>

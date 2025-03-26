@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminMainController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\AgendamentoController;
 use App\Http\Controllers\Customer\CustomerMainController;
@@ -11,13 +11,11 @@ use App\Http\Controllers\MasterSubCategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Seller\SellerMainController;
 use App\Http\Controllers\Seller\SellerProductController;
-use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\ProductCatalog;
 
 // Rotas Públicas
 // -----------------
-// Página inicial
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
@@ -40,6 +38,7 @@ Route::prefix('agendamento')->name('agendamento.')->group(function () {
 // Rotas Protegidas por Autenticação
 // ---------------------------------
 
+
 // Rotas do Administrador
 Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->name('admin.')->group(function () {
     // Dashboard e Configurações
@@ -56,7 +55,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
     Route::controller(CategoryController::class)->group(function () {
         Route::get('/category/create', 'index')->name('category.create');
         Route::get('/category/manage', 'manage')->name('category.manage');
-        Route::post('/category/store', 'store')->name('admin.category.store'); // Rota de categoria do admin
+        Route::post('/category/store', 'store')->name('category.store');
     });
 
     // Subcategorias
@@ -67,7 +66,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
     });
 
     // Produtos
-    Route::controller(AdminProductController::class)->group(function () {
+    Route::controller(ProductController::class)->group(function () {
         Route::get('/product/manage', 'index')->name('product.index');
         Route::get('/product/create', 'create')->name('product.create');
         Route::post('/product/store', 'store')->name('product.store');
@@ -77,9 +76,9 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
         Route::get('/product/review/manage', 'review_manage')->name('product.review.manage');
     });
 
-    // Master Category (alterado para evitar conflitos de nome)
+    // Master Category
     Route::controller(MasterCategoryController::class)->group(function () {
-        Route::post('/store/category', 'storecat')->name('admin.mastercategory.store'); // Alterado para 'admin.mastercategory.store'
+        Route::post('/store/category', 'storecat')->name('admin.mastercategory.store');
         Route::get('/category/{id}', 'showcat')->name('category.show');
         Route::put('/category/update/{id}', 'updatecat')->name('category.update');
         Route::delete('/category/delete/{id}', 'deletecat')->name('category.delete');
@@ -95,9 +94,9 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
 
     // Agendamentos
     Route::controller(AgendamentoController::class)->group(function () {
-        Route::get('agendamento/create', 'create')->name('admin.agendamento.create');
-        Route::post('/agendamento', 'store')->name('admin.agendamento.store');
-        Route::get('/agendamento/lista', 'index')->name('admin.agendamento.index');
+        Route::get('agendamento/create', 'create')->name('agendamento.create');
+        Route::post('/agendamento', 'store')->name('agendamento.store');
+        Route::get('/agendamento/lista', 'index')->name('agendamento.index');
     });
 });
 
@@ -118,11 +117,12 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])->prefix('vendor')-
         Route::post('/product/update/{id}', 'update')->name('product.update');
         Route::delete('/product/destroy/{id}', 'destroy')->name('product.destroy');
     });
+
     // Agendamentos
     Route::controller(AgendamentoController::class)->group(function () {
-        Route::get('agendamento/create', 'create')->name('vendor.agendamento.create');
-        Route::post('/agendamento', 'store')->name('vendor.agendamento.store');
-        Route::get('/agendamento/lista', 'index')->name('vendor.agendamento.index');
+        Route::get('/agendamento/create', 'create')->name('agendamento.create');
+        Route::post('/agendamento', 'store')->name('agendamento.store');
+        Route::get('/agendamento/lista', 'index')->name('agendamento.index');
     });
 });
 

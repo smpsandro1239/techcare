@@ -26,7 +26,7 @@
     {{session('message')}}
   </div>
 @endif
-<form action="{{route('update.subcat', $subcategory_info->id)}}"method="POST">
+<form action="{{route('admin.subcategory.update', $subcategory_info->id)}}"method="POST">
     @csrf
     @method ('PUT')
 <label for="subcategory_name"class="fw-bold mb-2">Give Name of Your Sub Category</label>
