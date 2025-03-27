@@ -48,7 +48,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
         Route::get('/manage/users', 'manage_user')->name('manage.user');
         Route::get('/manage/stores', 'manage_stores')->name('manage.store');
         Route::get('/cart/history', 'cart_history')->name('cart.history');
-        Route::get('/order/history', 'order_history')->name('order.history');
+        Route::get('/order/history', 'index')->name('order.history');
     });
 
     // Categorias
@@ -66,15 +66,15 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
     });
 
     // Produtos
-    Route::controller(ProductController::class)->group(function () {
-        Route::get('/product/manage', 'index')->name('product.index');
-        Route::get('/product/create', 'create')->name('product.create');
-        Route::post('/product/store', 'store')->name('product.store');
-        Route::get('/product/edit/{id}', 'edit')->name('product.edit');
-        Route::put('/product/update/{id}', 'update')->name('product.update');
-        Route::delete('/product/destroy/{id}', 'destroy')->name('product.destroy');
-        Route::get('/product/review/manage', 'review_manage')->name('product.review.manage');
-    });
+   Route::controller(ProductController::class)->group(function () {
+    Route::get('/product/create', 'create')->name('product.create');
+    Route::post('/product/create', 'storeproduct')->name('product.store');
+    Route::get('/product/manage', 'manage')->name('product.manage');
+    Route::get('/product/edit/{id}', 'edit')->name('product.edit');
+    Route::put('/product/update/{id}', 'update')->name('product.update');
+    Route::delete('/product/destroy/{id}', 'destroy')->name('product.destroy');
+
+});
 
     // Master Category
     Route::controller(MasterCategoryController::class)->group(function () {
@@ -114,7 +114,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])->prefix('vendor')-
         Route::post('/product/create', 'storeproduct')->name('product.store');
         Route::get('/product/manage', 'manage')->name('product.manage');
         Route::get('/product/edit/{id}', 'edit')->name('product.edit');
-        Route::post('/product/update/{id}', 'update')->name('product.update');
+        Route::put('/product/update/{id}', 'update')->name('product.update');
         Route::delete('/product/destroy/{id}', 'destroy')->name('product.destroy');
     });
 

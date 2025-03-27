@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Order;
 
 class AdminMainController extends Controller
 {
@@ -22,7 +23,9 @@ class AdminMainController extends Controller
      public function cart_history(){
       return view('admin.cart.history');
      }
-     public function order_history(){
-      return view('admin.order.history');
+     public function order_history()
+     {
+         $orders = Order::with('user', 'service')->orderBy('scheduled_at', 'desc')->get();
+         return view('admin.order.history', compact('orders'));
      }
 }

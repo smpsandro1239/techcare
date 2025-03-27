@@ -50,4 +50,13 @@ class Agendamento extends Model
     protected $casts = [
         'duracao' => 'decimal:2', // Garante que 'duracao' seja tratado como decimal com 2 casas
     ];
+
+    /**
+     * Relacionamento com a Ordem (Order).
+     * Um agendamento pode ter uma ordem associada.
+     */
+    public function order()
+    {
+        return $this->hasOne(Order::class); // Um agendamento pode ter uma ordem associada
+    }
 }
