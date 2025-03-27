@@ -32,6 +32,6 @@ class CategoryController extends Controller
         ]);
 
         // Redireciona para a página de gerenciamento com uma mensagem de sucesso
-        return redirect()->route('category.manage')->with('message', 'Category Created Successfully');
+        return redirect()->route('admin.category.manage')->with('message', 'Category Created Successfully');
     }
 }

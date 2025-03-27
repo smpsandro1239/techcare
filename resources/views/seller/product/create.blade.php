@@ -1,4 +1,3 @@
-<!-- resources/views/admin/product/create.blade.php -->
 @extends('layouts.app')
 
 @section('title', 'Adicionar Produto')
@@ -30,7 +29,7 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('admin.product.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('vendor.product.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             <!-- Nome do Produto -->
@@ -56,16 +55,17 @@
                                 <div class="col-md-6">
                                     <label for="seller_id" class="form-label fw-bold text-white">Vendedor <span class="text-danger">*</span></label>
                                     <select class="form-control bg-secondary text-white border-0" id="seller_id" name="seller_id" required>
-                                        @foreach (\App\Models\User::where('role', 'vendor')->get() as $seller)
-                                            <option value="{{ $seller->id }}" {{ old('seller_id') == $seller->id ? 'selected' : '' }}>{{ $seller->name }}</option>
-                                        @endforeach
+                                    @foreach (\App\Models\User::where('role', 2)->get() as $seller)
+    <option value="{{ $seller->id }}" {{ old('seller_id') == $seller->id ? 'selected' : '' }}>{{ $seller->name }}</option>
+@endforeach
+
                                     </select>
                                     @error('seller_id')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label fw-bold text-white">Categoria e Subcategoria <span class="text-danger">*</span></label>
+                                    <label class="form-label fw-bold text-white">Categoria/Subcategoria <span class="text-danger">*</span></label>
                                     <livewire:category-subcategory />
                                     @error('category_id')
                                         <small class="text-danger">{{ $message }}</small>
@@ -76,99 +76,19 @@
                                 </div>
                             </div>
 
-                            <!-- Linha 2: Preços -->
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="regular_price" class="form-label fw-bold text-white">Preço Normal (€) <span class="text-danger">*</span></label>
-                                    <input type="number" step="0.01" class="form-control bg-secondary text-white border-0" id="regular_price" name="regular_price" value="{{ old('regular_price') }}" placeholder="Insira o preço normal" required>
-                                    @error('regular_price')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="discounted_price" class="form-label fw-bold text-white">Preço com Desconto (€)</label>
-                                    <input type="number" step="0.01" class="form-control bg-secondary text-white border-0" id="discounted_price" name="discounted_price" value="{{ old('discounted_price') }}" placeholder="Insira o preço com desconto">
-                                    @error('discounted_price')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <!-- Linha 3: Taxa de Imposto e Quantidade em Stock -->
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="tax_rate" class="form-label fw-bold text-white">Taxa de IVA (%)</label>
-                                    <input type="number" step="0.01" class="form-control bg-secondary text-white border-0" id="tax_rate" name="tax_rate" value="{{ old('tax_rate') }}" placeholder="Insira a taxa de IVA">
-                                    @error('tax_rate')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="stock_quantity" class="form-label fw-bold text-white">Quantidade em Stock <span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control bg-secondary text-white border-0" id="stock_quantity" name="stock_quantity" value="{{ old('stock_quantity', 0) }}" placeholder="Insira a quantidade" required>
-                                    @error('stock_quantity')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <!-- Linha 4: Estado do Stock, Visibilidade e Estado -->
-                            <div class="row mb-3">
-                                <div class="col-md-4">
-                                    <label for="stock_status" class="form-label fw-bold text-white">Estado do Stock <span class="text-danger">*</span></label>
-                                    <select class="form-control bg-secondary text-white border-0" id="stock_status" name="stock_status" required>
-                                        <option value="in_stock" {{ old('stock_status') == 'in_stock' ? 'selected' : '' }}>Em Stock</option>
-                                        <option value="out_of_stock" {{ old('stock_status') == 'out_of_stock' ? 'selected' : '' }}>Esgotado</option>
-                                        <option value="pre_order" {{ old('stock_status') == 'pre_order' ? 'selected' : '' }}>Pré-encomenda</option>
-                                    </select>
-                                    @error('stock_status')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="visibility" class="form-label fw-bold text-white">Visibilidade <span class="text-danger">*</span></label>
-                                    <select class="form-control bg-secondary text-white border-0" id="visibility" name="visibility" required>
-                                        <option value="1" {{ old('visibility', 1) == 1 ? 'selected' : '' }}>Visível</option>
-                                        <option value="0" {{ old('visibility') == 0 ? 'selected' : '' }}>Oculto</option>
-                                    </select>
-                                    @error('visibility')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="status" class="form-label fw-bold text-white">Estado <span class="text-danger">*</span></label>
-                                    <select class="form-control bg-secondary text-white border-0" id="status" name="status" required>
-                                        <option value="1" {{ old('status', 1) == 1 ? 'selected' : '' }}>Ativo</option>
-                                        <option value="0" {{ old('status') == 0 ? 'selected' : '' }}>Inativo</option>
-                                    </select>
-                                    @error('status')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <!-- SEO: Título e Descrição -->
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="meta_title" class="form-label fw-bold text-white">Título Meta (SEO)</label>
-                                    <input type="text" class="form-control bg-secondary text-white border-0" id="meta_title" name="meta_title" value="{{ old('meta_title') }}" placeholder="Insira o título meta">
-                                    @error('meta_title')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="meta_description" class="form-label fw-bold text-white">Descrição Meta (SEO)</label>
-                                    <textarea class="form-control bg-secondary text-white border-0" id="meta_description" name="meta_description" rows="2" placeholder="Insira a descrição meta">{{ old('meta_description') }}</textarea>
-                                    @error('meta_description')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
+                            <!-- Preço Regular -->
+                            <div class="mb-3">
+                                <label for="regular_price" class="form-label fw-bold text-white">Preço Regular (€) <span class="text-danger">*</span></label>
+                                <input type="number" step="0.01" class="form-control bg-secondary text-white border-0" id="regular_price" name="regular_price" value="{{ old('regular_price') }}" placeholder="Insira o preço regular" required>
+                                @error('regular_price')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
 
                             <!-- Imagens -->
                             <div class="mb-3">
                                 <label for="images" class="form-label fw-bold text-white">Imagens do Produto</label>
-                                <input type="file" class="form-control bg-secondary text-white border-0" id="images" name="images[]" multiple>
+                                <input type="file" class="form-control bg-secondary text-white border-0" id="images" name="images[]" multiple accept="image/*">
                                 @error('images.*')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
