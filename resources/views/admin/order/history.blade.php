@@ -1,6 +1,6 @@
 <!-- resources/views/admin/order/history.blade.php -->
 
-@extends('admin.layout')
+@extends('admin.layouts.layout')
 
 @section('admin_layout')
     <div class="container">

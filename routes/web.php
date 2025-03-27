@@ -48,7 +48,9 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
         Route::get('/manage/users', 'manage_user')->name('manage.user');
         Route::get('/manage/stores', 'manage_stores')->name('manage.store');
         Route::get('/cart/history', 'cart_history')->name('cart.history');
-        Route::get('/order/history', 'index')->name('order.history');
+        Route::get('/order/history', 'order_history')->name('order.history');
+        Route::get('admin/order/{order}', 'show')->name('order.show');
+
     });
 
     // Categorias
