@@ -4,26 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropForeignKeysFromOtherTables extends Migration
+return new class extends Migration
 {
-    /**
-     * Execute the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
-        // Exemplo: remover a chave estrangeira de uma tabela chamada 'other_table'
-        Schema::table('stores', function (Blueprint $table) {
-            $table->dropForeign(['stores_user_id_foreign']); // Substitua 'store_id' pelo nome real da coluna
-        });
+        // Só tentar modificar stores se ela existir
+        if (Schema::hasTable('stores')) {
+            Schema::table('stores', function (Blueprint $table) {
+                $table->dropForeign(['stores_stores_user_id_foreign_foreign']);
+            });
+        }
     }
 
-    public function down()
+    public function down(): void
     {
-        // Caso queira reverter a remoção da chave estrangeira
-        Schema::table('stores', function (Blueprint $table) {
-            $table->foreign('stores_user_id_foreign')->references('id')->on('stores')->onDelete('cascade');
-        });
+        // Nada a fazer no down, já que stores não existe mais no fluxo atual
     }
-}
+};
