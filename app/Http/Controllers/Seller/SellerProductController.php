@@ -5,17 +5,19 @@ namespace App\Http\Controllers\Seller;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductImage;
-use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class SellerProductController extends Controller
 {
+    // Exibe o formulário de criação de um novo produto
     public function index()
     {
         return view('seller.product.create');
     }
 
+    // Exibe a lista de produtos do vendedor
     public function manage()
     {
         $currentSeller = Auth::id();
@@ -25,6 +27,20 @@ class SellerProductController extends Controller
         return view('seller.product.manage', compact('products'));
     }
 
+    // Função para salvar imagens
+    protected function saveImages($product, $images)
+    {
+        foreach ($images as $index => $file) {
+            $path = $file->store('product/images', 'public');
+            ProductImage::create([
+                'product_id' => $product->id,
+                'img_path' => $path,
+                'is_primary' => $index === 0, // Define a primeira imagem como primária
+            ]);
+        }
+    }
+
+    // Salvar um novo produto
     public function storeproduct(Request $request)
     {
         $request->validate([
@@ -33,19 +49,10 @@ class SellerProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'subcategory_id' => 'nullable|exists:subcategories,id',
             'regular_price' => 'required|numeric|min:0',
-            'discounted_price' => 'nullable|numeric|min:0',
-            'tax_rate' => 'nullable|numeric|min:0|max:100',
-            'stock_quantity' => 'required|integer|min:0',
-            'stock_status' => 'required|in:in_stock,out_of_stock,pre_order',
-            'visibility' => 'required|boolean',
-            'meta_title' => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string',
-            'status' => 'required|boolean',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         try {
-            // Criando o produto
             $product = Product::create([
                 'product_name' => $request->product_name,
                 'description' => $request->description,
@@ -53,26 +60,10 @@ class SellerProductController extends Controller
                 'category_id' => $request->category_id,
                 'subcategory_id' => $request->subcategory_id,
                 'regular_price' => $request->regular_price,
-                'discounted_price' => $request->discounted_price,
-                'tax_rate' => $request->tax_rate,
-                'stock_quantity' => $request->stock_quantity,
-                'stock_status' => $request->stock_status,
-                'visibility' => $request->visibility,
-                'meta_title' => $request->meta_title,
-                'meta_description' => $request->meta_description,
-                'status' => $request->status,
             ]);
 
-            // Salvando as imagens do produto, se houver
             if ($request->hasFile('images')) {
-                foreach ($request->file('images') as $index => $file) {
-                    $path = $file->store('product/images', 'public');
-                    ProductImage::create([
-                        'product_id' => $product->id,
-                        'img_path' => $path,
-                        'is_primary' => $index === 0, // Define a primeira imagem como primária
-                    ]);
-                }
+                $this->saveImages($product, $request->file('images'));
             }
 
             return redirect()->route('vendor.product.manage')->with('message', 'Produto adicionado com sucesso!');
@@ -81,6 +72,7 @@ class SellerProductController extends Controller
         }
     }
 
+    // Editar um produto
     public function edit($id)
     {
         $product = Product::where('seller_id', Auth::id())
@@ -89,6 +81,7 @@ class SellerProductController extends Controller
         return view('seller.product.edit', compact('product'));
     }
 
+    // Atualizar um produto
     public function update(Request $request, $id)
     {
         $product = Product::where('seller_id', Auth::id())->findOrFail($id);
@@ -99,51 +92,35 @@ class SellerProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'subcategory_id' => 'nullable|exists:subcategories,id',
             'regular_price' => 'required|numeric|min:0',
-            'discounted_price' => 'nullable|numeric|min:0',
-            'tax_rate' => 'nullable|numeric|min:0|max:100',
-            'stock_quantity' => 'required|integer|min:0',
-            'stock_status' => 'required|in:in_stock,out_of_stock,pre_order',
-            'visibility' => 'required|boolean',
-            'meta_title' => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string',
-            'status' => 'required|boolean',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         try {
+            // Atualiza o produto com os novos dados
             $product->update([
                 'product_name' => $request->product_name,
                 'description' => $request->description,
                 'category_id' => $request->category_id,
                 'subcategory_id' => $request->subcategory_id,
                 'regular_price' => $request->regular_price,
-                'discounted_price' => $request->discounted_price,
-                'tax_rate' => $request->tax_rate,
-                'stock_quantity' => $request->stock_quantity,
-                'stock_status' => $request->stock_status,
-                'visibility' => $request->visibility,
-                'meta_title' => $request->meta_title,
-                'meta_description' => $request->meta_description,
-                'status' => $request->status,
             ]);
 
-            // Atualizar imagens, se fornecidas
-            if ($request->hasFile('images')) {
-                // Deletar imagens antigas
-                foreach ($product->images as $image) {
-                    Storage::disk('public')->delete($image->img_path);
-                    $image->delete();
+            // Remover imagens se o usuário tiver marcado para remover
+            if ($request->has('remove_images')) {
+                foreach ($request->remove_images as $imageId) {
+                    $image = ProductImage::find($imageId);
+                    if ($image) {
+                        // Apaga a imagem do armazenamento
+                        Storage::disk('public')->delete($image->img_path);
+                        // Deleta a imagem do banco
+                        $image->delete();
+                    }
                 }
+            }
 
-                // Adicionar novas imagens
-                foreach ($request->file('images') as $index => $file) {
-                    $path = $file->store('product/images', 'public');
-                    ProductImage::create([
-                        'product_id' => $product->id,
-                        'img_path' => $path,
-                        'is_primary' => $index === 0,
-                    ]);
-                }
+            // Adicionar novas imagens se o usuário fez o upload
+            if ($request->hasFile('images')) {
+                $this->saveImages($product, $request->file('images'));
             }
 
             return redirect()->route('vendor.product.manage')->with('message', 'Produto atualizado com sucesso!');
@@ -152,12 +129,13 @@ class SellerProductController extends Controller
         }
     }
 
+    // Deletar um produto
     public function destroy($id)
     {
         try {
             $product = Product::where('seller_id', Auth::id())->findOrFail($id);
 
-            // Deletar imagens associadas
+            // Deletar imagens associadas ao produto
             foreach ($product->images as $image) {
                 Storage::disk('public')->delete($image->img_path);
                 $image->delete();

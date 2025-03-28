@@ -29,7 +29,7 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('vendor.product.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin.product.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             <!-- Nome do Produto -->

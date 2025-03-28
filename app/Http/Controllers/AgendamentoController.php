@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agendamento;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class AgendamentoController extends Controller
 {
@@ -21,7 +23,7 @@ class AgendamentoController extends Controller
             'data' => 'required|date',
             'hora' => 'required',
             'servico' => 'required',
-            'nome_cliente' => 'nullable|string|max:255', // Opcional para usuários não autenticados
+            'nome_cliente' => 'nullable|string|max:255',
         ]);
 
         // Usar o nome enviado pelo formulário ou um valor padrão se não autenticado
@@ -41,7 +43,7 @@ class AgendamentoController extends Controller
         $duracao = explode('|', $request->servico)[1] ?? 1.0;
 
         // Criar o agendamento
-        Agendamento::create([
+        $agendamento = Agendamento::create([
             'nome_cliente' => $nomeCliente,
             'data' => $request->data,
             'hora' => $request->hora,
@@ -49,6 +51,13 @@ class AgendamentoController extends Controller
             'duracao' => $duracao,
             'created_at' => now(),
             'updated_at' => now(),
+        ]);
+
+        // Criar automaticamente uma Order associada ao Agendamento
+        Order::create([
+            'agendamento_id' => $agendamento->id,
+            'user_id' => Auth::id(), // Associa ao usuário autenticado
+            'scheduled_at' => $agendamento->data, // Usa a data do agendamento
         ]);
 
         return redirect()->route('agendamento.index')
@@ -65,12 +74,9 @@ class AgendamentoController extends Controller
     public function getAgendamentos()
     {
         try {
-            // Carregar apenas os campos necessários
             $agendamentos = Agendamento::select('data', 'hora', 'servico', 'duracao', 'nome_cliente')->get();
 
-            // Mapear os agendamentos para o formato que o FullCalendar entende
             $events = $agendamentos->map(function ($agendamento) {
-                // Garantir que start e end sejam válidos
                 $start = Carbon::parse($agendamento->data . ' ' . $agendamento->hora);
                 $end = $start->copy()->addHours((float)($agendamento->duracao ?? 1.0));
 
@@ -83,9 +89,9 @@ class AgendamentoController extends Controller
                     'start' => $start->toIso8601String(),
                     'end' => $end->toIso8601String(),
                     'description' => $agendamento->nome_cliente ?: 'Cliente não especificado',
-                    'color' => '#ff0000', // Cor do evento
+                    'color' => '#ff0000',
                 ];
-            })->filter()->values(); // Reindexa e remove nulos
+            })->filter()->values();
 
             return response()->json($events);
         } catch (\Exception $e) {

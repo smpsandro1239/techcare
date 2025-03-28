@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Order;
+use App\Models\Agendamento;
+use App\Models\User; 
 
 class AdminMainController extends Controller
 {
@@ -22,7 +25,19 @@ class AdminMainController extends Controller
      public function cart_history(){
       return view('admin.cart.history');
      }
-     public function order_history(){
-      return view('admin.order.history');
-     }
+     public function order_history()
+{
+    $orders = Order::with('user')->orderBy('scheduled_at', 'desc')->get();
+    return view('admin.order.history', compact('orders'));
+}
+
+public function show($id)
+{
+    // Busque o pedido com o ID
+    $order = Order::with('user')->findOrFail($id);
+
+    // Retorne a view com os dados do pedido
+    return view('admin.order.show', compact('order'));
+}
+
 }
