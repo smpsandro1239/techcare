@@ -196,13 +196,13 @@
 
                     <li class="sidebar-item {{ request()->routeIs('admin.product.create') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('admin.product.create') }}">
-                            <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Create Product</span>
+                            <i class="align-middle" data-feather="plus"></i> <span class="align-middle">Create Product</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item {{ request()->routeIs('admin.product.manage') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('admin.product.manage') }}">
-                            <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Manage Products</span>
+                            <i class="align-middle" data-feather="list"></i> <span class="align-middle">Manage Products</span>
                         </a>
                     </li>
 

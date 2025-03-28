@@ -172,6 +172,38 @@
 
     </li>
 
+    <li class="sidebar-header">
+                        Category
+                    </li>
+
+                    <li class="sidebar-item {{ request()->routeIs('category.create') ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('vendor.category.create') }}">
+                            <i class="align-middle" data-feather="plus"></i> <span class="align-middle">Create</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item {{ request()->routeIs('category.manage') ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('vendor.category.manage') }}">
+                            <i class="align-middle" data-feather="list"></i> <span class="align-middle">Manage</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-header">
+                        Sub Category
+                    </li>
+
+                    <li class="sidebar-item {{ request()->routeIs('seller.create') ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('vendor.subcategory.create') }}">
+                            <i class="align-middle" data-feather="plus"></i> <span class="align-middle">Create</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item {{ request()->routeIs('subcategory.manage') ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('vendor.subcategory.manage') }}">
+                            <i class="align-middle" data-feather="list"></i> <span class="align-middle">Manage</span>
+                        </a>
+                    </li>
+
     </ul>
 </div>
 </nav>

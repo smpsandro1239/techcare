@@ -18,7 +18,7 @@ class MasterSubCategoryController extends Controller
         return redirect()->back()->with('message', 'Sub Category Added Successfuly');
     }
 
-    public function showsubcat($id){
+    public function showsubcatAdmin($id){
         $subcategory_info = Subcategory::find($id);
         return view('admin.sub_category.edit', compact('subcategory_info'));
     }
@@ -37,4 +37,8 @@ class MasterSubCategoryController extends Controller
     return redirect()->back()->with( 'message', 'Sub Category Delete successfully');
 
  }
+ public function showsubcatVendor($id){
+    $subcategory_info = Subcategory::find($id);
+    return view('seller.sub_category.edit', compact('subcategory_info'));
+}
 }
