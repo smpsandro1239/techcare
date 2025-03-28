@@ -46,6 +46,27 @@
                   </a>
               </li>
 
+              <!-- Item Meu Perfil -->
+<li class="nav-item">
+    <a class="nav-link {{ request()->is('perfil') ? 'active' : '' }}" href="{{ route('profile') }}">
+        <!-- Verifica se o utilizador está autenticado antes de tentar acessar a foto de perfil -->
+        @auth
+            <!-- Verifica se o utilizador tem uma foto de perfil -->
+            @if(auth()->user()->profile_photo)
+                <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}" alt="Foto de Perfil" class="rounded-circle" width="30" height="30" style="object-fit: cover; margin-right: 8px;">
+            @else
+                <i class="fas fa-user"></i>
+            @endif
+        @else
+            <i class="fas fa-user"></i>
+        @endauth
+        O Meu Perfil
+    </a>
+</li>
+
+
+
+
               <!-- Dropdown para usuários autenticados -->
               @auth
                   <!-- Dropdown para Admin -->

@@ -13,7 +13,6 @@ use App\Http\Controllers\Seller\SellerMainController;
 use App\Http\Controllers\Seller\SellerProductController;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\ProductCatalog;
-
 // Rotas Públicas
 // -----------------
 Route::get('/', function () {
@@ -145,12 +144,10 @@ Route::middleware(['auth', 'verified', 'rolemanager:customer'])->prefix('user')-
 });
 
 // Rotas de Perfil (comuns a todos os usuários autenticados)
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::controller(ProfileController::class)->group(function () {
-        Route::get('/profile', 'edit')->name('profile.edit');
-        Route::put('/profile', 'update')->name('profile.update');
-        Route::delete('/profile', 'destroy')->name('profile.destroy');
-    });
+Route::middleware(['auth'])->group(function () {
+    Route::get('/perfil', [ProfileController::class, 'index'])->name('profile');
+    Route::post('/perfil/atualizar', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/perfil/senha', [ProfileController::class, 'updatePassword'])->name('profile.password');
 });
 
 require __DIR__ . '/auth.php';
