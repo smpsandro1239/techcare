@@ -5,31 +5,57 @@ namespace App\Http\Livewire;
 use App\Models\Category;
 use App\Models\Subcategory;
 use Livewire\Component;
+use Illuminate\Support\Collection;
 
 class CategorySubcategory extends Component
 {
-    public $categories; // Todas as categorias
-    public $selectedCategory; // Categoria selecionada
-    public $subcategories; // Subcategorias filtradas
+    public $categories;
+    public $selectedCategory;
+    public Collection $subcategories;
+    public $selectedSubcategory;
+    public $categoryId;
+    public $subcategoryId;
 
-    public function mount()
+    public function mount($categoryId = null, $subcategoryId = null)
     {
         $this->categories = Category::all();
-        $this->selectedCategory = old('category_id'); // Carrega valor antigo, se existir
-        $this->updatedSelectedCategory($this->selectedCategory); // Inicializa subcategorias
+        $this->categoryId = $categoryId;
+        $this->subcategoryId = $subcategoryId;
+
+        $this->subcategories = collect([]);
+
+        $this->selectedCategory = old('category_id', $this->categoryId);
+        $this->selectedSubcategory = old('subcategory_id', $this->subcategoryId) ?? null;
+
+        if ($this->selectedCategory) {
+            $this->loadSubcategories();
+        }
     }
 
     public function updatedSelectedCategory($categoryId)
     {
-        if ($categoryId) {
-            $this->subcategories = Subcategory::where('category_id', $categoryId)->get();
+        $this->selectedCategory = $categoryId;
+        $this->loadSubcategories();
+    }
+
+    protected function loadSubcategories()
+    {
+        if ($this->selectedCategory) {
+            $this->subcategories = Subcategory::where('category_id', $this->selectedCategory)->get();
+            if ($this->selectedSubcategory && !$this->subcategories->contains('id', $this->selectedSubcategory)) {
+                $this->selectedSubcategory = null;
+            }
         } else {
-            $this->subcategories = []; // Limpa subcategorias se nenhuma categoria for selecionada
+            $this->subcategories = collect([]);
+            $this->selectedSubcategory = null;
         }
     }
 
     public function render()
     {
+        if (!($this->subcategories instanceof Collection)) {
+            $this->subcategories = collect($this->subcategories);
+        }
         return view('livewire.category-subcategory');
     }
 }

@@ -119,7 +119,7 @@
                           <i class="fas fa-user-circle me-1"></i> {{ auth()->user()->name }}
                       </a>
                       <ul class="dropdown-menu dropdown-menu-dark">
-                          <li><a class="dropdown-item" href="/profile">Meu Perfil</a></li>
+                          <li><a class="dropdown-item" href="/perfil">Meu Perfil</a></li>
                           <li><hr class="dropdown-divider"></li>
                           <li>
                               <a class="dropdown-item text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

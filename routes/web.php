@@ -30,7 +30,7 @@ Route::prefix('agendamento')->name('agendamento.')->group(function () {
         Route::get('/', 'create')->name('create');
         Route::post('/', 'store')->name('store');
         Route::get('/lista', 'index')->name('index');
-        Route::get('/json', 'getAgendamentos')->name('json'); 
+        Route::get('/json', 'getAgendamentos')->name('json');
     });
 });
 
@@ -49,7 +49,6 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
         Route::get('/cart/history', 'cart_history')->name('cart.history');
         Route::get('/order/history', 'order_history')->name('order.history');
         Route::get('admin/order/{order}', 'show')->name('order.show');
-
     });
 
     // Categorias
@@ -67,15 +66,14 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
     });
 
     // Produtos
-   Route::controller(ProductController::class)->group(function () {
-    Route::get('/product/create', 'create')->name('product.create');
-    Route::post('/product/create', 'storeproduct')->name('product.store');
-    Route::get('/product/manage', 'manage')->name('product.manage');
-    Route::get('/product/edit/{id}', 'edit')->name('product.edit');
-    Route::put('/product/update/{id}', 'update')->name('product.update');
-    Route::delete('/product/destroy/{id}', 'destroy')->name('product.destroy');
-
-});
+    Route::controller(ProductController::class)->group(function () {
+        Route::get('/product/create', 'create')->name('product.create');
+        Route::post('/product/create', 'storeproduct')->name('product.store');
+        Route::get('/product/manage', 'manage')->name('product.manage');
+        Route::get('/product/edit/{id}', 'edit')->name('product.edit');
+        Route::put('/product/update/{id}', 'update')->name('product.update');
+        Route::delete('/product/destroy/{id}', 'destroy')->name('product.destroy');
+    });
 
     // Master Category
     Route::controller(MasterCategoryController::class)->group(function () {
