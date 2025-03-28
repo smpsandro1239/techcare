@@ -11,6 +11,8 @@ use App\Http\Controllers\MasterSubCategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Seller\SellerMainController;
 use App\Http\Controllers\Seller\SellerProductController;
+use App\Http\Controllers\Seller\SellerCategoryController;
+use App\Http\Controllers\Seller\SellerSubCategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\ProductCatalog;
 // Rotas Públicas
@@ -78,7 +80,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
     // Master Category
     Route::controller(MasterCategoryController::class)->group(function () {
         Route::post('/store/category', 'storecat')->name('admin.mastercategory.store');
-        Route::get('/category/{id}', 'showcat')->name('category.show');
+        Route::get('/category/{id}', 'showcatAdmin')->name('category.show');
         Route::put('/category/update/{id}', 'updatecat')->name('category.update');
         Route::delete('/category/delete/{id}', 'deletecat')->name('category.delete');
     });
@@ -86,7 +88,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
     // Master Subcategory
     Route::controller(MasterSubCategoryController::class)->group(function () {
         Route::post('/store/subcategory', 'storesubcat')->name('admin.mastersubcategory.store');
-        Route::get('/subcategory/{id}', 'showsubcat')->name('subcategory.show');
+        Route::get('/subcategory/{id}', 'showsubcatAdmin')->name('subcategory.show');
         Route::put('/subcategory/update/{id}', 'updatesubcat')->name('subcategory.update');
         Route::delete('/subcategory/delete/{id}', 'deletesubcat')->name('subcategory.delete');
     });
@@ -117,11 +119,43 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])->prefix('vendor')-
         Route::delete('/product/destroy/{id}', 'destroy')->name('product.destroy');
     });
 
+    // Categorias
+    Route::controller(SellerCategoryController::class)->group(function () {
+        Route::get('/category/create', 'index')->name('category.create');
+        Route::get('/category/manage', 'manage')->name('category.manage');
+        Route::post('/category/store', 'store')->name('category.store');
+        
+    });
+
+    // Subcategorias
+    Route::controller(SellerSubCategoryController::class)->group(function () {
+        Route::get('/subcategory/create', 'index')->name('subcategory.create');
+        Route::get('/subcategory/manage', 'manage')->name('subcategory.manage');
+        Route::post('/subcategory/store', 'store')->name('subcategory.store');
+    });
+
     // Agendamentos
     Route::controller(AgendamentoController::class)->group(function () {
         Route::get('/agendamento/create', 'create')->name('agendamento.create');
         Route::post('/agendamento', 'store')->name('agendamento.store');
         Route::get('/agendamento/lista', 'index')->name('agendamento.index');
+    });
+
+    
+    // Master Category
+    Route::controller(MasterCategoryController::class)->group(function () {
+        Route::post('/store/category', 'storecat')->name('admin.mastercategory.store');
+        Route::get('/category/{id}', 'showcatVendor')->name('category.show');
+        Route::put('/category/update/{id}', 'updatecat')->name('category.update');
+        Route::delete('/category/delete/{id}', 'deletecat')->name('category.delete');
+    });
+
+    // Master Subcategory
+    Route::controller(MasterSubCategoryController::class)->group(function () {
+        Route::post('/store/subcategory', 'storesubcat')->name('admin.mastersubcategory.store');
+        Route::get('/subcategory/{id}', 'showsubcatVendor')->name('subcategory.show');
+        Route::put('/subcategory/update/{id}', 'updatesubcat')->name('subcategory.update');
+        Route::delete('/subcategory/delete/{id}', 'deletesubcat')->name('subcategory.delete');
     });
 });
 

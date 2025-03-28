@@ -17,7 +17,7 @@ class MasterCategoryController extends Controller
         return redirect()->back()->with('message', 'Category Added Successfuly');
     }
 
-    public function showcat($id){
+    public function showcatAdmin($id){
         $category_info = Category::find($id);
         return view('admin.category.edit', compact('category_info'));
     }
@@ -37,4 +37,9 @@ class MasterCategoryController extends Controller
     return redirect()->back()->with( 'message', 'Category Delete successfully');
 
  }
+ public function showcatVendor($id){
+    $category_info = Category::find($id);
+    return view('seller.category.edit', compact('category_info'));
+}
+
 }
