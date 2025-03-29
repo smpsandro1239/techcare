@@ -14,9 +14,10 @@ use App\Http\Controllers\Seller\SellerProductController;
 use App\Http\Controllers\Seller\SellerCategoryController;
 use App\Http\Controllers\Seller\SellerSubCategoryController;
 use Illuminate\Support\Facades\Route;
-use App\Livewire\ProductCatalog;
+use App\Http\Livewire\ProductCatalog; // Namespace corrigido
+
 // Rotas Públicas
-// -----------------
+
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
@@ -36,13 +37,9 @@ Route::prefix('agendamento')->name('agendamento.')->group(function () {
     });
 });
 
+
 // Rotas Protegidas por Autenticação
-// ---------------------------------
-
-
-// Rotas do Administrador
 Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->name('admin.')->group(function () {
-    // Dashboard e Configurações
     Route::controller(AdminMainController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
         Route::get('/settings', 'setting')->name('settings');
@@ -53,21 +50,21 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
         Route::get('admin/order/{order}', 'show')->name('order.show');
     });
 
-    // Categorias
+
     Route::controller(CategoryController::class)->group(function () {
         Route::get('/category/create', 'index')->name('category.create');
         Route::get('/category/manage', 'manage')->name('category.manage');
         Route::post('/category/store', 'store')->name('category.store');
     });
 
-    // Subcategorias
+
     Route::controller(SubCategoryController::class)->group(function () {
         Route::get('/subcategory/create', 'index')->name('subcategory.create');
         Route::get('/subcategory/manage', 'manage')->name('subcategory.manage');
         Route::post('/subcategory/store', 'store')->name('subcategory.store');
     });
 
-    // Produtos
+
     Route::controller(ProductController::class)->group(function () {
         Route::get('/product/create', 'create')->name('product.create');
         Route::post('/product/create', 'storeproduct')->name('product.store');
@@ -77,7 +74,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
         Route::delete('/product/destroy/{id}', 'destroy')->name('product.destroy');
     });
 
-    // Master Category
+
     Route::controller(MasterCategoryController::class)->group(function () {
         Route::post('/store/category', 'storecat')->name('admin.mastercategory.store');
         Route::get('/category/{id}', 'showcatAdmin')->name('category.show');
@@ -85,7 +82,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
         Route::delete('/category/delete/{id}', 'deletecat')->name('category.delete');
     });
 
-    // Master Subcategory
+
     Route::controller(MasterSubCategoryController::class)->group(function () {
         Route::post('/store/subcategory', 'storesubcat')->name('admin.mastersubcategory.store');
         Route::get('/subcategory/{id}', 'showsubcatAdmin')->name('subcategory.show');
@@ -93,7 +90,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
         Route::delete('/subcategory/delete/{id}', 'deletesubcat')->name('subcategory.delete');
     });
 
-    // Agendamentos
+
     Route::controller(AgendamentoController::class)->group(function () {
         Route::get('agendamento/create', 'create')->name('agendamento.create');
         Route::post('/agendamento', 'store')->name('agendamento.store');
@@ -101,15 +98,15 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
     });
 });
 
-// Rotas do Vendedor
+
 Route::middleware(['auth', 'verified', 'rolemanager:vendor'])->prefix('vendor')->name('vendor.')->group(function () {
-    // Dashboard
+
     Route::controller(SellerMainController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
         Route::get('/order/history', 'orderhistory')->name('order.history');
     });
 
-    // Produtos
+
     Route::controller(SellerProductController::class)->group(function () {
         Route::get('/product/create', 'index')->name('product.create');
         Route::post('/product/create', 'storeproduct')->name('product.store');
@@ -119,30 +116,24 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])->prefix('vendor')-
         Route::delete('/product/destroy/{id}', 'destroy')->name('product.destroy');
     });
 
-    // Categorias
     Route::controller(SellerCategoryController::class)->group(function () {
         Route::get('/category/create', 'index')->name('category.create');
         Route::get('/category/manage', 'manage')->name('category.manage');
         Route::post('/category/store', 'store')->name('category.store');
-        
     });
 
-    // Subcategorias
     Route::controller(SellerSubCategoryController::class)->group(function () {
         Route::get('/subcategory/create', 'index')->name('subcategory.create');
         Route::get('/subcategory/manage', 'manage')->name('subcategory.manage');
         Route::post('/subcategory/store', 'store')->name('subcategory.store');
     });
 
-    // Agendamentos
     Route::controller(AgendamentoController::class)->group(function () {
         Route::get('/agendamento/create', 'create')->name('agendamento.create');
         Route::post('/agendamento', 'store')->name('agendamento.store');
         Route::get('/agendamento/lista', 'index')->name('agendamento.index');
     });
 
-    
-    // Master Category
     Route::controller(MasterCategoryController::class)->group(function () {
         Route::post('/store/category', 'storecat')->name('admin.mastercategory.store');
         Route::get('/category/{id}', 'showcatVendor')->name('category.show');
@@ -150,7 +141,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])->prefix('vendor')-
         Route::delete('/category/delete/{id}', 'deletecat')->name('category.delete');
     });
 
-    // Master Subcategory
+
     Route::controller(MasterSubCategoryController::class)->group(function () {
         Route::post('/store/subcategory', 'storesubcat')->name('admin.mastersubcategory.store');
         Route::get('/subcategory/{id}', 'showsubcatVendor')->name('subcategory.show');
@@ -159,7 +150,6 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])->prefix('vendor')-
     });
 });
 
-// Rotas do Cliente
 Route::middleware(['auth', 'verified', 'rolemanager:customer'])->prefix('user')->name('user.')->group(function () {
     Route::controller(CustomerMainController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
@@ -175,7 +165,6 @@ Route::middleware(['auth', 'verified', 'rolemanager:customer'])->prefix('user')-
     });
 });
 
-// Rotas de Perfil (comuns a todos os usuários autenticados)
 Route::middleware(['auth'])->group(function () {
     Route::get('/perfil', [ProfileController::class, 'index'])->name('profile');
     Route::post('/perfil/atualizar', [ProfileController::class, 'update'])->name('profile.update');

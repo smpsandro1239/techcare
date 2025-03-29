@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Livewire;
 
 use Livewire\Component;
@@ -10,14 +11,11 @@ class ProductCatalog extends Component
 
     public function mount()
     {
-        // Carregar os produtos com as imagens e as relações associadas
         $this->products = Product::with(['images', 'category', 'subcategory'])->get();
     }
 
     public function render()
     {
-        return view('livewire.product-catalog', [
-            'products' => $this->products, // Passa os produtos para a view
-        ])->extends('layouts.app');
+        return view('livewire.product-catalog');
     }
 }

@@ -1,4 +1,7 @@
 <!-- resources/views/livewire/product-catalog.blade.php -->
+@extends('layouts.app')
+
+@section('content')
 <div class="container py-5">
     <div class="row">
         @forelse($products as $product)
@@ -60,6 +63,7 @@
         @endforelse
     </div>
 </div>
+@endsection
 
 @push('styles')
     <style>
