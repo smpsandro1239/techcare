@@ -4,26 +4,55 @@
 <div class="container">
     <h2>Editar Produto</h2>
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{ route('vendor.product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
-    @method('PUT') <!-- Adicionando o método PUT -->
+    @method('PUT')
 
         <div class="mb-3">
             <label class="form-label">Nome do Produto</label>
             <input type="text" name="product_name" value="{{ old('product_name', $product->product_name) }}" class="form-control" required>
+            @error('product_name')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
         </div>
 
         <div class="mb-3">
             <label class="form-label">Descrição</label>
-            <textarea name="description" class="form-control" required>{{ old('description', $product->description) }}</textarea>
+            <textarea name="description" class="form-control">{{ old('description', $product->description) }}</textarea>
+            @error('description')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Categoria/Subcategoria</label>
+            <livewire:category-subcategory :categoryId="$product->category_id" :subcategoryId="$product->subcategory_id" />
+            @error('category_id')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+            @error('subcategory_id')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
         </div>
 
         <div class="mb-3">
             <label class="form-label">Preço (€)</label>
             <input type="number" step="0.01" name="regular_price" value="{{ old('regular_price', $product->regular_price) }}" class="form-control" required>
+            @error('regular_price')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
         </div>
 
-        {{-- Exibir imagens atuais se existirem --}}
         @if ($product->images->count() > 0)
             <div class="mb-3">
                 <label class="form-label">Imagens Atuais</label>
@@ -41,10 +70,12 @@
             </div>
         @endif
 
-        {{-- Upload de novas imagens --}}
         <div class="mb-3">
             <label class="form-label">Adicionar Novas Imagens</label>
             <input type="file" name="images[]" class="form-control" multiple>
+            @error('images.*')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
         </div>
 
         <button type="submit" class="btn btn-primary">Salvar</button>

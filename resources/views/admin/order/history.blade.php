@@ -45,6 +45,11 @@
                                                class="btn btn-primary btn-sm">
                                                 <i class="fas fa-eye"></i> Ver
                                             </a>
+                                            <!-- Botão Editar -->
+                                            <a href="{{ route('admin.order.edit', $order->id) }}" 
+                                              class="btn btn-warning btn-sm">
+                                              <i class="fas fa-edit"></i> Editar
+                                             </a>
                                             <!-- Botão Deletar -->
                                             <form action="{{ route('admin.order.destroy', $order->id) }}"
                                                   method="POST"
