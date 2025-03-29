@@ -48,6 +48,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
         Route::get('/cart/history', 'cart_history')->name('cart.history');
         Route::get('/order/history', 'order_history')->name('order.history');
         Route::get('admin/order/{order}', 'show')->name('order.show');
+        Route::delete('admin/order/{order}', 'destroy')->name('order.destroy'); // Rota para deletar um agendamento
     });
 
 
