@@ -50,7 +50,10 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
         Route::get('admin/order/{order}', 'show')->name('order.show');
         Route::delete('admin/order/{order}', 'destroy')->name('order.destroy'); // Rota para deletar um agendamento
         Route::get('admin/order/{order}/edit', 'edit')->name('order.edit');
-        Route::put('admin/order/{order}', 'update')->name('order.update');        
+        Route::put('admin/order/{order}', 'update')->name('order.update');
+        Route::post('/admin/agendamentos/{order}/atribuir','assignAgendamento')->name('agendamento.assign');
+        Route::post('/admin/agendamentos/{order}/desatribuir', 'unassignAgendamento')->name('agendamento.unassign');
+        Route::post('/order/{orderId}/assign', 'assignSeller')->name('order.assign');
     });
 
 
@@ -110,7 +113,10 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])->prefix('vendor')-
         Route::get('/order/{order}', 'show')->name('order.show');
         Route::delete('/order/{order}', 'destroy')->name('order.destroy'); 
         Route::get('/order/{order}/edit', 'edit')->name('order.edit');
-        Route::put('/order/{order}', 'update')->name('order.update');        
+        Route::put('/order/{order}', 'update')->name('order.update');
+        Route::post('/orders/{order}/assign', 'assign')->name('order.assign');
+        Route::post('/agendamentos/{agendamento}/unassign','unassign')->name('order.unassign');
+        Route::get('assigned-agendamentos', 'assignedAgendamentos')->name('assigned.agendamentos');
     });
 
 

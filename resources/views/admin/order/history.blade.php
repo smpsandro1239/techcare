@@ -1,4 +1,3 @@
-<!-- resources/views/admin/order/history.blade.php -->
 @extends('admin.layouts.layout')
 
 @section('admin_page_title')
@@ -28,6 +27,7 @@
                                 <th scope="col">Agendamento ID</th>
                                 <th scope="col">Usuário</th>
                                 <th scope="col">Data de Criação</th>
+                                <th scope="col">Vendedor Atribuído</th>
                                 <th scope="col">Ações</th>
                             </tr>
                         </thead>
@@ -39,26 +39,53 @@
                                     <td>{{ $order->user->name }}</td>
                                     <td>{{ $order->created_at->format('d/m/Y H:i') }}</td>
                                     <td>
+                                        @if ($order->seller)
+                                            {{ $order->seller->name }}
+                                        @else
+                                            Nenhum vendedor atribuído
+                                        @endif
+                                    </td>
+                                    <td>
                                         <div class="btn-group" role="group">
+                                            <!-- Atribuir Agendamento -->
+                                            @if (!$order->seller_id)
+                                                <form action="{{ route('admin.agendamento.assign', $order->id) }}" method="POST" class="d-inline-block">
+                                                    @csrf
+                                                    <select name="seller_id" class="form-control form-control-sm mr-2" required>
+                                                        <option value="">Escolha um vendedor</option>
+                                                        @foreach($sellers as $seller)
+                                                            <option value="{{ $seller->id }}">{{ $seller->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <button type="submit" class="btn btn-success btn-sm">
+                                                        <i class="fas fa-user-check"></i> Atribuir
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <!-- Desatribuir Agendamento -->
+                                                <form action="{{ route('admin.agendamento.unassign', $order->id) }}" method="POST" class="d-inline-block">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-user-times"></i> Desatribuir
+                                                    </button>
+                                                </form>
+                                            @endif
+
                                             <!-- Botão Ver -->
-                                            <a href="{{ route('admin.order.show', $order->id) }}"
-                                               class="btn btn-primary btn-sm">
+                                            <a href="{{ route('admin.order.show', $order->id) }}" class="btn btn-primary btn-sm">
                                                 <i class="fas fa-eye"></i> Ver
                                             </a>
+
                                             <!-- Botão Editar -->
-                                            <a href="{{ route('admin.order.edit', $order->id) }}" 
-                                              class="btn btn-warning btn-sm">
-                                              <i class="fas fa-edit"></i> Editar
-                                             </a>
+                                            <a href="{{ route('admin.order.edit', $order->id) }}" class="btn btn-warning btn-sm">
+                                                <i class="fas fa-edit"></i> Editar
+                                            </a>
+
                                             <!-- Botão Deletar -->
-                                            <form action="{{ route('admin.order.destroy', $order->id) }}"
-                                                  method="POST"
-                                                  style="display: inline-block;">
+                                            <form action="{{ route('admin.order.destroy', $order->id) }}" method="POST" class="d-inline-block">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit"
-                                                        class="btn btn-danger btn-sm"
-                                                        onclick="return confirm('Tem certeza que deseja deletar este agendamento?')">
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja deletar este agendamento?')">
                                                     <i class="fas fa-trash-alt"></i> Deletar
                                                 </button>
                                             </form>
@@ -67,7 +94,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="text-center text-muted py-4">
+                                    <td colspan="6" class="text-center text-muted py-4">
                                         Nenhum agendamento encontrado.
                                     </td>
                                 </tr>
@@ -112,12 +139,18 @@
 
     .btn-group .btn {
         margin-right: 5px;
-        border-radius: 20px;
-        transition: all 0.3s ease;
+        border-radius: 20px; /* Bordas arredondadas */
+        padding: 6px 12px; /* Tamanho consistente */
+        font-size: 14px; /* Tamanho da fonte consistente */
+        transition: all 0.3s ease; /* Efeito de transição suave */
+    }
+
+    .btn-group .btn i {
+        margin-right: 5px; /* Alinhamento do ícone */
     }
 
     .btn-group .btn:hover {
-        transform: translateY(-2px);
+        transform: translateY(-2px); /* Efeito de elevação */
     }
 
     .alert {
