@@ -3,21 +3,23 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class SellerProductController extends Controller
 {
-    // Exibe o formulário de criação de um novo produto
-    public function index()
+    public function create()
     {
-        return view('seller.product.create');
+        $categories = Category::all();
+        $subcategories = Subcategory::all();
+        return view('seller.product.create', compact('categories', 'subcategories'));
     }
 
-    // Exibe a lista de produtos do vendedor
     public function manage()
     {
         $currentSeller = Auth::id();
@@ -27,7 +29,6 @@ class SellerProductController extends Controller
         return view('seller.product.manage', compact('products'));
     }
 
-    // Função para salvar imagens
     protected function saveImages($product, $images)
     {
         foreach ($images as $index => $file) {
@@ -35,12 +36,11 @@ class SellerProductController extends Controller
             ProductImage::create([
                 'product_id' => $product->id,
                 'img_path' => $path,
-                'is_primary' => $index === 0, // Define a primeira imagem como primária
+                'is_primary' => $index === 0,
             ]);
         }
     }
 
-    // Salvar um novo produto
     public function storeproduct(Request $request)
     {
         $request->validate([
@@ -72,7 +72,6 @@ class SellerProductController extends Controller
         }
     }
 
-    // Editar um produto
     public function edit($id)
     {
         $product = Product::where('seller_id', Auth::id())
@@ -81,7 +80,6 @@ class SellerProductController extends Controller
         return view('seller.product.edit', compact('product'));
     }
 
-    // Atualizar um produto
     public function update(Request $request, $id)
     {
         $product = Product::where('seller_id', Auth::id())->findOrFail($id);
@@ -96,7 +94,6 @@ class SellerProductController extends Controller
         ]);
 
         try {
-            // Atualiza o produto com os novos dados
             $product->update([
                 'product_name' => $request->product_name,
                 'description' => $request->description,
@@ -105,20 +102,16 @@ class SellerProductController extends Controller
                 'regular_price' => $request->regular_price,
             ]);
 
-            // Remover imagens se o usuário tiver marcado para remover
             if ($request->has('remove_images')) {
                 foreach ($request->remove_images as $imageId) {
                     $image = ProductImage::find($imageId);
                     if ($image) {
-                        // Apaga a imagem do armazenamento
                         Storage::disk('public')->delete($image->img_path);
-                        // Deleta a imagem do banco
                         $image->delete();
                     }
                 }
             }
 
-            // Adicionar novas imagens se o usuário fez o upload
             if ($request->hasFile('images')) {
                 $this->saveImages($product, $request->file('images'));
             }
@@ -129,19 +122,16 @@ class SellerProductController extends Controller
         }
     }
 
-    // Deletar um produto
     public function destroy($id)
     {
         try {
             $product = Product::where('seller_id', Auth::id())->findOrFail($id);
 
-            // Deletar imagens associadas ao produto
             foreach ($product->images as $image) {
                 Storage::disk('public')->delete($image->img_path);
                 $image->delete();
             }
 
-            // Deletar o produto
             $product->delete();
 
             return redirect()->route('vendor.product.manage')->with('message', 'Produto deletado com sucesso!');

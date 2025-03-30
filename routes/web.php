@@ -49,6 +49,8 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
         Route::get('/order/history', 'order_history')->name('order.history');
         Route::get('admin/order/{order}', 'show')->name('order.show');
         Route::delete('admin/order/{order}', 'destroy')->name('order.destroy'); // Rota para deletar um agendamento
+        Route::get('admin/order/{order}/edit', 'edit')->name('order.edit');
+        Route::put('admin/order/{order}', 'update')->name('order.update');        
     });
 
 
@@ -104,12 +106,16 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])->prefix('vendor')-
 
     Route::controller(SellerMainController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
-        Route::get('/order/history', 'orderhistory')->name('order.history');
+        Route::get('/order/history', 'order_history')->name('order.history');
+        Route::get('/order/{order}', 'show')->name('order.show');
+        Route::delete('/order/{order}', 'destroy')->name('order.destroy'); 
+        Route::get('/order/{order}/edit', 'edit')->name('order.edit');
+        Route::put('/order/{order}', 'update')->name('order.update');        
     });
 
 
     Route::controller(SellerProductController::class)->group(function () {
-        Route::get('/product/create', 'index')->name('product.create');
+        Route::get('/product/create', 'create')->name('product.create');
         Route::post('/product/create', 'storeproduct')->name('product.store');
         Route::get('/product/manage', 'manage')->name('product.manage');
         Route::get('/product/edit/{id}', 'edit')->name('product.edit');
@@ -154,9 +160,13 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])->prefix('vendor')-
 Route::middleware(['auth', 'verified', 'rolemanager:customer'])->prefix('user')->name('user.')->group(function () {
     Route::controller(CustomerMainController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
-        Route::get('/order/history', 'history')->name('order.history');
+        Route::get('/order/history', 'order_history')->name('order.history');
         Route::get('/setting/payment', 'payment')->name('setting.payment');
         Route::get('/affiliate', 'affiliate')->name('affiliate');
+        Route::get('admin/order/{order}', 'show')->name('order.show');
+        Route::delete('admin/order/{order}', 'destroy')->name('order.destroy');
+        Route::get('user/order/{order}/edit', 'edit')->name('order.edit');
+        Route::put('user/order/{order}', 'update')->name('order.update');        
     });
 
     Route::controller(AgendamentoController::class)->group(function () {

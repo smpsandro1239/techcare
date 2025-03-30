@@ -1,18 +1,16 @@
-@extends('seller.layouts.layout')
+<!-- resources/views/admin/order/history.blade.php -->
+@extends('customer.layouts.layout')
 
-@section('seller_page_title')
-    Gerenciar Produtos
+@section('customer_page_title')
+    Histórico de Agendamentos
 @endsection
 
-@section('seller_layout')
+@section('customer_layout')
 <div class="row">
     <div class="col-12">
         <div class="card shadow-sm border-0">
             <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Todos os Produtos Adicionados por Você</h5>
-                <a href="{{ route('vendor.product.create') }}" class="btn btn-success btn-sm">
-                    <i class="fas fa-plus"></i> Adicionar Novo Produto
-                </a>
+                <h5 class="card-title mb-0">Histórico de Agendamentos</h5>
             </div>
 
             @if (session('message'))
@@ -27,33 +25,40 @@
                         <thead class="table-dark">
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Nome do Produto</th>
-                                <th scope="col">Preço</th>
+                                <th scope="col">Agendamento ID</th>
+                                <th scope="col">Usuário</th>
+                                <th scope="col">Data de Criação</th>
                                 <th scope="col">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($products as $product)
+                            @forelse($orders as $order)
                                 <tr>
-                                    <td>{{ $product->id }}</td>
-                                    <td>{{ Str::limit($product->product_name, 50) }}</td>
-                                    <td>{{ number_format($product->regular_price, 2, ',', '.') }} €</td>
+                                    <td>{{ $order->id }}</td>
+                                    <td>{{ $order->agendamento->id }}</td>
+                                    <td>{{ $order->user->name }}</td>
+                                    <td>{{ $order->created_at->format('d/m/Y H:i') }}</td>
                                     <td>
                                         <div class="btn-group" role="group">
-                                            <!-- Botão Editar -->
-                                            <a href="{{ route('vendor.product.edit', $product->id) }}"
-                                               class="btn btn-info btn-sm">
-                                                <i class="fas fa-edit"></i> Editar
+                                            <!-- Botão Ver -->
+                                            <a href="{{ route('user.order.show', $order->id) }}"
+                                               class="btn btn-primary btn-sm">
+                                                <i class="fas fa-eye"></i> Ver
                                             </a>
+                                              <!-- Botão Editar -->
+                                            <a href="{{ route('user.order.edit', $order->id) }}" 
+                                              class="btn btn-warning btn-sm">
+                                              <i class="fas fa-edit"></i> Editar
+                                             </a>
                                             <!-- Botão Deletar -->
-                                            <form action="{{ route('vendor.product.destroy', $product->id) }}"
+                                            <form action="{{ route('user.order.destroy', $order->id) }}"
                                                   method="POST"
                                                   style="display: inline-block;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
                                                         class="btn btn-danger btn-sm"
-                                                        onclick="return confirm('Tem certeza que deseja deletar este produto?')">
+                                                        onclick="return confirm('Tem certeza que deseja deletar este agendamento?')">
                                                     <i class="fas fa-trash-alt"></i> Deletar
                                                 </button>
                                             </form>
@@ -62,8 +67,8 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="text-center text-muted py-4">
-                                        Nenhum produto encontrado.
+                                    <td colspan="5" class="text-center text-muted py-4">
+                                        Nenhum agendamento encontrado.
                                     </td>
                                 </tr>
                             @endforelse
@@ -73,9 +78,9 @@
             </div>
 
             <!-- Paginação (se aplicável) -->
-            @if ($products instanceof \Illuminate\Pagination\LengthAwarePaginator)
+            @if ($orders instanceof \Illuminate\Pagination\LengthAwarePaginator)
                 <div class="card-footer bg-light">
-                    {{ $products->links('pagination::bootstrap-5') }}
+                    {{ $orders->links('pagination::bootstrap-5') }}
                 </div>
             @endif
         </div>
@@ -94,15 +99,15 @@
 
     .table th, .table td {
         vertical-align: middle;
-        background: transparent !important; /* Remove qualquer fundo das células */
+        background: transparent !important;
     }
 
     .table tbody tr {
-        background: transparent !important; /* Remove o fundo das linhas */
+        background: transparent !important;
     }
 
     .table tbody tr:hover {
-        background-color: #333 !important; /* Cor de fundo ao passar o mouse */
+        background-color: #333 !important;
     }
 
     .btn-group .btn {
@@ -124,7 +129,6 @@
         color: #fff !important;
     }
 
-    /* Ajuste para o texto da mensagem "Nenhum produto encontrado" */
     .text-muted {
         color: #bbb !important;
     }

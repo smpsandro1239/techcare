@@ -98,4 +98,44 @@ class AdminMainController extends Controller
         return redirect()->route('admin.order.history')
             ->with('message', 'Agendamento deletado com sucesso!');
     }
+
+    /**
+     * Exibe o formulário para editar um agendamento específico.
+     *
+     * @param  \App\Models\Order  $order
+     * @return \Illuminate\View\View
+     */
+    public function edit(Order $order)
+    {
+        
+
+        // Exibe o formulário de edição
+        return view('admin.order.edit', compact('order'));
+    }
+
+    /**
+     * Atualiza os dados de um agendamento específico.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Order  $order
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, Order $order)
+    {
+
+        // Validação dos dados
+        $request->validate([
+            'scheduled_at' => 'required|date',
+            // Adicione outras validações conforme necessário
+        ]);
+
+        // Atualiza o agendamento
+        $order->update([
+            'scheduled_at' => $request->input('scheduled_at'),
+            // Atualize outros campos conforme necessário
+        ]);
+
+        return redirect()->route('admin.order.history')
+            ->with('message', 'Agendamento atualizado com sucesso!');
+    }
 }
