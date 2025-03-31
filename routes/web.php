@@ -14,7 +14,7 @@ use App\Http\Controllers\Seller\SellerProductController;
 use App\Http\Controllers\Seller\SellerCategoryController;
 use App\Http\Controllers\Seller\SellerSubCategoryController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\ProductCatalog; // Namespace corrigido
+use App\Http\Livewire\ProductCatalog;
 
 // Rotas Públicas
 
@@ -54,6 +54,10 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->n
         Route::post('/admin/agendamentos/{order}/atribuir','assignAgendamento')->name('agendamento.assign');
         Route::post('/admin/agendamentos/{order}/desatribuir', 'unassignAgendamento')->name('agendamento.unassign');
         Route::post('/order/{orderId}/assign', 'assignSeller')->name('order.assign');
+        Route::get('/order/{order}/create-report','createReportForm')->name('order.create.report');
+        Route::post('/order/{order}/generate-report', 'generateReport')->name('order.generate.report');
+        Route::get('/order/{order}/reports', 'viewReports')->name('order.view.reports');
+        Route::delete('/report/{report}', 'destroyReport')->name('report.delete');
     });
 
 
@@ -117,6 +121,11 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])->prefix('vendor')-
         Route::post('/orders/{order}/assign', 'assign')->name('order.assign');
         Route::post('/agendamentos/{agendamento}/unassign','unassign')->name('order.unassign');
         Route::get('assigned-agendamentos', 'assignedAgendamentos')->name('assigned.agendamentos');
+        Route::get('/assigned', 'assignedAgendamentos')->name('order.assigned');
+        Route::get('/order/{order}/create-report','createReportForm')->name('order.create.report');
+        Route::post('/order/{order}/generate-report', 'generateReport')->name('order.generate.report');
+        Route::get('/order/{order}/reports', 'viewReports')->name('order.view.reports');
+        Route::delete('/report/{report}', 'destroyReport')->name('report.delete');
     });
 
 
@@ -172,7 +181,8 @@ Route::middleware(['auth', 'verified', 'rolemanager:customer'])->prefix('user')-
         Route::get('admin/order/{order}', 'show')->name('order.show');
         Route::delete('admin/order/{order}', 'destroy')->name('order.destroy');
         Route::get('user/order/{order}/edit', 'edit')->name('order.edit');
-        Route::put('user/order/{order}', 'update')->name('order.update');        
+        Route::put('user/order/{order}', 'update')->name('order.update');
+        Route::get('/customer/order/{order}/reports', 'showReports')->name('order.reports');    
     });
 
     Route::controller(AgendamentoController::class)->group(function () {

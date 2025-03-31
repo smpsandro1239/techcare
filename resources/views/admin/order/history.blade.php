@@ -10,6 +10,9 @@
         <div class="card shadow-sm border-0">
             <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
                 <h5 class="card-title mb-0">Histórico de Agendamentos</h5>
+                <a href="{{ route('vendor.assigned.agendamentos') }}" class="btn btn-info btn-sm">
+                    <i class="fas fa-check-circle"></i> Agendamentos Atribuídos
+                </a>
             </div>
 
             @if (session('message'))

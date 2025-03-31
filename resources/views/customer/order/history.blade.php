@@ -62,6 +62,11 @@
                                                     <i class="fas fa-trash-alt"></i> Deletar
                                                 </button>
                                             </form>
+                                            <!-- Botão Ver Relatórios -->
+                                            <a href="{{ route('user.order.reports', $order->id) }}" 
+                                               class="btn btn-info btn-sm">
+                                                <i class="fas fa-folder-open"></i> Relatórios
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>

@@ -33,6 +33,10 @@ class Order extends Model
     {
         return $this->belongsTo(User::class, 'seller_id');
     }
+    public function reports()
+    {
+        return $this->hasMany(Report::class);  // Um pedido pode ter muitos relatórios
+    }
     // Defina o formato da data 'scheduled_at' para que seja tratado corretamente como uma data
     protected $dates = [
         'scheduled_at', // 'scheduled_at' será tratado como uma data

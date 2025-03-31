@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Agendamento;
 use App\Models\User;
+use App\Models\Report;
+
 
 class AdminMainController extends Controller
 {
@@ -203,5 +205,44 @@ class AdminMainController extends Controller
         return redirect()->route('admin.order.history')
             ->with('message', 'Vendedor atribuído com sucesso!');
     }
-    
+     // Nova função para gerar o relatório de um agendamento
+     public function generateReport(Request $request, $orderId)
+     {
+         $order = Order::findOrFail($orderId);
+     
+         // Criação do relatório
+         $report = new Report();
+         $report->order_id = $order->id;
+         $report->user_id = auth()->id();
+         $report->content = $request->input('content');
+         $report->save();
+     
+         // Redirecionar com sucesso
+         return redirect()->route('admin.order.history')->with('message', 'Relatório criado com sucesso!');
+     }    
+ 
+     public function createReportForm(Order $order)
+ {
+     return view('admin.reports.create_report', compact('order'));
+ }
+ 
+ public function viewReports(Order $order)
+ {
+     // Buscar os relatórios associados a este pedido
+     $reports = $order->reports;  // Supondo que você tem a relação definida corretamente
+ 
+     return view('admin.reports.view_reports', compact('reports', 'order'));
+ }
+ 
+ public function destroyReport(Report $report)
+ {
+     
+     // Deleta o relatório
+     $report->delete();
+ 
+     // Retorna para a lista de relatórios com uma mensagem de sucesso
+     return redirect()->route('admin.order.view.reports', $report->order_id)
+                      ->with('message', 'Relatório excluído com sucesso!');
+ }
+ 
 }
