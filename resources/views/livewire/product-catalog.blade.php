@@ -1,8 +1,4 @@
-<!-- resources/views/livewire/product-catalog.blade.php -->
-@extends('layouts.app')
-
-@section('content')
-<div class="container py-5">
+<div class="container py-5"> <!-- Elemento raiz único -->
     <div class="row">
         @forelse($products as $product)
             <div class="col-md-4 col-sm-6 mb-4">
@@ -63,70 +59,3 @@
         @endforelse
     </div>
 </div>
-@endsection
-
-@push('styles')
-    <style>
-        .product-card {
-            border-radius: 15px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3) !important;
-        }
-
-        .product-card .card-img-top {
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .product-card .card-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        .product-card .card-text {
-            font-size: 0.95rem;
-            color: #bbb;
-        }
-
-        .product-card .price {
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .product-card .btn-success {
-            padding: 5px 15px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .product-card .btn-success:hover {
-            background-color: #218838;
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 768px) {
-            .product-card .card-img-top {
-                height: 150px;
-            }
-
-            .product-card .card-title {
-                font-size: 1.1rem;
-            }
-
-            .product-card .card-text {
-                font-size: 0.9rem;
-            }
-
-            .product-card .price {
-                font-size: 1rem;
-            }
-        }
-    </style>
-@endpush
