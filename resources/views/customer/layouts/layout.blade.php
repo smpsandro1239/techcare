@@ -156,16 +156,6 @@
               <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Order History</span>
             </a>
 					</li>
-					<li class="sidebar-item{{request()->routeIs('customer.payment')?'active':''}}">
-						<a class="sidebar-link" href="{{route('user.setting.payment')}}">
-              <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Payment</span>
-            </a>
-					</li>
-					<li class="sidebar-item{{request()->routeIs('customer.affiliate')?'active':''}}">
-						<a class="sidebar-link" href="{{route('user.affiliate')}}">
-              <i class="align-middle" data-feather="users"></i> <span class="align-middle">Affiliate</span>
-            </a>
-					</li>
 					
 					</ul>
 			</div>

@@ -176,8 +176,6 @@ Route::middleware(['auth', 'verified', 'rolemanager:customer'])->prefix('user')-
     Route::controller(CustomerMainController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
         Route::get('/order/history', 'order_history')->name('order.history');
-        Route::get('/setting/payment', 'payment')->name('setting.payment');
-        Route::get('/affiliate', 'affiliate')->name('affiliate');
         Route::get('admin/order/{order}', 'show')->name('order.show');
         Route::delete('admin/order/{order}', 'destroy')->name('order.destroy');
         Route::get('user/order/{order}/edit', 'edit')->name('order.edit');

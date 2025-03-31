@@ -1,4 +1,3 @@
-<!-- resources/views/welcome.blade.php -->
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -11,13 +10,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <style>
-        /* Estilo geral do site */
         body {
             background-color: #000;
             color: #ddd;
         }
 
-        /* Rodapé */
         footer {
             position: fixed;
             bottom: 0;
@@ -28,18 +25,15 @@
             padding: 10px 0;
         }
 
-        /* Estilo da Seção de Destaques */
         .features {
             text-align: center;
-            margin-top: 50px;
-            margin-bottom: 50px;
+            margin: 50px 0;
         }
 
         .features h2 {
-            color: #28a745;
+            color: white;
             font-size: 36px;
             margin-bottom: 40px;
-            color: white;
         }
 
         .features .feature-item {
@@ -64,7 +58,6 @@
             color: white;
         }
 
-        /* Imagem de Banner com efeito */
         .banner {
             position: relative;
             width: 100%;
@@ -77,7 +70,6 @@
             object-fit: cover;
         }
 
-        /* Estilo do botão sobre a imagem */
         .banner-button {
             position: absolute;
             bottom: 30px;
@@ -90,7 +82,8 @@
             border: none;
             border-radius: 30px;
             text-transform: uppercase;
-            width: auto;
+            text-decoration: none;
+            display: inline-block;
             text-align: center;
         }
 
@@ -99,18 +92,16 @@
             color: white;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-decoration: none;
         }
 
-        /* Responsividade */
         @media (max-width: 768px) {
             .banner-button {
                 font-size: 1rem;
                 padding: 12px 25px;
-                width: auto;
             }
         }
 
-        /* Animação para o logo techicon */
         .techicon-logo {
             opacity: 0;
             animation: fadeIn 2s ease-out forwards;
@@ -131,21 +122,17 @@
     @livewireStyles
 </head>
 <body>
-    <!-- Incluir a navbar parcial -->
     @include('layouts.partials.navbar')
 
-    <!-- Imagem Tech Care Logo com animação -->
     <div class="container-fluid p-0 techicon-logo">
         <img src="{{ asset('admin_asset/img/techicon.png') }}" alt="Tech Care Logo">
     </div>
 
-    <!-- Banner com imagem e botão -->
     <div class="banner">
         <img src="{{ asset('admin_asset/img/banner2.png') }}" alt="Banner da Loja">
         <a href="{{ auth()->check() ? route('agendamento.create') : route('login') }}" class="banner-button">Agende Agora</a>
     </div>
 
-    <!-- Seção de Destaques -->
     <div class="features">
         <h2>Porque Escolher-nos?</h2>
         <div class="feature-item">
@@ -165,12 +152,10 @@
         </div>
     </div>
 
-    <!-- Rodapé -->
     <footer>
         © {{ date('Y') }} Tech Care - Todos os direitos reservados.
     </footer>
 
-    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
