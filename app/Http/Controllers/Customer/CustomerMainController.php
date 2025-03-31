@@ -123,5 +123,15 @@ class CustomerMainController extends Controller
         return redirect()->route('user.order.history')
             ->with('message', 'Agendamento atualizado com sucesso!');
     }
-    
+    public function showReports($orderId)
+    {
+        // Verifica se o agendamento pertence ao cliente logado
+        $order = Order::where('id', $orderId)->where('user_id', auth()->id())->firstOrFail();
+        
+        // Obtém os relatórios relacionados a esse agendamento
+        $reports = $order->reports()->paginate(10);
+
+        return view('customer.order.reports', compact('order', 'reports'));
+    }
 }
+

@@ -1,7 +1,7 @@
 <!-- resources/views/admin/order/history.blade.php -->
 @extends('seller.layouts.layout')
 
-@section('customer_page_title')
+@section('seller_page_title')
     Histórico de Agendamentos
 @endsection
 
@@ -11,6 +11,9 @@
         <div class="card shadow-sm border-0">
             <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
                 <h5 class="card-title mb-0">Histórico de Agendamentos</h5>
+                <a href="{{ route('vendor.assigned.agendamentos') }}" class="btn btn-info btn-sm">
+                    <i class="fas fa-check-circle"></i> Agendamentos Atribuídos
+                </a>
             </div>
 
             @if (session('message'))
@@ -62,6 +65,31 @@
                                                     <i class="fas fa-trash-alt"></i> Deletar
                                                 </button>
                                             </form>
+                                               <!-- Atribuir Agendamento ao Vendedor -->
+                                               @if (!$order->seller_id)
+                                                <form action="{{ route('vendor.order.assign', $order->id) }}" 
+                                                      method="POST"
+                                                      style="display: inline-block;">
+                                                    @csrf
+                                                    <button type="submit"
+                                                            class="btn btn-success btn-sm"
+                                                            onclick="return confirm('Deseja se atribuir a este agendamento?')">
+                                                        <i class="fas fa-user-check"></i> Atribuir-me
+                                                    </button>
+                                                </form>
+                                            @elseif($order->seller_id == auth()->id())
+                                                <!-- Desatribuir Agendamento -->
+                                                <form action="{{ route('vendor.order.unassign', $order->id) }}" 
+                                                      method="POST"
+                                                      style="display: inline-block;">
+                                                    @csrf
+                                                    <button type="submit"
+                                                            class="btn btn-danger btn-sm"
+                                                            onclick="return confirm('Deseja desatribuir-se deste agendamento?')">
+                                                        <i class="fas fa-user-times"></i> Desatribuir
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>

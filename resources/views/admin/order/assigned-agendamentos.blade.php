@@ -1,16 +1,16 @@
-<!-- resources/views/admin/order/history.blade.php -->
-@extends('customer.layouts.layout')
+<!-- resources/views/seller/order/assigned-agendamentos.blade.php -->
+@extends('admin.layouts.layout')
 
-@section('customer_page_title')
-    Histórico de Agendamentos
+@section('admin_page_title')
+    Agendamentos Atribuídos
 @endsection
 
-@section('customer_layout')
+@section('admin_layout')
 <div class="row">
     <div class="col-12">
         <div class="card shadow-sm border-0">
             <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Histórico de Agendamentos</h5>
+                <h5 class="card-title mb-0">Agendamentos Atribuídos</h5>
             </div>
 
             @if (session('message'))
@@ -41,39 +41,40 @@
                                     <td>
                                         <div class="btn-group" role="group">
                                             <!-- Botão Ver -->
-                                            <a href="{{ route('user.order.show', $order->id) }}"
+                                            <a href="{{ route('admin.order.show', $order->id) }}"
                                                class="btn btn-primary btn-sm">
                                                 <i class="fas fa-eye"></i> Ver
                                             </a>
-                                              <!-- Botão Editar -->
-                                            <a href="{{ route('user.order.edit', $order->id) }}" 
-                                              class="btn btn-warning btn-sm">
-                                              <i class="fas fa-edit"></i> Editar
-                                             </a>
-                                            <!-- Botão Deletar -->
-                                            <form action="{{ route('user.order.destroy', $order->id) }}"
+                                            <!-- Botão Desatribuir -->
+                                            <form action="{{ route('admin.order.unassign', $order->id) }}" 
                                                   method="POST"
                                                   style="display: inline-block;">
                                                 @csrf
-                                                @method('DELETE')
                                                 <button type="submit"
                                                         class="btn btn-danger btn-sm"
-                                                        onclick="return confirm('Tem certeza que deseja deletar este agendamento?')">
-                                                    <i class="fas fa-trash-alt"></i> Deletar
+                                                        onclick="return confirm('Deseja desatribuir-se deste agendamento?')">
+                                                    <i class="fas fa-user-times"></i> Desatribuir
                                                 </button>
                                             </form>
+                                            <form action="{{ route('admin.order.create.report', $order->id) }}" method="GET" style="display: inline-block;">
+    @csrf
+    <button type="submit" class="btn btn-info btn-sm">
+        <i class="fas fa-file-alt"></i> Criar Relatório
+    </button>
+</form>
+
                                             <!-- Botão Ver Relatórios -->
-                                            <a href="{{ route('user.order.reports', $order->id) }}" 
-                                               class="btn btn-info btn-sm">
-                                                <i class="fas fa-folder-open"></i> Relatórios
+                                            <a href="{{ route('admin.order.view.reports', $order->id) }}" class="btn btn-success btn-sm">
+                                                <i class="fas fa-folder-open"></i> Ver Relatórios
                                             </a>
+
                                         </div>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
                                     <td colspan="5" class="text-center text-muted py-4">
-                                        Nenhum agendamento encontrado.
+                                        Nenhum agendamento atribuído encontrado.
                                     </td>
                                 </tr>
                             @endforelse
