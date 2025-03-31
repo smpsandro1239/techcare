@@ -4,12 +4,12 @@
 <div class="container">
     <h2 class="text-light">Resultados da Pesquisa</h2>
     
-    @if ($produtos->isEmpty())
-        <p class="text-warning">Nenhum produto encontrado.</p>
+    @if ($products->isEmpty())
+    <p class="text-warning">Nenhum produto encontrado.</p>
     @else
         <div class="row">
-            @foreach ($produtos as $produto)
-                <div class="col-md-4 mb-4">
+        @foreach ($products as $produto)
+        <div class="col-md-4 mb-4">
                     <div class="card bg-dark text-light border-0 shadow-lg" style="border-radius: 10px;">
                         <!-- Imagem do Produto -->
                         @if($produto->images->isNotEmpty())
@@ -42,9 +42,8 @@
                                 {{ Str::limit($produto->description, 100) }}
                             </p>
 
-                            <!-- Botão de Compra -->
                             <div class="d-flex justify-content-between align-items-center">
-                                <a href="{{ route('product.show', $produto->id) }}" class="btn btn-success">Ver Detalhes</a>
+                            <a href="{{ route('product.show', $produto->slug) }}" class="btn btn-success btn-sm">Ver Detalhes</a>
                             </div>
                         </div>
                     </div>

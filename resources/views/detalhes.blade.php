@@ -118,13 +118,13 @@
                 <div class="col-md-10">
                     <div class="card product-card">
                         <!-- Carrossel de Imagens -->
-                        @if($produto->images->isNotEmpty())
+                        @if($product->images->isNotEmpty())
                             <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-inner">
-                                    @foreach($produto->images as $index => $image)
+                                    @foreach($product->images as $index => $image)
                                         <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                                             <img src="{{ asset('storage/' . $image->img_path) }}" 
-                                                 alt="{{ $produto->product_name }}" 
+                                                 alt="{{ $product->product_name }}" 
                                                  class="d-block w-100">
                                         </div>
                                     @endforeach
@@ -145,25 +145,17 @@
                         @endif
 
                         <div class="card-body">
-                            <h3 class="card-title">{{ $produto->product_name }}</h3>
+                            <h3 class="card-title">{{ $product->product_name }}</h3>
 
                             <p class="card-text">
-                                <strong>Categoria:</strong> {{ optional($produto->category)->name ?? 'Sem categoria' }}<br>
-                                <strong>Subcategoria:</strong> {{ optional($produto->subcategory)->name ?? 'Sem subcategoria' }}<br>
-                                <strong>Preço Regular:</strong> {{ number_format($produto->regular_price, 2, '.', ' ') }}<br> <!-- Corrigido formato -->
-                                <strong>Descrição:</strong> {{ $produto->description ?? 'Sem descrição disponível.' }}<br>
+                                <strong>Categoria:</strong> {{ optional($product->category)->name ?? 'Sem categoria' }}<br>
+                                <strong>Subcategoria:</strong> {{ optional($product->subcategory)->name ?? 'Sem subcategoria' }}<br>
+                                <strong>Preço Regular:</strong> {{ number_format($product->regular_price, 2, '.', ' ') }}<br> <!-- Corrigido formato -->
+                                <strong>Descrição:</strong> {{ $product->description ?? 'Sem descrição disponível.' }}<br>
                             </p>
 
                             <div class="d-flex justify-content-between align-items-center mt-4">
-                                <div>
-                                    <a href="{{ route('admin.product.edit', $produto->id) }}" class="btn btn-success btn-action">Editar Produto</a>
-                                    <form action="{{ route('admin.product.destroy', $produto->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-action" onclick="return confirm('Tem certeza que deseja excluir este produto?')">Excluir Produto</button>
-                                    </form>
-                                </div>
-                                <a href="{{ route('admin.product.index') }}" class="btn btn-secondary btn-action">Voltar</a>
+                                <a href="{{ route('home') }}" class="btn btn-secondary btn-action">Voltar</a>
                             </div>
                         </div>
                     </div>

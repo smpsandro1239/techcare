@@ -139,4 +139,43 @@ class ProductController extends Controller
             return redirect()->back()->withErrors(['error' => 'Erro ao deletar o produto: ' . $e->getMessage()]);
         }
     }
+    public function procurar(Request $request)
+{
+    $searchTerm = $request->input('search_term'); // A variável que armazena o termo de busca
+
+    // Verifica se há um termo de pesquisa
+    if ($searchTerm) {
+        $products = Product::where('product_name', 'like', '%' . $searchTerm . '%')
+            ->orWhereHas('category', function($query) use ($searchTerm) {
+                $query->where('category_name', 'like', '%' . $searchTerm . '%');
+            })
+            ->orWhereHas('subcategory', function($query) use ($searchTerm) {
+                $query->where('subcategory_name', 'like', '%' . $searchTerm . '%');
+            })
+            ->with(['images', 'category', 'subcategory'])
+            ->get();
+    } else {
+        // Se não houver termo de pesquisa, retorna todos os produtos
+        $products = Product::with(['images', 'category', 'subcategory'])->get();
+    }
+
+    // Retorna os resultados para a view 'resultados.blade.php'
+    return view('resultados', compact('products'));
+}
+
+
+public function show($slug)
+{
+    // Encontra o produto pelo slug
+    $product = Product::where('slug', $slug)->with(['images', 'category', 'subcategory'])->first();
+
+    // Verifica se o produto foi encontrado
+    if (!$product) {
+        abort(404); // Se o produto não for encontrado, retorna um erro 404
+    }
+
+    return view('detalhes', compact('product')); // Retorna a view com o produto
+}
+
+
 }
