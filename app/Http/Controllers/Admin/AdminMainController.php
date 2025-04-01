@@ -245,4 +245,15 @@ class AdminMainController extends Controller
                       ->with('message', 'Relatório excluído com sucesso!');
  }
  
+ public function assignedAgendamentos()
+{
+    // Busca todos os agendamentos atribuídos a vendedores
+    $orders = Order::whereNotNull('seller_id') // Apenas pedidos atribuídos
+        ->with(['user', 'agendamento', 'seller']) // Carrega relações
+        ->orderBy('created_at', 'desc')
+        ->paginate(10); 
+
+    return view('admin.order.assigned-agendamentos', compact('orders'));
+}
+
 }

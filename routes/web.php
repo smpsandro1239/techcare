@@ -23,7 +23,7 @@ Route::get('/', function () {
 })->name('home');
 
 // Catálogo e Produtos
-Route::get('/catalogo', ProductCatalog::class)->name('catalogo');
+Route::get('/catalogo', ProductCatalog::class,)->name('catalogo');
 Route::get('/product/procurar', [ProductController::class, 'procurar'])->name('product.procurar');
 Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');
 
@@ -42,22 +42,22 @@ Route::prefix('agendamento')->name('agendamento.')->group(function () {
 Route::middleware(['auth', 'verified', 'rolemanager:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::controller(AdminMainController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
-        Route::get('/settings', 'setting')->name('settings');
-        Route::get('/manage/users', 'manage_user')->name('manage.user');
-        Route::get('/manage/stores', 'manage_stores')->name('manage.store');
-        Route::get('/cart/history', 'cart_history')->name('cart.history');
         Route::get('/order/history', 'order_history')->name('order.history');
-        Route::get('admin/order/{order}', 'show')->name('order.show');
-        Route::delete('admin/order/{order}', 'destroy')->name('order.destroy'); // Rota para deletar um agendamento
-        Route::get('admin/order/{order}/edit', 'edit')->name('order.edit');
-        Route::put('admin/order/{order}', 'update')->name('order.update');
-        Route::post('/admin/agendamentos/{order}/atribuir','assignAgendamento')->name('agendamento.assign');
-        Route::post('/admin/agendamentos/{order}/desatribuir', 'unassignAgendamento')->name('agendamento.unassign');
-        Route::post('/order/{orderId}/assign', 'assignSeller')->name('order.assign');
+        Route::get('/order/{order}', 'show')->name('order.show');
+        Route::delete('/order/{order}', 'destroy')->name('order.destroy'); 
+        Route::get('/order/{order}/edit', 'edit')->name('order.edit');
+        Route::put('/order/{order}', 'update')->name('order.update');
+        Route::post('/orders/{order}/assign', 'assign')->name('order.assign');
+        Route::post('/agendamentos/{agendamento}/unassign','unassign')->name('order.unassign');
+        Route::get('assigned-agendamentos', 'assignedAgendamentos')->name('assigned.agendamentos');
+        Route::get('/assigned', 'assignedAgendamentos')->name('order.assigned');
         Route::get('/order/{order}/create-report','createReportForm')->name('order.create.report');
         Route::post('/order/{order}/generate-report', 'generateReport')->name('order.generate.report');
         Route::get('/order/{order}/reports', 'viewReports')->name('order.view.reports');
         Route::delete('/report/{report}', 'destroyReport')->name('report.delete');
+        Route::post('/admin/agendamentos/{order}/atribuir','assignAgendamento')->name('agendamento.assign');
+        Route::post('/admin/agendamentos/{order}/desatribuir', 'unassignAgendamento')->name('agendamento.unassign');
+     
     });
 
 
