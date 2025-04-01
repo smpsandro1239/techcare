@@ -22,11 +22,14 @@ class CategorySubcategory extends Component
         $this->categoryId = $categoryId;
         $this->subcategoryId = $subcategoryId;
 
+        // Inicializa como coleção vazia
         $this->subcategories = collect([]);
 
+        // Define os valores iniciais
         $this->selectedCategory = old('category_id', $this->categoryId);
-        $this->selectedSubcategory = old('subcategory_id', $this->subcategoryId) ?? null;
+        $this->selectedSubcategory = old('subcategory_id', $this->subcategoryId) ?? null; // Preserva o valor inicial
 
+        // Carrega subcategorias iniciais se houver categoria
         if ($this->selectedCategory) {
             $this->loadSubcategories();
         }
@@ -42,6 +45,7 @@ class CategorySubcategory extends Component
     {
         if ($this->selectedCategory) {
             $this->subcategories = Subcategory::where('category_id', $this->selectedCategory)->get();
+            // Só reseta $selectedSubcategory se o valor atual não for válido
             if ($this->selectedSubcategory && !$this->subcategories->contains('id', $this->selectedSubcategory)) {
                 $this->selectedSubcategory = null;
             }
@@ -53,6 +57,7 @@ class CategorySubcategory extends Component
 
     public function render()
     {
+        // Garante que $subcategories seja uma coleção
         if (!($this->subcategories instanceof Collection)) {
             $this->subcategories = collect($this->subcategories);
         }
