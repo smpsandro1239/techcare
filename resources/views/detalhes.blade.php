@@ -1,166 +1,44 @@
-@extends('layouts.app')
-
-@section('title', 'Detalhes do Produto')
-
-@section('styles')
-    <style>
-        .product-details {
-            padding: 3rem 0;
-            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
-        }
-
-        .product-card {
-            background-color: #222;
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        .product-card .carousel-item img {
-            height: 400px;
-            object-fit: cover;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-        }
-
-        .product-card .card-body {
-            padding: 2rem;
-        }
-
-        .product-card .card-title {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #28a745;
-            margin-bottom: 1.5rem;
-        }
-
-        .product-card .card-text {
-            font-size: 1.1rem;
-            color: #bbb;
-            margin-bottom: 1rem;
-        }
-
-        .product-card .price {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #28a745;
-        }
-
-        .product-card .discounted-price {
-            font-size: 1.2rem;
-            color: #dc3545;
-            text-decoration: line-through;
-            margin-left: 1rem;
-        }
-
-        .product-card .stock-status {
-            font-size: 1rem;
-            font-weight: bold;
-            padding: 5px 10px;
-            border-radius: 20px;
-        }
-
-        .stock-status.in-stock {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .stock-status.out-of-stock {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .stock-status.pre-order {
-            background-color: #ffc107;
-            color: black;
-        }
-
-        .product-card .btn-action {
-            padding: 10px 20px;
-            font-size: 1rem;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .product-card .btn-action:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.5);
-        }
-
-        @media (max-width: 768px) {
-            .product-card .carousel-item img {
-                height: 250px;
-            }
-
-            .product-card .card-title {
-                font-size: 1.5rem;
-            }
-
-            .product-card .card-text {
-                font-size: 1rem;
-            }
-
-            .product-card .price {
-                font-size: 1.2rem;
-            }
-
-            .product-card .discounted-price {
-                font-size: 1rem;
-            }
-        }
-    </style>
-@endsection
+@extends('layouts.app') {{-- Usa o layout principal --}}
 
 @section('content')
-    <div class="product-details">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-10">
-                    <div class="card product-card">
-                        <!-- Carrossel de Imagens -->
-                        @if($product->images->isNotEmpty())
-                            <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    @foreach($product->images as $index => $image)
-                                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                            <img src="{{ asset('storage/' . $image->img_path) }}" 
-                                                 alt="{{ $product->product_name }}" 
-                                                 class="d-block w-100">
-                                        </div>
-                                    @endforeach
-                                </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Anterior</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Próximo</span>
-                                </button>
-                            </div>
-                        @else
-                            <img src="https://via.placeholder.com/600x400" 
-                                 alt="Imagem indisponível" 
-                                 class="card-img-top">
-                        @endif
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card bg-dark text-light border-0 shadow-lg" style="border-radius: 10px;">
+                
+                {{-- Imagem do Produto --}}
+                @if($product->images->isNotEmpty())
+                    <img src="{{ asset('storage/' . $product->images->first()->img_path) }}" 
+                         alt="{{ $product->product_name }}" 
+                         class="card-img-top" 
+                         style="border-top-left-radius: 10px; border-top-right-radius: 10px; height: 350px; object-fit: cover;">
+                @else
+                    <img src="https://via.placeholder.com/300x200" 
+                         alt="Imagem indisponível" 
+                         class="card-img-top" 
+                         style="border-top-left-radius: 10px; border-top-right-radius: 10px; height: 350px; object-fit: cover;">
+                @endif
 
-                        <div class="card-body">
-                            <h3 class="card-title">{{ $product->product_name }}</h3>
+                <div class="card-body">
+                    <h3 class="card-title text-success">{{ $product->product_name }}</h3>
 
-                            <p class="card-text">
-                                <strong>Categoria:</strong> {{ optional($product->category)->name ?? 'Sem categoria' }}<br>
-                                <strong>Subcategoria:</strong> {{ optional($product->subcategory)->name ?? 'Sem subcategoria' }}<br>
-                                <strong>Preço Regular:</strong> {{ number_format($product->regular_price, 2, '.', ' ') }}<br> <!-- Corrigido formato -->
-                                <strong>Descrição:</strong> {{ $product->description ?? 'Sem descrição disponível.' }}<br>
-                            </p>
+                    <p class="card-text text-white">
+                        <strong>Categoria:</strong> {{ optional($product->category)->category_name ?? 'Sem categoria' }}<br>
+                        <strong>Subcategoria:</strong> {{ optional($product->subcategory)->subcategory_name ?? 'Sem subcategoria' }}<br>
+                        {{-- Removido o trecho de exibição de loja --}}
+                    </p>
 
-                            <div class="d-flex justify-content-between align-items-center mt-4">
-                                <a href="{{ route('home') }}" class="btn btn-secondary btn-action">Voltar</a>
-                            </div>
-                        </div>
+                    <p class="text-white">{{ $product->description }}</p> <!-- Alterado para text-white -->
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="text-warning" style="font-size: 1.5rem; font-weight: bold;">
+                            {{ $product->regular_price }}€
+                        </p>
+                        <a href="{{ route('home') }}"  class="btn btn-success">Voltar</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection

@@ -23,7 +23,7 @@ Route::get('/', function () {
 })->name('home');
 
 // Catálogo e Produtos
-Route::get('/catalogo', ProductCatalog::class,)->name('catalogo');
+Route::get('/catalogo', ProductCatalog::class)->name('catalogo');
 Route::get('/product/procurar', [ProductController::class, 'procurar'])->name('product.procurar');
 Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');
 

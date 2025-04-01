@@ -1,7 +1,7 @@
 <!-- resources/views/livewire/product-catalog.blade.php -->
 <div> <!-- Tag raiz única para o componente -->
     <div class="container py-5">
-        <h2 class="text-white">Produtos encontrados: {{ count($products) }}</h2>
+        <h2 class="text-white">Produtos Disponiveis: {{ count($products) }}</h2>
 
         <div class="row">
             @forelse($products as $product)
@@ -25,7 +25,6 @@
                             <p class="card-text text-white">
                                 <strong>Categoria:</strong> {{ optional($product->category)->category_name ?? 'Sem categoria' }}<br>
                                 <strong>Subcategoria:</strong> {{ optional($product->subcategory)->subcategory_name ?? 'Sem subcategoria' }}<br>
-                                <strong>Vendedor:</strong> {{ optional($product->seller)->name ?? 'Sem vendedor' }}<br>
                             </p>
 
                             <div class="d-flex justify-content-between align-items-center">
