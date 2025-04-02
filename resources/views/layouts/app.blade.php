@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Tech Care')</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+    <!-- Bootstrap 5 CSS (atualizado para a mesma versão de welcome.blade.php) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome (adicionado para ícones na navbar) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- AOS CSS (mantido para animações) -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         /* Estilo geral do site */
@@ -61,73 +65,33 @@
     @livewireStyles
 </head>
 <body>
-     <!-- Incluir a navbar parcial -->
-     @include('layouts.partials.navbar')
+    <!-- Incluir a navbar parcial (removida a navbar duplicada) -->
+    @include('layouts.partials.navbar')
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand text-success" href="{{ url('/') }}">Tech Care</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mx-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('/') }}">Início</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('catalogo') }}">Catálogo</a>
-            </li>
-            
-<li class="nav-item">
-    <a class="nav-link" href="{{ 
-        auth()->check() 
-        ? (auth()->user()->role == 1 
-            ? route('admin.agendamento.create') 
-            : (auth()->user()->role == 2 
-                ? route('vendor.agendamento.create') 
-                : (auth()->user()->role == 3 
-                    ? route('user.agendamento.create') 
-                    : '#')
-            )
-        ) 
-        : '#' 
-    }}">Agendar reparação</a>
-</li>
-
-
-        </ul>
-        <form class="form-inline mx-auto" action="{{ route('product.procurar') }}" method="GET">
-    <input class="form-control mr-sm-2" type="search" placeholder="Procurar" name="search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Procurar</button>
-</form>
-
+    <!-- Conteúdo Dinâmico -->
+    <div class="container mt-5 mb-5">
+        @yield('content')
     </div>
-</nav>
 
+    <!-- Rodapé -->
+    <footer>
+        © {{ date('Y') }} Tech Care - Todos os direitos reservados.
+    </footer>
 
-<!-- Conteúdo Dinâmico -->
-<div class="container mt-5 mb-5">
-    @yield('content')
-</div>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <!-- Bootstrap 5 JS (atualizado para a mesma versão de welcome.blade.php) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS JS (mantido para animações) -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000, // Duração da animação
+            easing: 'ease-in-out', // Efeito de suavização
+        });
+    </script>
 
-<!-- Rodapé -->
-<footer>
-    &copy; {{ date('Y') }} Tech Care - Todos os direitos reservados.
-</footer>
-
-<!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
-<script>
-  AOS.init({
-    duration: 1000, // Duração da animação
-    easing: 'ease-in-out', // Efeito de suavização
-  });
-</script>
-
-@livewireScripts
+    @livewireScripts
 </body>
 </html>

@@ -4,9 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agendamento</title>
-    
-    <!-- Bootstrap CSS -->
+
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome (adicionado para ícones na navbar) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- FullCalendar CSS -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
     <!-- SweetAlert2 -->
@@ -50,6 +52,8 @@
             color: white !important;
         }
     </style>
+
+    @livewireStyles
 </head>
 <body>
     @include('layouts.partials.navbar')
@@ -96,7 +100,9 @@
         </form>
     </div>
 
-    <!-- Bootstrap JS e FullCalendar JS -->
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
     <script>
@@ -104,7 +110,7 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
-            
+
             // Instanciar o calendário
             calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
@@ -142,7 +148,7 @@
                     }
                 }
             });
-            
+
             calendar.render(); // Renderizar o calendário
         });
 
@@ -158,7 +164,7 @@
             document.getElementById('selectedDate').value = dateStr;
             var modal = document.getElementById('eventModal');
             modal.style.display = 'block';
-            
+
             // Preencher o select de horários
             populateHorarios(dateStr);
         }
@@ -202,5 +208,7 @@
             });
         }
     </script>
+
+    @livewireScripts
 </body>
 </html>
