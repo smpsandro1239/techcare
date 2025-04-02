@@ -4,7 +4,7 @@
     Criar Relatório
 @endsection
 
-@section('seller_layout')
+@section('admin_layout')
 <div class="row">
     <div class="col-12">
         <div class="card shadow-sm border-0">
