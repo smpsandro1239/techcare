@@ -25,7 +25,7 @@
         </div>
 
         <div class="mb-3">
-            <label>Número de Telefone</label>
+            <label>Número de Telemovel</label>
             <input type="text" name="phone" class="form-control" value="{{ old('phone', $user->phone) }}">
             @error('phone')
                 <div class="text-danger">{{ $message }}</div>
