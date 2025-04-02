@@ -99,10 +99,18 @@ class AdminMainController extends Controller
      */
     public function destroy(Order $order)
     {
+        // Verifica se o pedido tem um agendamento associado e exclui
+        if ($order->agendamento) {
+            $order->agendamento->delete();
+        }
+    
+        // Exclui o pedido
         $order->delete();
+    
         return redirect()->route('admin.order.history')
-            ->with('message', 'Agendamento deletado com sucesso!');
+            ->with('message', 'Ordem e agendamento cancelados com sucesso!');
     }
+    
 
     /**
      * Exibe o formulário para editar um agendamento específico.

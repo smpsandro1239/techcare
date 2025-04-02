@@ -79,11 +79,19 @@ class CustomerMainController extends Controller
             return redirect()->route('user.order.history')
                 ->with('error', 'Você não tem permissão para cancelar este agendamento.');
         }
-        
+    
+        // Verifica se há um agendamento associado e exclui
+        if ($order->agendamento) {
+            $order->agendamento->delete();
+        }
+    
+        // Exclui a ordem
         $order->delete();
+    
         return redirect()->route('user.order.history')
-            ->with('message', 'Agendamento cancelado com sucesso!');
+            ->with('message', 'Agendamento e ordem cancelados com sucesso!');
     }
+    
 /**
      * Exibe o formulário para editar um agendamento específico.
      *

@@ -57,12 +57,19 @@ class SellerMainController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Order $order)
-    {
-
-        $order->delete();
-        return redirect()->route('vendor.order.history')
-            ->with('message', 'Ordem cancelada com sucesso!');
+{
+    // Verifica se o pedido tem um agendamento associado e exclui
+    if ($order->agendamento) {
+        $order->agendamento->delete();
     }
+
+    // Exclui o pedido
+    $order->delete();
+
+    return redirect()->route('vendor.order.history')
+        ->with('message', 'Ordem e agendamento cancelados com sucesso!');
+}
+
 
     /**
      * Exibe o formulário para editar uma ordem específica.
