@@ -1,8 +1,6 @@
 <!-- resources/views/livewire/product-catalog.blade.php -->
 <div> <!-- Tag raiz única para o componente -->
     <div class="container py-5">
-        <h2 class="text-white">Produtos Disponiveis: {{ count($products) }}</h2>
-
         <div class="row">
             @forelse($products as $product)
                 <div class="col-md-4 col-sm-6 mb-4">
