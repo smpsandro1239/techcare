@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Agendamento;
 use App\Models\User;
+use Carbon\Carbon;
+
 
 class CustomerMainController extends Controller
 {
@@ -114,23 +116,31 @@ class CustomerMainController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Order $order)
-    {
+{
+    $request->validate([
+        'scheduled_at' => 'required|date',
+    ]);
 
-        // Validação dos dados
-        $request->validate([
-            'scheduled_at' => 'required|date',
-            // Adicione outras validações conforme necessário
+    // Converte o horário recebido para o formato correto com o fuso horário
+    $scheduledAt = Carbon::parse($request->input('scheduled_at'))->setTimezone(config('app.timezone'));
+
+    // Atualiza o campo scheduled_at da tabela orders
+    $order->update([
+        'scheduled_at' => $scheduledAt,
+    ]);
+
+    // Se o pedido tiver um agendamento relacionado, atualiza os campos 'data' e 'hora'
+    if ($order->agendamento) {
+        $order->agendamento->update([
+            'data' => $scheduledAt->format('Y-m-d'), // Atualiza o campo 'data' com a data (sem hora)
+            'hora' => $scheduledAt->format('H:i'),   // Atualiza o campo 'hora' com a hora formatada
         ]);
-
-        // Atualiza o agendamento
-        $order->update([
-            'scheduled_at' => $request->input('scheduled_at'),
-            // Atualize outros campos conforme necessário
-        ]);
-
-        return redirect()->route('user.order.history')
-            ->with('message', 'Agendamento atualizado com sucesso!');
     }
+
+    return redirect()->route('user.order.history')
+        ->with('message', 'Agendamento atualizado com sucesso!');
+}
+
     public function showReports($orderId)
     {
         // Verifica se o agendamento pertence ao cliente logado

@@ -46,7 +46,7 @@
                                                 <i class="fas fa-eye"></i> Ver
                                             </a>
                                             <!-- Botão Desatribuir -->
-                                            <form action="{{ route('admin.order.unassign', $order->id) }}" 
+                                            <form action="{{ route('admin.agendamento.unassign', $order->id) }}" 
                                                   method="POST"
                                                   style="display: inline-block;">
                                                 @csrf
