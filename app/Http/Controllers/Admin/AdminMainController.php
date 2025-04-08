@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Agendamento;
 use App\Models\User;
 use App\Models\Report;
+use Carbon\Carbon;
 
 
 class AdminMainController extends Controller
@@ -135,22 +136,30 @@ class AdminMainController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-
-        // Validação dos dados
         $request->validate([
             'scheduled_at' => 'required|date',
-            // Adicione outras validações conforme necessário
         ]);
-
-        // Atualiza o agendamento
+    
+        // Converte o horário recebido para o formato correto com o fuso horário
+        $scheduledAt = Carbon::parse($request->input('scheduled_at'))->setTimezone(config('app.timezone'));
+    
+        // Atualiza o campo scheduled_at da tabela orders
         $order->update([
-            'scheduled_at' => $request->input('scheduled_at'),
-            // Atualize outros campos conforme necessário
+            'scheduled_at' => $scheduledAt,
         ]);
-
+    
+        // Se o pedido tiver um agendamento relacionado, atualiza os campos 'data' e 'hora'
+        if ($order->agendamento) {
+            $order->agendamento->update([
+                'data' => $scheduledAt->format('Y-m-d'), // Atualiza o campo 'data' com a data (sem hora)
+                'hora' => $scheduledAt->format('H:i'),   // Atualiza o campo 'hora' com a hora formatada
+            ]);
+        }
+    
         return redirect()->route('admin.order.history')
             ->with('message', 'Agendamento atualizado com sucesso!');
     }
+    
     /**
      * Atribui um agendamento a um vendedor.
      *
