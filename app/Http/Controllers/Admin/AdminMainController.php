@@ -8,8 +8,9 @@ use App\Models\Order;
 use App\Models\Agendamento;
 use App\Models\User;
 use App\Models\Report;
+use App\Models\Product;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\DB;
 
 class AdminMainController extends Controller
 {
@@ -20,7 +21,51 @@ class AdminMainController extends Controller
      */
     public function index()
     {
-        return view('admin.admin');
+        // Métricas
+        $numAdmins = User::where('role', 1)->count();
+        $numVendors = User::where('role', 2)->count();
+        $numCustomers = User::where('role', 3)->count();
+        $numProducts = Product::count();
+        $totalProductValue = Product::sum('regular_price');
+        $numAgendamentos = Agendamento::count();
+        $numOrders = Order::count();
+
+        // Dados para o gráfico de pizza (distribuição de usuários)
+        $userDistribution = [
+            'Administradores' => $numAdmins,
+            'Vendedores' => $numVendors,
+            'Clientes' => $numCustomers,
+        ];
+
+        // Dados para o gráfico de agendamentos por mês
+        $agendamentosPorMes = Agendamento::select(
+            DB::raw('MONTH(data) as mes'),
+            DB::raw('COUNT(*) as total')
+        )
+            ->groupBy('mes')
+            ->orderBy('mes')
+            ->pluck('total', 'mes')
+            ->toArray();
+
+        // Preparar labels e dados para o gráfico de agendamentos
+        $meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+        $agendamentosData = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $agendamentosData[] = $agendamentosPorMes[$i] ?? 0;
+        }
+
+        return view('admin.admin', compact(
+            'numAdmins',
+            'numVendors',
+            'numCustomers',
+            'numProducts',
+            'totalProductValue',
+            'numAgendamentos',
+            'numOrders',
+            'userDistribution',
+            'meses',
+            'agendamentosData'
+        ));
     }
 
     /**
@@ -70,9 +115,9 @@ class AdminMainController extends Controller
      */
     public function order_history()
     {
-           // Carregar os vendedores
-    $sellers = User::where('role', '2')->get(); // Aqui você ajusta conforme sua lógica de 'vendedores'
-        
+        // Carregar os vendedores
+        $sellers = User::where('role', '2')->get(); // Aqui você ajusta conforme sua lógica de 'vendedores'
+
         $orders = Order::with(['user', 'agendamento', 'seller'])
             ->orderBy('scheduled_at', 'desc')
             ->paginate(10);
@@ -104,14 +149,14 @@ class AdminMainController extends Controller
         if ($order->agendamento) {
             $order->agendamento->delete();
         }
-    
+
         // Exclui o pedido
         $order->delete();
-    
+
         return redirect()->route('admin.order.history')
             ->with('message', 'Ordem e agendamento cancelados com sucesso!');
     }
-    
+
 
     /**
      * Exibe o formulário para editar um agendamento específico.
@@ -121,8 +166,6 @@ class AdminMainController extends Controller
      */
     public function edit(Order $order)
     {
-        
-
         // Exibe o formulário de edição
         return view('admin.order.edit', compact('order'));
     }
@@ -139,15 +182,15 @@ class AdminMainController extends Controller
         $request->validate([
             'scheduled_at' => 'required|date',
         ]);
-    
+
         // Converte o horário recebido para o formato correto com o fuso horário
         $scheduledAt = Carbon::parse($request->input('scheduled_at'))->setTimezone(config('app.timezone'));
-    
+
         // Atualiza o campo scheduled_at da tabela orders
         $order->update([
             'scheduled_at' => $scheduledAt,
         ]);
-    
+
         // Se o pedido tiver um agendamento relacionado, atualiza os campos 'data' e 'hora'
         if ($order->agendamento) {
             $order->agendamento->update([
@@ -155,11 +198,11 @@ class AdminMainController extends Controller
                 'hora' => $scheduledAt->format('H:i'),   // Atualiza o campo 'hora' com a hora formatada
             ]);
         }
-    
+
         return redirect()->route('admin.order.history')
             ->with('message', 'Agendamento atualizado com sucesso!');
     }
-    
+
     /**
      * Atribui um agendamento a um vendedor.
      *
@@ -197,7 +240,8 @@ class AdminMainController extends Controller
 
         return redirect()->route('admin.order.history')->with('message', 'Agendamento desatribuído com sucesso!');
     }
-     /**
+
+    /**
      * Método para atribuir o vendedor ao agendamento.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -222,55 +266,54 @@ class AdminMainController extends Controller
         return redirect()->route('admin.order.history')
             ->with('message', 'Vendedor atribuído com sucesso!');
     }
-     // Nova função para gerar o relatório de um agendamento
-     public function generateReport(Request $request, $orderId)
-     {
-         $order = Order::findOrFail($orderId);
-     
-         // Criação do relatório
-         $report = new Report();
-         $report->order_id = $order->id;
-         $report->user_id = auth()->id();
-         $report->content = $request->input('content');
-         $report->save();
-     
-         // Redirecionar com sucesso
-         return redirect()->route('admin.order.history')->with('message', 'Relatório criado com sucesso!');
-     }    
- 
-     public function createReportForm(Order $order)
- {
-     return view('admin.reports.create_report', compact('order'));
- }
- 
- public function viewReports(Order $order)
- {
-     // Buscar os relatórios associados a este pedido
-     $reports = $order->reports;  // Supondo que você tem a relação definida corretamente
- 
-     return view('admin.reports.view_reports', compact('reports', 'order'));
- }
- 
- public function destroyReport(Report $report)
- {
-     
-     // Deleta o relatório
-     $report->delete();
- 
-     // Retorna para a lista de relatórios com uma mensagem de sucesso
-     return redirect()->route('admin.order.view.reports', $report->order_id)
-                      ->with('message', 'Relatório excluído com sucesso!');
- }
- 
- public function assignedAgendamentos()
-{
-    // Busca todos os agendamentos atribuídos a vendedores
-    $orders = Order::whereNotNull('seller_id') // Apenas pedidos atribuídos
-        ->with(['user', 'agendamento', 'seller']) // Carrega relações
-        ->orderBy('created_at', 'desc')
-        ->paginate(10); 
 
-    return view('admin.order.assigned-agendamentos', compact('orders'));
-}
+    // Nova função para gerar o relatório de um agendamento
+    public function generateReport(Request $request, $orderId)
+    {
+        $order = Order::findOrFail($orderId);
 
+        // Criação do relatório
+        $report = new Report();
+        $report->order_id = $order->id;
+        $report->user_id = auth()->id();
+        $report->content = $request->input('content');
+        $report->save();
+
+        // Redirecionar com sucesso
+        return redirect()->route('admin.order.history')->with('message', 'Relatório criado com sucesso!');
+    }
+
+    public function createReportForm(Order $order)
+    {
+        return view('admin.reports.create_report', compact('order'));
+    }
+
+    public function viewReports(Order $order)
+    {
+        // Buscar os relatórios associados a este pedido
+        $reports = $order->reports;  // Supondo que você tem a relação definida corretamente
+
+        return view('admin.reports.view_reports', compact('reports', 'order'));
+    }
+
+    public function destroyReport(Report $report)
+    {
+        // Deleta o relatório
+        $report->delete();
+
+        // Retorna para a lista de relatórios com uma mensagem de sucesso
+        return redirect()->route('admin.order.view.reports', $report->order_id)
+            ->with('message', 'Relatório excluído com sucesso!');
+    }
+
+    public function assignedAgendamentos()
+    {
+        // Busca todos os agendamentos atribuídos a vendedores
+        $orders = Order::whereNotNull('seller_id') // Apenas pedidos atribuídos
+            ->with(['user', 'agendamento', 'seller']) // Carrega relações
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('admin.order.assigned-agendamentos', compact('orders'));
+    }
 }
