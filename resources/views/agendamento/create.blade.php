@@ -13,6 +13,8 @@
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Luxon para manipulação de fusos horários -->
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
 
     <style>
         body {
@@ -107,6 +109,7 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
     <script>
         let calendar; // Declarar a variável global de calendário
+        const { DateTime } = luxon; // Usar Luxon para manipulação de fusos horários
 
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
@@ -128,9 +131,35 @@
                     start: '{{ \Carbon\Carbon::today()->toDateString() }}',
                 },
                 eventClick: function(info) {
+                    // Obter a data e hora de início do evento
+                    const startDateTime = new Date(info.event.start);
+                    // Formatar a data e hora para o fuso horário local (Europe/Lisbon)
+                    const formattedStart = startDateTime.toLocaleString('pt-PT', {
+                        timeZone: 'Europe/Lisbon',
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+
+                    // Obter a data e hora de fim (se disponível)
+                    const endDateTime = info.event.end ? new Date(info.event.end) : null;
+                    const formattedEnd = endDateTime ? endDateTime.toLocaleString('pt-PT', {
+                        timeZone: 'Europe/Lisbon',
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    }) : 'Não especificado';
+
+                    // Exibir o popup com data, hora, cliente e serviço
                     Swal.fire({
                         title: 'Detalhes do Agendamento',
-                        html: `<strong>Cliente:</strong> ${info.event.extendedProps.description} <br>
+                        html: `<strong>Data e Hora de Início:</strong> ${formattedStart} <br>
+                               <strong>Data e Hora de Fim:</strong> ${formattedEnd} <br>
+                               <strong>Cliente:</strong> ${info.event.extendedProps.description} <br>
                                <strong>Serviço:</strong> ${info.event.title}`,
                         icon: 'info',
                         confirmButtonText: 'OK'
@@ -146,6 +175,12 @@
                     timeGridDay: {
                         slotDuration: '00:30:00', // Mostrar intervalos de 30 minutos
                     }
+                },
+                timeZone: 'local', // Usar o fuso horário local (já ajustado no backend)
+                eventTimeFormat: {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    meridiem: false
                 }
             });
 
@@ -161,6 +196,7 @@
 
         function openModal(dateStr) {
             // Lógica para abrir o modal e preencher os horários
+            console.log('Data selecionada (info.dateStr):', dateStr);
             document.getElementById('selectedDate').value = dateStr;
             var modal = document.getElementById('eventModal');
             modal.style.display = 'block';
@@ -207,6 +243,27 @@
                 }
             });
         }
+
+        // Converter o horário para UTC antes de enviar o formulário, forçando o fuso horário Europe/Lisbon
+        document.getElementById('agendamentoForm').addEventListener('submit', function(e) {
+            var selectedDate = document.getElementById('selectedDate').value;
+            var selectedHour = document.getElementById('horaSelect').value;
+            // Criar um objeto DateTime com o fuso horário Europe/Lisbon
+            const localDateTime = DateTime.fromFormat(
+                `${selectedDate} ${selectedHour}`,
+                'yyyy-MM-dd HH:mm',
+                { zone: 'Europe/Lisbon' }
+            );
+            // Converter para UTC
+            const utcDateTime = localDateTime.toUTC();
+            // Formatar a data e hora em UTC
+            const utcDate = utcDateTime.toFormat('yyyy-MM-dd');
+            const utcTime = utcDateTime.toFormat('HH:mm');
+            // Atualizar os valores do formulário
+            document.getElementById('selectedDate').value = utcDate;
+            document.getElementById('horaSelect').value = utcTime;
+            console.log('Data e Hora em UTC (enviada):', utcDate, utcTime);
+        });
     </script>
 
     @livewireScripts
