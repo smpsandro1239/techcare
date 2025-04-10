@@ -157,7 +157,6 @@ class AdminMainController extends Controller
             ->with('message', 'Ordem e agendamento cancelados com sucesso!');
     }
 
-
     /**
      * Exibe o formulário para editar um agendamento específico.
      *
@@ -179,12 +178,13 @@ class AdminMainController extends Controller
      */
     public function update(Request $request, Order $order)
     {
+        // Validação para garantir que a data e a hora sejam fornecidas
         $request->validate([
-            'scheduled_at' => 'required|date',
+            'scheduled_at' => 'required|date_format:Y-m-d\TH:i', // Formato do datetime-local
         ]);
 
         // Converte o horário recebido para o formato correto com o fuso horário
-        $scheduledAt = Carbon::parse($request->input('scheduled_at'))->setTimezone(config('app.timezone'));
+        $scheduledAt = Carbon::createFromFormat('Y-m-d\TH:i', $request->input('scheduled_at'), config('app.timezone'));
 
         // Atualiza o campo scheduled_at da tabela orders
         $order->update([
@@ -275,7 +275,7 @@ class AdminMainController extends Controller
         // Criação do relatório
         $report = new Report();
         $report->order_id = $order->id;
-        $report->user_id = auth()->id();
+        $report->user_id = auth()->id;
         $report->content = $request->input('content');
         $report->save();
 

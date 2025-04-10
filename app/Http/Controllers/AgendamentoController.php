@@ -31,9 +31,18 @@ class AgendamentoController extends Controller
 
         // Verificar se a data é um feriado
         $feriados = [
-            '2025-01-01', '2025-04-18', '2025-04-20', '2025-04-25', '2025-05-01',
-            '2025-06-10', '2025-08-15', '2025-10-05', '2025-11-01', '2025-12-01',
-            '2025-12-08', '2025-12-25'
+            '2025-01-01',
+            '2025-04-18',
+            '2025-04-20',
+            '2025-04-25',
+            '2025-05-01',
+            '2025-06-10',
+            '2025-08-15',
+            '2025-10-05',
+            '2025-11-01',
+            '2025-12-01',
+            '2025-12-08',
+            '2025-12-25'
         ];
         if (in_array($request->data, $feriados)) {
             return back()->withErrors(['data' => 'Não é possível agendar para um feriado.']);
@@ -53,11 +62,14 @@ class AgendamentoController extends Controller
             'updated_at' => now(),
         ]);
 
+        // Combinar data e hora para scheduled_at
+        $scheduledAt = Carbon::createFromFormat('Y-m-d H:i', $request->data . ' ' . $request->hora, config('app.timezone'));
+
         // Criar automaticamente uma Order associada ao Agendamento
         Order::create([
             'agendamento_id' => $agendamento->id,
-            'user_id' => Auth::id(), // Associa ao usuário autenticado
-            'scheduled_at' => $agendamento->data, // Usa a data do agendamento
+            'user_id' => Auth::id(),
+            'scheduled_at' => $scheduledAt, // Agora inclui data e hora
         ]);
 
         return redirect()->route('agendamento.index')
