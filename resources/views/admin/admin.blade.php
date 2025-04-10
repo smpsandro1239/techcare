@@ -98,7 +98,7 @@
     </div>
 
     <style>
-        /* Ajuste para garantir que os gráficos tenham o mesmo tamanho */
+        /* Ajuste para  que os gráficos tenham o mesmo tamanho */
         .chart-container {
             background: #1a1a1a !important;
             border-radius: 15px;
@@ -110,7 +110,7 @@
         .chart-wrapper {
             position: relative;
             width: 100%;
-            height: 400px; /* Altura fixa para  os gráficos */
+            height: 400px; /* Altura fixa para os gráficos */
         }
 
         .chart-wrapper canvas {

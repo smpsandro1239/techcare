@@ -138,6 +138,88 @@
             background-color: #333 !important;
             color: white !important;
         }
+
+        /* Estilização dos cards do dashboard */
+        .dashboard-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1) !important; /* Sombra clara para contraste com fundo preto */
+        }
+
+        .dashboard-card .card-header {
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding: 15px;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2)) !important;
+        }
+
+        .dashboard-card .card-body {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dashboard-card .card-title {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .dashboard-card i {
+            font-size: 2rem;
+            opacity: 0.8;
+        }
+
+        /* Estilização dos gráficos */
+        .chart-container {
+            background: #1a1a1a !important; /* Fundo cinza escuro para contraste */
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05) !important;
+            margin-bottom: 20px;
+        }
+
+        .chart-container h4 {
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            color: #fff !important;
+        }
+
+        /* Cores personalizadas para os cards com gradientes */
+        .bg-gradient-primary {
+            background: linear-gradient(45deg, #007bff, #00c4ff) !important;
+        }
+
+        .bg-gradient-success {
+            background: linear-gradient(45deg, #28a745, #34d058) !important;
+        }
+
+        .bg-gradient-info {
+            background: linear-gradient(45deg, #17a2b8, #1ac6e0) !important;
+        }
+
+        .bg-gradient-secondary {
+            background: linear-gradient(45deg, #6c757d, #868e96) !important;
+        }
+
+        .bg-gradient-warning {
+            background: linear-gradient(45deg, #ffc107, #ffca2c) !important;
+        }
+
+        .bg-gradient-danger {
+            background: linear-gradient(45deg, #dc3545, #f14658) !important;
+        }
+
+        .bg-gradient-dark {
+            background: linear-gradient(45deg, #343a40, #4b545c) !important;
+        }
     </style>
 </head>
 
