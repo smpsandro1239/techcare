@@ -1,7 +1,7 @@
 @extends('seller.layouts.layout')
 
 @section('seller_page_title')
-    Gerenciar Produtos
+    Gerir Produtos
 @endsection
 
 @section('seller_layout')
@@ -9,7 +9,7 @@
     <div class="col-12">
         <div class="card shadow-sm border-0">
             <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Todos os Produtos Adicionados por Você</h5>
+                <h5 class="card-title mb-0">Todos os Produtos Adicionados por Si</h5>
                 <a href="{{ route('vendor.product.create') }}" class="btn btn-success btn-sm">
                     <i class="fas fa-plus"></i> Adicionar Novo Produto
                 </a>

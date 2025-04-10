@@ -12,11 +12,11 @@ return new class extends Migration {
             $table->unsignedBigInteger('agendamento_id'); // Adiciona a chave estrangeira para agendamentos
             $table->foreign('agendamento_id')->references('id')->on('agendamentos')->onDelete('cascade'); // Chave estrangeira
             $table->unsignedBigInteger('user_id'); // Exemplo de chave estrangeira para o usuário
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // Chave estrangeira para usuários
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // Chave estrangeira para utilizadores
             $table->timestamps();
         });
     }
-    
+
 
     public function down()
     {

@@ -46,8 +46,8 @@
                     <!-- Dropdown de Usuário -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ auth()->user()->profile_photo ? asset('storage/' . auth()->user()->profile_photo) : asset('images/default-profile.png') }}" 
-                                 alt="Foto de Perfil" class="rounded-circle" width="30" height="30" 
+                            <img src="{{ auth()->user()->profile_photo ? asset('storage/' . auth()->user()->profile_photo) : asset('images/default-profile.png') }}"
+                                 alt="Foto de Perfil" class="rounded-circle" width="30" height="30"
                                  style="object-fit: cover; margin-right: 8px;">
                             <span class="ms-1">{{ auth()->user()->name }}</span>
                         </a>
@@ -60,7 +60,7 @@
                         <li><a class="dropdown-item" href="/perfil"><i class="fas fa-user-circle me-1"></i> Meu Perfil</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
-                                <a class="dropdown-item text-danger" href="{{ route('logout') }}" 
+                                <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <i class="fas fa-sign-out-alt me-1"></i> Sair
                                 </a>
@@ -81,8 +81,8 @@
                                 <li><a class="dropdown-item" href="/admin/dashboard">Dashboard</a></li>
                                 <li><a class="dropdown-item" href="/admin/settings">Configurações</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/admin/manage/users">Gerenciar Usuários</a></li>
-                                <li><a class="dropdown-item" href="/admin/manage/stores">Gerenciar Lojas</a></li>
+                                <li><a class="dropdown-item" href="/admin/manage/users">Gerir Utilizadores</a></li>
+                                <li><a class="dropdown-item" href="/admin/manage/stores">Gerir Lojas</a></li>
                             </ul>
                         </li>
                     @endif
@@ -96,7 +96,7 @@
                             <ul class="dropdown-menu dropdown-menu-dark">
                                 <li><a class="dropdown-item" href="/vendor/dashboard">Dashboard</a></li>
                                 <li><a class="dropdown-item" href="/vendor/product/create">Criar Produto</a></li>
-                                <li><a class="dropdown-item" href="/vendor/product/manage">Gerenciar Produtos</a></li>
+                                <li><a class="dropdown-item" href="/vendor/product/manage">Gerir Produtos</a></li>
                             </ul>
                         </li>
                     @endif

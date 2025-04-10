@@ -1,7 +1,7 @@
 @extends('admin.layouts.layout')
 
 @section('admin_page_title')
-    Gerenciar Produtos
+    Gerir Produtos
 @endsection
 
 @section('admin_layout')

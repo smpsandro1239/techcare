@@ -2,13 +2,13 @@
 
 # Tech Care - Sistema de Agendamento e Gerenciamento de Serviços
 
-Bem-vindo ao **Tech Care**, um sistema web desenvolvido para gerenciar agendamentos de serviços técnicos, como instalação de sistemas operacionais, manutenção de hardware e configuração de redes. Este projeto utiliza o framework Laravel, FullCalendar para a interface de agendamento, e oferece um ambiente colaborativo para desenvolvedores trabalharem juntos.
+Bem-vindo ao **Tech Care**, um sistema web desenvolvido para gerir agendamentos de serviços técnicos, como instalação de sistemas operacionais, manutenção de hardware e configuração de redes. Este projeto utiliza o framework Laravel, FullCalendar para a interface de agendamento, e oferece um ambiente colaborativo para desenvolvedores trabalharem juntos.
 
 ## Visão Geral do Projeto
 
 O Tech Care é uma aplicação voltada para:
 - **Agendamento de serviços**: Permite que clientes agendem serviços técnicos com base em horários disponíveis.
-- **Gerenciamento de usuários**: Suporta múltiplos papéis (admin, vendor, customer) com autenticação e autorização.
+- **Gerenciamento de utilizadores**: Suporta múltiplos papéis (admin, vendor, customer) com autenticação e autorização.
 - **Catálogo de produtos**: Inclui uma seção para procurar e exibir produtos (futuro desenvolvimento).
 - **Interface amigável**: Utiliza Bootstrap e FullCalendar para uma experiência visual atraente e funcional.
 
@@ -32,7 +32,7 @@ O Tech Care é uma aplicação voltada para:
 Para colaborar no desenvolvimento do Tech Care, siga os passos abaixo. Certifique-se de ter permissões de acesso ao repositório no GitHub.
 
 ### Pré-requisitos
-- **Git**: Para clonar e gerenciar o repositório.
+- **Git**: Para clonar e gerir o repositório.
 - **PHP 8.1 ou superior**: Versão compatível com Laravel 10.
 - **Composer**: Gerenciador de dependências PHP.
 - **Node.js e NPM**: Para compilar assets (opcional, se necessário).
@@ -165,9 +165,9 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 
 ### Instruções de Configuração e Personalização
 
--   Substitua `https://github.com/User/techcare.git` pelo URL real do seu repositório.
--   Adicione detalhes específicos do seu ambiente (ex.: portas do Laragon, configurações de banco de dados).
--   Inclua seções adicionais, como "Guia de Estilo" ou "Documentação da API", se aplicável.
+- Substitua `https://github.com/User/techcare.git` pelo URL real do seu repositório.
+- Adicione detalhes específicos do seu ambiente (ex.: portas do Laragon, configurações de banco de dados).
+- Inclua seções adicionais, como "Guia de Estilo" ou "Documentação da API", se aplicável.
 
 ### Próximos Passos
 

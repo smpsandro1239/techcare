@@ -30,7 +30,7 @@ class AdminMainController extends Controller
         $numAgendamentos = Agendamento::count();
         $numOrders = Order::count();
 
-        // Dados para o gráfico de pizza (distribuição de usuários)
+        // Dados para o gráfico de pizza (distribuição de utilizadores)
         $userDistribution = [
             'Administradores' => $numAdmins,
             'Vendedores' => $numVendors,
@@ -79,7 +79,7 @@ class AdminMainController extends Controller
     }
 
     /**
-     * Exibe a página de gerenciamento de usuários.
+     * Exibe a página de gerenciamento de utlizadores.
      *
      * @return \Illuminate\View\View
      */
