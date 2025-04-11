@@ -1,184 +1,329 @@
+# Tech Care
+
+````markdown
+# Tech Care - Sistema de Agendamento e Administração de Serviços
+
+_Sistema de agendamento e administração de serviços técnicos..._
+
+![Banner do Tech Care](screenshots/banner-techcare.png)
+
+O **Tech Care** é uma aplicação web moderna e eficiente, desenvolvida para facilitar o agendamento e administração de serviços técnicos, como instalação de sistemas operacionais, manutenção de hardware e configuração de redes.
+
+Com uma interface intuitiva e funcionalidades robustas, o Tech Care é ideal para empresas ou profissionais que desejam organizar os seus agendamentos de forma prática e confiável.
+
+Desenvolvido com o framework **Laravel** e integrado ao **FullCalendar**, o Tech Care oferece uma experiência visual atraente e interativa, com suporte a múltiplos papéis de utilizador, validação de feriados e notificações dinâmicas. Este projeto é open-source e colaborativo, convidando desenvolvedores a contribuir para o seu crescimento.
+
 ---
 
-# Tech Care - Sistema de Agendamento e Gerenciamento de Serviços
+## ✨ Funcionalidades Principais
 
-Bem-vindo ao **Tech Care**, um sistema web desenvolvido para gerir agendamentos de serviços técnicos, como instalação de sistemas operacionais, manutenção de hardware e configuração de redes. Este projeto utiliza o framework Laravel, FullCalendar para a interface de agendamento, e oferece um ambiente colaborativo para desenvolvedores trabalharem juntos.
+- **Agendamento de Serviços**: Interface interativa com FullCalendar para selecionar datas e horários, com validação de feriados e horários ocupados.
+- **Administração de Utilizadores**: Suporte a papéis (admin, vendor, customer) com autenticação e autorização via Laravel Breeze.
+- **Notificações Dinâmicas**: Popups com SweetAlert2 para feedback em tempo real (ex.: erro ao agendar em feriado).
+- **Catálogo de Produtos**: Secção para busca e exibição de produtos (em desenvolvimento).
+- **Interface Amigável**: Design responsivo com Bootstrap 5 e FullCalendar, optimizado para desktops e dispositivos móveis.
 
-## Visão Geral do Projeto
+---
 
-O Tech Care é uma aplicação voltada para:
-- **Agendamento de serviços**: Permite que clientes agendem serviços técnicos com base em horários disponíveis.
-- **Gerenciamento de utilizadores**: Suporta múltiplos papéis (admin, vendor, customer) com autenticação e autorização.
-- **Catálogo de produtos**: Inclui uma seção para procurar e exibir produtos (futuro desenvolvimento).
-- **Interface amigável**: Utiliza Bootstrap e FullCalendar para uma experiência visual atraente e funcional.
+## 📸 Demonstração do Sistema
 
-### Tecnologias Utilizadas
+Abaixo estão capturas de ecrã que ilustram as principais funcionalidades do Tech Care.
+
+### 1. Página Inicial - Lista de Agendamentos
+
+![Página Inicial - Lista de Agendamentos](screenshots/lista-agendamentos.png)
+_Visualize todos os agendamentos no calendário e na tabela de agendamentos recentes._
+
+### 2. Criação de Agendamento
+
+![Modal de Agendamento](screenshots/modal-agendamento.png)
+_Seleccione a data, horário e serviço para agendar um atendimento._
+
+### 3. Validação de Feriados
+
+![Popup de Feriado](screenshots/popup-feriado.png)
+_Notificação de erro ao tentar agendar em um feriado (ex.: Dia do Trabalhador)._
+
+### 4. Detalhes do Agendamento
+
+![Popup de Detalhes do Agendamento](screenshots/detalhes-agendamento.png)
+_Visualize os detalhes de um agendamento existente._
+
+### 5. Catálogo de Produtos (Em Desenvolvimento)
+
+![Catálogo de Produtos](screenshots/catalogo-produtos.png)
+_Busque e visualize produtos (funcionalidade em desenvolvimento)._
+
+### 6. Admin Dashboard
+
+![Admin Dashboard](screenshots/Admin-dashboard.png)
+_Visualize o Admin-dashboard._
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
 - **Backend**: Laravel 10.x
-- **Frontend**: HTML, CSS, JavaScript, Bootstrap 4, FullCalendar 6.1.11
-- **Banco de Dados**: MySQL (via Laravel migrations)
-- **Outros**: Livewire (para catálogos dinâmicos), SweetAlert2 (para notificações)
-- **Controle de Versão**: Git
-- **Ambiente de Desenvolvimento**: Laragon (recomendado)
+- **Frontend**: HTML, CSS, JavaScript
+- **Frameworks e Bibliotecas**:
+    - Bootstrap 5
+    - FullCalendar 6.1.11
+    - Livewire
+    - SweetAlert2
+    - Luxon
+- **Base de Dados**: MySQL
+- **Ambiente de Desenvolvimento**: Laragon (recomendado), compatível com XAMPP, WAMP ou Docker
 
-### Estrutura do Projeto
-- `app/`: Contém os controladores, modelos e middleware.
-- `resources/views/`: Templates Blade para as páginas (ex.: `agendamento/create.blade.php`, `agendamento/index.blade.php`).
-- `database/migrations/`: Definições de tabelas (ex.: `agendamentos`).
-- `routes/`: Definições de rotas (ex.: `web.php`).
-- `public/`: Arquivos estáticos como CSS, JS e imagens.
+---
 
-## Como Contribuir
+## 📂 Estrutura do Projeto
 
-Para colaborar no desenvolvimento do Tech Care, siga os passos abaixo. Certifique-se de ter permissões de acesso ao repositório no GitHub.
+- `app/`: Controladores, modelos e middlewares.
+- `app/Http/Controllers/AgendamentoController.php`: Lógica de agendamentos.
+- `app/Models/Agendamento.php`, `Order.php`: Modelos principais.
+- `resources/views/`: Templates Blade.
+- `agendamento/create.blade.php`, `agendamento/index.blade.php`
+- `database/migrations/`: Definições das tabelas.
+- `routes/web.php`: Rotas da aplicação.
+- `public/`: Ficheiros estáticos.
+- `screenshots/`: Pasta para imagens do README.
+
+---
+
+## 🚀 Como Começar
 
 ### Pré-requisitos
-- **Git**: Para clonar e gerir o repositório.
-- **PHP 8.1 ou superior**: Versão compatível com Laravel 10.
-- **Composer**: Gerenciador de dependências PHP.
-- **Node.js e NPM**: Para compilar assets (opcional, se necessário).
-- **Laragon** (recomendado) ou outro servidor local (ex.: XAMPP, WAMP) com MySQL.
-- **Editor de Código**: VS Code, PhpStorm ou similar.
 
-### Passo a Passo para Configuração
+- Git
+- PHP 8.1+
+- Composer
+- Node.js e NPM (opcional)
+- MySQL
+- VS Code ou similar
 
-1. **Clone o Repositório**
-   - Abra o terminal e navegue até o diretório onde deseja armazenar o projeto.
-   - Execute o comando abaixo para clonar o repositório:
-     ```bash
-     git clone https://github.com/smpsandro1239/techcare.git
-     ```
+### Passos para Configuração
 
-2. **Acesse o Diretório do Projeto**
-   - Entre no diretório clonado:
-     ```bash
-     cd techcare
-     ```
+1. Clone o Repositório:
+    ```bash
+    git clone https://github.com/smpsandro1239/techcare.git
+    cd techcare
+    ```
+````
 
-3. **Instale as Dependências**
-   - Instale as dependências do PHP via Composer:
-     ```bash
-     composer install
-     ```
-   - (Opcional) Instale dependências JavaScript via NPM, se houver assets personalizados:
-     ```bash
-     npm install && npm run dev
-     ```
+1. Instale as Dependências:
 
-4. **Configure o Ambiente**
-   - Renomeie o arquivo `.env.example` para `.env`:
-     ```bash
-     cp .env.example .env
-     ```
-   - Edite o arquivo `.env` com suas configurações:
-     - **DB_DATABASE**: Nome do banco de dados (ex.: `techcare_db`).
-     - **DB_USERNAME**: Usuário do MySQL (ex.: `root`).
-     - **DB_PASSWORD**: Senha do MySQL (deixe em branco se não houver senha no Laragon).
-     - **APP_URL**: URL do projeto (ex.: `http://techcare.test`).
-   - Gere a chave do aplicativo:
-     ```bash
-     php artisan key:generate
-     ```
+    ```bash
+    composer install
+    npm install && npm run dev
+    ```
 
-5. **Configure o Banco de Dados**
-   - Crie um banco de dados MySQL chamado `techcare_db` (ou o nome que você definiu no `.env`).
-   - Execute as migrações para criar as tabelas:
-     ```bash
-     php artisan migrate
-     ```
-   - (Opcional) Popule o banco com dados de exemplo (se houver seeders):
-     ```bash
-     php artisan db:seed
-     ```
+1. Configure o `.env`:
 
-6. **Inicie o Servidor**
-   - Se estiver usando Laragon, inicie o ambiente (Apache e MySQL) e aponte o virtual host para o diretório `techcare`.
-   - Ou use o servidor embutido do Laravel:
-     ```bash
-     php artisan serve
-     ```
-   - Acesse o projeto em `http://localhost:8000` ou o URL configurado no `.env`.
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
 
-7. **Autenticação Inicial**
-   - Registre um novo usuário em `http://localhost:8000/register` ou use o comando Artisan para criar um admin:
-     ```bash
-     php artisan tinker
-     User::create(['name' => 'Admin', 'email' => 'admin@techcare.com', 'password' => bcrypt('password'), 'role' => 1])
-     ```
-   - Faça login com as credenciais criadas.
+    Edite:
 
-8. **Teste o Agendamento**
-   - Acesse `http://localhost:8000/agendamento` para criar um agendamento.
-   - Verifique se o calendário carrega e se o modal de horários aparece corretamente.
+    ```env
+    APP_NAME="Tech Care"
+    DB_DATABASE=techcare_db
+    DB_USERNAME=root
+    DB_PASSWORD=
+    APP_TIMEZONE=Europe/Lisbon
+    ```
 
-### Estrutura de Colaboração
+1. Configure a Base de Dados:
 
-- **Branching Strategy**:
-  - Use a branch principal `main` para a versão estável.
-  - Crie branches de funcionalidades (ex.: `feature/agendamento`, `feature/catalogo`) para novos desenvolvimentos.
-  - Submeta pull requests (PRs) para revisão antes de mesclar com `main`.
+    ```bash
+    php artisan migrate
+    php artisan db:seed
+    ```
 
-- **Pull Requests**:
-  - Descreva as mudanças no PR.
-  - Peça revisão a pelo menos um colega.
-  - Teste localmente antes de submeter.
+1. Inicie o Servidor:
 
-- **Comandos Úteis**:
-  - Criar uma nova branch:
+    ```bash
+    php artisan serve
+    ```
+
+1. Autenticação Inicial:
+
+    ```bash
+    php artisan tinker
+    User::create(['name' => 'Admin', 'email' => 'admin@techcare.com', 'password' => bcrypt('password'), 'role' => 1])
+    ```
+
+---
+
+## 📖 Como Usar o Tech Care
+
+### 1. Criar um Agendamento
+
+1. Vá para `/agendamento`
+1. Clique em uma data no calendário
+1. Preencha os campos e clique em "Agendar"
+
+### 2. Visualizar Agendamentos
+
+- Use o calendário interativo
+- Clique para ver detalhes do evento
+- Veja a lista de agendamentos recentes
+
+### 3. Gerir Utilizadores
+
+- Use a área de administração (se implementada)
+
+---
+
+## 🤝 Como Contribuir
+
+### Estratégia de Branches
+
+- `main`: versão estável
+- `feature/*`: novas funcionalidades
+- `fix/*`: correções
+
+### Passos
+
+1. Crie uma branch:
+
     ```bash
     git checkout -b feature/nova-funcionalidade
     ```
-  - Enviar alterações:
+
+1. Faça commit:
+
     ```bash
     git add .
-    git commit -m "Descrição da mudança"
+    git commit -m "feat: adiciona nova funcionalidade"
+    ```
+
+1. Push:
+
+    ```bash
     git push origin feature/nova-funcionalidade
     ```
-  - Atualizar o repositório local:
-    ```bash
-    git pull origin main
-    ```
 
-### Funcionalidades Atuais
-- **Agendamento**: Interface com FullCalendar para selecionar datas e horários, com suporte a feriados e horários ocupados.
-- **Autenticação**: Login, registro e verificação de e-mail via Laravel Breeze.
-- **Gerenciamento de Roles**: Admin, vendor e customer com middleware personalizado (`RoleManager`).
-- **Catálogo**: Página inicial com busca de produtos (em desenvolvimento).
-
-### Problemas Conhecidos
-- Erro 500 ao carregar horários disponíveis no modal de agendamento (em processo de correção).
-- Integração com catálogo de produtos ainda incompleta.
-
-### Contribuições Futuras
-- Adicionar sistema de pagamento.
-- Melhorar a interface do usuário com animações.
-- Implementar notificações por e-mail para agendamentos.
-
-### Contato
-- **Mantenedor**: [Seu Nome] (seu.email@example.com)
-- **Repositório**: [https://github.com/smpsandro1239/techcare](https://github.com/seu-usuario/techcare)
-- **Issues**: Abra uma issue no GitHub para relatar bugs ou sugerir melhorias.
-
-### Licença
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+1. Abra um Pull Request no GitHub
 
 ---
 
-### Instruções de Configuração e Personalização
+## ⚠️ Problemas Conhecidos
 
-- Substitua `https://github.com/User/techcare.git` pelo URL real do seu repositório.
-- Adicione detalhes específicos do seu ambiente (ex.: portas do Laragon, configurações de banco de dados).
-- Inclua seções adicionais, como "Guia de Estilo" ou "Documentação da API", se aplicável.
+- Erro 500 no modal de agendamento (em correção)
+- Catálogo incompleto
+- Verifique o fuso horário (`Europe/Lisbon`) no `.env` e MySQL
 
-### Próximos Passos
+---
 
-Depois de criar o `README.md`, coloque-o na raiz do projeto e faça o commit:
+## 🚀 Contribuições Futuras
 
-```bash
-echo "# Tech Care - Sistema de Agendamento e Gerenciamento de Serviços" > README.md
-# Copie o conteúdo acima para README.md
-git add README.md
-git commit -m "Adicionado README com instruções de configuração e colaboração"
-git push origin main
+- Integração com Stripe ou PayPal
+- Notificações por e-mail
+- Melhorias visuais
+- API REST
+
+---
+
+## 📜 Guia de Estilo
+
+### PHP
+
+- PSR-12
+- Nomes descritivos
+- Comentários úteis
+
+### JavaScript
+
+- camelCase
+- Comentários explicativos
+
+### Commits
+
+- `feat`: nova funcionalidade
+- `fix`: correção
+- `docs`: documentação
+
+---
+
+## ❓ FAQ
+
+**1. Por que o calendário não carrega os eventos?**
+Verifique o método `getAgendamentos`, console do navegador e base de dados.
+
+**2. Como configurar o fuso horário?**
+No `.env`:
+`APP_TIMEZONE=Europe/Lisbon`
+No MySQL:
+
+```sql
+SET GLOBAL time_zone = 'Europe/Lisbon';
 ```
 
-y
+**3. Posso usar outro banco de dados?**
+Sim! Laravel suporta PostgreSQL, SQLite, etc.
+
+---
+
+## 📬 Contacto
+
+- **Autor**: Sandro Pereira
+- **E-mail**: [smpsandro1239@gmail.com](mailto:smpsandro1239@gmail.com)
+- **GitHub**: [https://github.com/smpsandro1239/techcare](https://github.com/smpsandro1239/techcare)
+- **LinkedIn**: [https://www.linkedin.com/in/sandro-pereira-1239/](https://www.linkedin.com/in/sandro-pereira-1239/)
+
+- **Autor**: Santiago Rodriguez
+- **E-mail**: [Santiagob3rnal@gmail.com](mailto:Santiagob3rnal@gmail.com)
+- **GitHub**: [https://github.com/santiagob3rnal](https://github.com/santiagob3rnal)
+- **LinkedIn**: [https://www.linkedin.com/in/santiago-bernal-](https://www.linkedin.com/in/santiago-bernal-)
+
+---
+
+## 📄 Licença
+
+Este projeto está licenciado sob a [Licença MIT](LICENSE).
+
+---
+
+## 📸 Instruções para Adicionar Imagens
+
+1. Crie a pasta `screenshots/`
+1. Salve as imagens:
+    - `lista-agendamentos.png`
+    - `modal-agendamento.png`
+    - `popup-feriado.png`
+    - `detalhes-agendamento.png`
+    - `catalogo-produtos.png`
+    - `banner-techcare.png`
+1. Use os caminhos corretamente no README
+1. Faça commit:
+    ```bash
+    git add screenshots/*
+    git commit -m "docs: adiciona imagens ao README"
+    git push origin main
+    ```
+
+---
+
+Aproveite o **Tech Care**! 🚀
+
+```
+
+---
+## 📚 Referências
+- [Laravel](https://laravel.com/docs/9.x/database)
+- [FullCalendar](https://fullcalendar.io/)
+- [Bootstrap](https://getbootstrap.com/)
+- [Font Awesome](https://fontawesome.com/)
+- [Materialize](https://materializecss.com/)
+- [Mysql](https://www.mysql.com/)
+- [PhpMyAdmin](https://www.phpmyadmin.net/)
+- [XAMPP](https://www.apachefriends.org/pt_br/index.html)
+- [Git](https://git-scm.com/)
+- [GitHub](https://github.com/)
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [IntelliJ IDEA](https://www.jetbrains.com/idea/)
+- [Postman](https://www.postman.com/)
+- [Loragon](https://laragon.org/)
+```
