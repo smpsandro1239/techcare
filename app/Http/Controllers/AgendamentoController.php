@@ -31,21 +31,25 @@ class AgendamentoController extends Controller
 
         // Verificar se a data é um feriado
         $feriados = [
-            '2025-01-01',
-            '2025-04-18',
-            '2025-04-20',
-            '2025-04-25',
-            '2025-05-01',
-            '2025-06-10',
-            '2025-08-15',
-            '2025-10-05',
-            '2025-11-01',
-            '2025-12-01',
-            '2025-12-08',
-            '2025-12-25'
+            '2025-01-01' => 'Ano Novo',
+            '2025-04-18' => 'Sexta-feira Santa',
+            '2025-04-20' => 'Páscoa',
+            '2025-04-25' => 'Dia da Liberdade',
+            '2025-05-01' => 'Dia do Trabalhador',
+            '2025-06-10' => 'Dia de Portugal',
+            '2025-08-15' => 'Assunção de Nossa Senhora',
+            '2025-10-05' => 'Implantação da República',
+            '2025-11-01' => 'Dia de Todos os Santos',
+            '2025-12-01' => 'Restauração da Independência',
+            '2025-12-08' => 'Imaculada Conceição',
+            '2025-12-25' => 'Natal',
         ];
-        if (in_array($request->data, $feriados)) {
-            return back()->withErrors(['data' => 'Não é possível agendar para um feriado.']);
+
+        if (array_key_exists($request->data, $feriados)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => "Não é possível agendar para o dia {$request->data}, pois é um feriado ({$feriados[$request->data]}). Por favor, escolha outra data."
+            ], 422);
         }
 
         // Extrair a duração do serviço
@@ -75,9 +79,11 @@ class AgendamentoController extends Controller
             'scheduled_at' => $scheduledAtUtc, // Salvar em UTC (ex.: 2025-04-17 11:00:00)
         ]);
 
-        return redirect()->route('agendamento.index')
-            ->with('success', 'Agendamento realizado com sucesso!')
-            ->with('popup', true);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Agendamento realizado com sucesso!',
+            'redirect' => route('agendamento.index')
+        ]);
     }
 
     public function index()

@@ -75,7 +75,7 @@
     <!-- Modal para seleção de hora e serviço -->
     <div id="eventModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
         <h2>Escolha o Horário e Serviço</h2>
-        <form id="agendamentoForm" method="POST" action="{{ route('agendamento.store') }}">
+        <form id="agendamentoForm" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="nome_cliente" class="form-label">Nome do Cliente</label>
@@ -244,10 +244,13 @@
             });
         }
 
-        // Converter o horário para UTC antes de enviar o formulário, forçando o fuso horário Europe/Lisbon
+        // Enviar o formulário via AJAX
         document.getElementById('agendamentoForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Impedir o envio tradicional do formulário
+
             var selectedDate = document.getElementById('selectedDate').value;
             var selectedHour = document.getElementById('horaSelect').value;
+
             // Criar um objeto DateTime com o fuso horário Europe/Lisbon
             const localDateTime = DateTime.fromFormat(
                 `${selectedDate} ${selectedHour}`,
@@ -259,10 +262,51 @@
             // Formatar a data e hora em UTC
             const utcDate = utcDateTime.toFormat('yyyy-MM-dd');
             const utcTime = utcDateTime.toFormat('HH:mm');
-            // Atualizar os valores do formulário
-            document.getElementById('selectedDate').value = utcDate;
-            document.getElementById('horaSelect').value = utcTime;
-            console.log('Data e Hora em UTC (enviada):', utcDate, utcTime);
+
+            // Preparar os dados do formulário
+            const formData = new FormData(document.getElementById('agendamentoForm'));
+            formData.set('data', utcDate);
+            formData.set('hora', utcTime);
+
+            // Enviar o formulário via AJAX
+            fetch('{{ route('agendamento.store') }}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || document.querySelector('input[name="_token"]').value
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'error') {
+                    // Exibir popup de erro (feriado)
+                    Swal.fire({
+                        title: 'Erro ao Agendar',
+                        text: data.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                } else if (data.status === 'success') {
+                    // Exibir popup de sucesso e redirecionar
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        text: data.message,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = data.redirect;
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao enviar o formulário:', error);
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'Ocorreu um erro ao processar o agendamento. Tente novamente.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
         });
     </script>
 
