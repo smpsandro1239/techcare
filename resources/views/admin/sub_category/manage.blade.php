@@ -4,11 +4,12 @@ Manage Sub Category
 @endsection
 
 @section('admin_layout')
+@include('layouts.partials.navbar')
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title mb-0">All Sub Categories</h5> 
+                <h5 class="card-title mb-0">All Sub Categories</h5>
             </div>
 
             @if (session('message'))
@@ -40,8 +41,8 @@ Manage Sub Category
                                         @method('DELETE')
                                         <input type="submit" value="Delete" class="btn btn-danger">
                                     </form>
-                                </td>              
-                                
+                                </td>
+
                             </tr>
                          @endforeach
                         </tbody>

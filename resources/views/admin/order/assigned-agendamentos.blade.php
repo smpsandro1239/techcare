@@ -6,6 +6,7 @@
 @endsection
 
 @section('admin_layout')
+@include('layouts.partials.navbar')
 <div class="row">
     <div class="col-12">
         <div class="card shadow-sm border-0">
@@ -46,7 +47,7 @@
                                                 <i class="fas fa-eye"></i> Ver
                                             </a>
                                             <!-- Botão Desatribuir -->
-                                            <form action="{{ route('admin.agendamento.unassign', $order->id) }}" 
+                                            <form action="{{ route('admin.agendamento.unassign', $order->id) }}"
                                                   method="POST"
                                                   style="display: inline-block;">
                                                 @csrf

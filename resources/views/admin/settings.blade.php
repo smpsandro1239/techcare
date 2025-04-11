@@ -3,6 +3,7 @@
 Settings - Admin Panel
 @endsection
 @section('admin_layout')
+@include('layouts.partials.navbar')
 <h3>Setting Page</h3>
 
 @endsection

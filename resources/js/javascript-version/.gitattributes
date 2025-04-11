@@ -16,6 +16,7 @@
 *                 text=auto
 
 # Source code
+*.blade.php text eol=lf
 *.bash            text eol=lf
 *.bat             text eol=crlf
 *.cmd             text eol=crlf

@@ -4,11 +4,12 @@ Manage Category
 @endsection
 
 @section('admin_layout')
+@include('layouts.partials.navbar')
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title mb-0">All Categories</h5> 
+                <h5 class="card-title mb-0">All Categories</h5>
             </div>
 
             @if (session('message'))
@@ -33,7 +34,7 @@ Manage Category
                                 <td>{{$cat->category_name}}</td>
                                 <td>
                                     <a href="{{route('admin.category.show', $cat->id)}}" class="btn btn-info">Edit</a>
-                                    
+
                                     <form action="{{route('admin.category.delete', $cat->id)}}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')

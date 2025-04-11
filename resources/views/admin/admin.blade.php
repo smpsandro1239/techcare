@@ -3,6 +3,7 @@
     Dashboard - Admin Panel
 @endsection
 @section('admin_layout')
+@include('layouts.partials.navbar')
     <div class="container mt-5">
         <h3 class="mb-5 text-center text-white" style="font-weight: 600; letter-spacing: 1px;">Admin Dashboard</h3>
 
