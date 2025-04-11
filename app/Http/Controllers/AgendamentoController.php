@@ -51,25 +51,28 @@ class AgendamentoController extends Controller
         // Extrair a duração do serviço
         $duracao = explode('|', $request->servico)[1] ?? 1.0;
 
+        // Combinar data e hora, interpretando como UTC (enviado pelo frontend)
+        $scheduledAtUtc = Carbon::createFromFormat('Y-m-d H:i', $request->data . ' ' . $request->hora, 'UTC');
+
+        // Converter para Europe/Lisbon para salvar em agendamento.hora
+        $scheduledAtLocal = $scheduledAtUtc->copy()->setTimezone('Europe/Lisbon');
+
         // Criar o agendamento
         $agendamento = Agendamento::create([
             'nome_cliente' => $nomeCliente,
-            'data' => $request->data,
-            'hora' => $request->hora,
+            'data' => $scheduledAtLocal->format('Y-m-d'),
+            'hora' => $scheduledAtLocal->format('H:i'), // Salvar como Europe/Lisbon (ex.: 12:00)
             'servico' => $request->servico,
             'duracao' => $duracao,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-        // Combinar data e hora para scheduled_at
-        $scheduledAt = Carbon::createFromFormat('Y-m-d H:i', $request->data . ' ' . $request->hora, config('app.timezone'));
-
         // Criar automaticamente uma Order associada ao Agendamento
         Order::create([
             'agendamento_id' => $agendamento->id,
             'user_id' => Auth::id(),
-            'scheduled_at' => $scheduledAt, // Agora inclui data e hora
+            'scheduled_at' => $scheduledAtUtc, // Salvar em UTC (ex.: 2025-04-17 11:00:00)
         ]);
 
         return redirect()->route('agendamento.index')
@@ -86,21 +89,21 @@ class AgendamentoController extends Controller
     public function getAgendamentos()
     {
         try {
-            $agendamentos = Agendamento::select('data', 'hora', 'servico', 'duracao', 'nome_cliente')->get();
+            $orders = Order::with('agendamento')->get();
 
-            $events = $agendamentos->map(function ($agendamento) {
-                $start = Carbon::parse($agendamento->data . ' ' . $agendamento->hora);
-                $end = $start->copy()->addHours((float)($agendamento->duracao ?? 1.0));
+            $events = $orders->map(function ($order) {
+                $start = Carbon::parse($order->scheduled_at); // Já em UTC
+                $end = $start->copy()->addHours((float)($order->agendamento->duracao ?? 1.0));
 
                 if (!$start->isValid() || !$end->isValid()) {
                     return null;
                 }
 
                 return [
-                    'title' => $agendamento->servico ?: 'Serviço não especificado',
-                    'start' => $start->toIso8601String(),
-                    'end' => $end->toIso8601String(),
-                    'description' => $agendamento->nome_cliente ?: 'Cliente não especificado',
+                    'title' => explode('|', $order->agendamento->servico)[0] ?: 'Serviço não especificado',
+                    'start' => $start->toIso8601String(), // Enviar em UTC
+                    'end' => $end->toIso8601String(),     // Enviar em UTC
+                    'description' => $order->agendamento->nome_cliente ?: 'Cliente não especificado',
                     'color' => '#ff0000',
                 ];
             })->filter()->values();

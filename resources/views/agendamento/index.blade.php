@@ -154,7 +154,7 @@
                     endTime: '19:00'
                 },
                 hiddenDays: [0, 6],
-                timeZone: 'local', // Usar o fuso horário local (já ajustado no backend)
+                timeZone: 'local',
                 eventTimeFormat: {
                     hour: '2-digit',
                     minute: '2-digit',
