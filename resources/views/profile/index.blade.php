@@ -77,3 +77,9 @@
     </form>
 </div>
 @endsection
+<style>
+    .container {
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+</style>

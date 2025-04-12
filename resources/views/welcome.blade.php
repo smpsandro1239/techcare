@@ -164,21 +164,21 @@
     <div class="container features">
         <h2>Porque Escolher-nos?</h2>
         <div class="row justify-content-center">
-            <div class="col-md-4 d-flex justify-content-center">
+            <div class="col-md-4">
                 <div class="feature-item text-center">
                     <i class="fas fa-tools"></i>
                     <h4>Melhores Técnicos</h4>
                     <p>Profissionais altamente qualificados prontos para ajudar.</p>
                 </div>
             </div>
-            <div class="col-md-4 d-flex justify-content-center">
+            <div class="col-md-4">
                 <div class="feature-item text-center">
                     <i class="fas fa-users"></i>
                     <h4>+1 Milhão de Clientes</h4>
                     <p>Temos uma base de clientes fiel e satisfeita com nossos serviços.</p>
                 </div>
             </div>
-            <div class="col-md-4 d-flex justify-content-center">
+            <div class="col-md-4">
                 <div class="feature-item text-center">
                     <i class="fas fa-map-marker-alt"></i>
                     <h4>Número 1 no Norte</h4>
@@ -187,6 +187,18 @@
             </div>
         </div>
     </div>
+    <style>
+.features {
+    text-align: center;
+    margin: 80px auto;
+    max-width: 1200px;
+}
+
+.feature-item {
+    margin: 0 auto;
+    max-width: 300px;
+}
+    </style>
 
 
 
