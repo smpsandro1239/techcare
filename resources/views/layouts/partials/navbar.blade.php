@@ -119,13 +119,52 @@
 </nav>
 
 <style>
-    /* Animação do ícone da ferramenta */
+    .bg-gradient-custom {
+        background: linear-gradient(90deg, #0d0d0d 0%, #1c1c1c 100%);
+        color: #f8f9fa;
+    }
+    .search-input {
+        background-color: #2c2c2c;
+        border: 1px solid #444;
+        color: #fff;
+    }
+    .search-input::placeholder {
+        color: #bbb;
+    }
+    .btn-outline-light {
+        border-color: #aaa;
+        color: #fff;
+    }
+    .btn-outline-light:hover {
+        background-color: #fff;
+        color: #000;
+    }
+    .dropdown-menu-dark {
+        background-color: #1a1a1a;
+        border: 1px solid #333;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    }
+    .dropdown-item {
+        color: #f8f9fa;
+    }
+    .dropdown-item:hover {
+        background-color: #343a40;
+        color: #fff;
+    }
+    .navbar .rounded-circle {
+        border: 2px solid #ddd;
+    }
+    .navbar-brand, .nav-link, .dropdown-item {
+        text-shadow: 0 0 3px rgba(255, 255, 255, 0.2);
+    }
     .animate-spin {
         animation: spin 2s linear infinite;
+        color: #0dcaf0;
+        text-shadow: 0 0 6px rgba(13, 202, 240, 0.7);
     }
-
     @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
-</style>
+    </style>
