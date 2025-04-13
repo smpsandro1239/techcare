@@ -28,7 +28,8 @@
 
         .features {
             text-align: center;
-            margin: 80px 0;
+            margin: 80px auto;
+            max-width: 1200px;
         }
 
         .features h2 {
@@ -45,6 +46,7 @@
             padding: 30px 20px;
             box-shadow: 0 4px 12px rgba(255,255,255,0.05);
             transition: transform 0.3s ease-in-out;
+            margin: 0 auto;
             margin-bottom: 30px;
             max-width: 300px;
             width: 100%;
@@ -65,26 +67,49 @@
             position: relative;
             width: 100%;
             overflow: hidden;
+            padding: 20px 0;
         }
 
         .banner img {
-            width: 100%;
-            max-height: 600px;
+            max-height: 400px;
             object-fit: cover;
+            width: 100%;
+        }
+
+        .banner-text {
+            text-align: center;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .banner-text h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #0dcaf0;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .banner-text p {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #ddd;
         }
 
         .banner-button {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 15px 30px;
+            position: relative;
+            display: inline-block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
             background-color: #0dcaf0;
             color: #000;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1rem;
             border: none;
-            border-radius: 30px;
+            border-radius: 20px;
             text-transform: uppercase;
             text-decoration: none;
             box-shadow: 0 4px 12px rgba(0, 255, 255, 0.3);
@@ -96,21 +121,38 @@
         }
 
         .techicon-logo {
+            position: relative;
             height: 100vh;
             width: 100%;
-            background-image: url('{{ asset('admin_asset/img/techicon.png') }}');
+            background-image: url('{{ asset('admin_asset/img/techicon3.png') }}');
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center center;
             background-color: #000;
             opacity: 0;
             animation: fadeIn 2s ease-out forwards;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 20px;
         }
 
-        .techicon-logo img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
+        .logo-text {
+            text-align: center;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .logo-text h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .logo-text p {
+            font-size: 1.5rem;
+            font-style: italic;
         }
 
         @keyframes fadeIn {
@@ -119,12 +161,27 @@
         }
 
         @media (max-width: 768px) {
+            .banner-text h2 {
+                font-size: 1.8rem;
+            }
+            .banner-text p {
+                font-size: 1.2rem;
+            }
+            .banner img {
+                max-height: 300px;
+            }
             .banner-button {
-                font-size: 1rem;
-                padding: 12px 25px;
+                font-size: 0.9rem;
+                padding: 8px 16px;
             }
             .features .feature-item {
                 width: 100%;
+            }
+            .logo-text h1 {
+                font-size: 2.5rem;
+            }
+            .logo-text p {
+                font-size: 1.2rem;
             }
         }
 
@@ -135,16 +192,31 @@
             .features .feature-item {
                 padding: 20px 15px;
             }
-        }
-        @media (max-width: 400px) {
+            .banner-text h2 {
+                font-size: 1.5rem;
+            }
+            .banner-text p {
+                font-size: 1rem;
+            }
+            .banner img {
+                max-height: 250px;
+            }
             .banner-button {
-                font-size: 0.9rem;
-                padding: 10px 20px;
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            .logo-text h1 {
+                font-size: 2rem;
+            }
+            .logo-text p {
+                font-size: 1rem;
             }
         }
-        @media (max-width: 768px) {
-            .banner img {
-                max-height: 400px;
+
+        @media (max-width: 400px) {
+            .banner-button {
+                font-size: 0.7rem;
+                padding: 5px 10px;
             }
         }
     </style>
@@ -154,53 +226,54 @@
 <body>
     @include('layouts.partials.navbar')
 
-    <div class="techicon-logo"></div>
+    <div class="techicon-logo">
+        <div class="logo-text">
+            <h1>TECH CARE</h1>
+            <p>A qualidade dos Líderes</p>
+        </div>
+    </div>
 
-    <div class="banner">
-        <img src="{{ asset('admin_asset/img/banner2.png') }}" alt="Banner da Loja">
-        <a href="{{ auth()->check() ? route('agendamento.create') : route('login') }}" class="banner-button">Agendar Agora</a>
+    <div class="banner container">
+        <div class="row align-items-center">
+            <!-- Coluna para a Imagem -->
+            <div class="col-md-6">
+                <img src="{{ asset('admin_asset/img/banner3.png') }}" alt="Banner da Loja" class="img-fluid">
+            </div>
+            <!-- Coluna para o Texto e Botão -->
+            <div class="col-md-6 banner-text">
+                <h2>⚡ REPARAÇÃO DE COMPUTADORES ⚡</h2>
+                <p>Venha connosco e descubra a diferença!</p>
+                <a href="{{ auth()->check() ? route('agendamento.create') : route('login') }}" class="banner-button">Agendar Agora</a>
+            </div>
+        </div>
     </div>
 
     <div class="container features">
-        <h2>Porque Escolher-nos?</h2>
+        <h2>Porquê a THECH CARE?</h2>
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <div class="feature-item text-center">
                     <i class="fas fa-tools"></i>
-                    <h4>Melhores Técnicos</h4>
-                    <p>Profissionais altamente qualificados prontos para ajudar.</p>
+                    <h4> Melhores Técnicos </h4>
+                    <p>Profissionais altamente qualificados o rigor da qualidade.</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="feature-item text-center">
                     <i class="fas fa-users"></i>
                     <h4>+1 Milhão de Clientes</h4>
-                    <p>Temos uma base de clientes fiel e satisfeita com nossos serviços.</p>
+                    <p>Clientes satisfeitos, confiabilidade absoluta nos serviços prestados.</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="feature-item text-center">
                     <i class="fas fa-map-marker-alt"></i>
-                    <h4>Número 1 no Norte</h4>
-                    <p>Nosso serviço é o mais procurado na região norte.</p>
+                    <h4>Número 1 </h4>
+                    <p>Líderes incontestáveis. <br> Taxa de satisfação de 99,9%.</p>
                 </div>
             </div>
         </div>
     </div>
-    <style>
-.features {
-    text-align: center;
-    margin: 80px auto;
-    max-width: 1200px;
-}
-
-.feature-item {
-    margin: 0 auto;
-    max-width: 300px;
-}
-    </style>
-
-
 
     <footer>
         © {{ date('Y') }} Tech Care - Todos os direitos reservados.
