@@ -1,6 +1,6 @@
 # Tech Care - Sistema de Agendamento e Administração de Serviços 
 
-![Banner do Tech Care](screenshots/banner-techcare1.png)  
+![Banner do Tech Care](screenshots/banner-techcare.png)  
 *Sistema de agendamento e administração de serviços técnicos para simplificar a sua rotina.*
 
 O **Tech Care** é uma aplicação web moderna e eficiente, desenvolvida para facilitar o agendamento e a administração de serviços técnicos, como a instalação de sistemas operativos, a manutenção de hardware e a configuração de redes. Com uma interface intuitiva e funcionalidades robustas, o Tech Care é ideal para empresas ou profissionais que desejam organizar os seus agendamentos de forma prática e fiável.
@@ -27,40 +27,40 @@ Abaixo estão capturas de ecrã que ilustram as principais funcionalidades do Te
 
 A página inicial apresenta um calendário interactivo com todos os agendamentos e uma tabela com os agendamentos recentes.
 
-![Página Inicial - Lista de Agendamentos](screenshots/lista-agendamentos1.png)  
+![Página Inicial - Lista de Agendamentos](screenshots/lista-agendamentos.png)  
 *Veja todos os agendamentos no calendário e na tabela de agendamentos recentes.*
 
 ### 2. Criação de Agendamento
 
 Clique numa data no calendário para abrir o modal de agendamento, onde pode seleccionar o horário e o serviço.
 
-![Modal de Agendamento](screenshots/modal-agendamento1.png)  
+![Modal de Agendamento](screenshots/modal-agendamento.png)  
 *Seleccione a data, o horário e o serviço para agendar um atendimento.*
 
 ### 3. Validação de Feriados
 
 Ao tentar agendar num feriado, é apresentado um popup informativo, explicando o motivo da restrição.
 
-![Popup de Feriado](screenshots/popup-feriado1.png)  
+![Popup de Feriado](screenshots/popup-feriado.png)  
 *Notificação de erro ao tentar agendar num feriado (ex.: Dia do Trabalhador).*
 
 ### 4. Detalhes do Agendamento
 
 Clique num evento no calendário para ver os detalhes, incluindo a data, o horário, o cliente e o serviço.
 
-![Popup de Detalhes do Agendamento](screenshots/detalhes-agendamento1.png)  
+![Popup de Detalhes do Agendamento](screenshots/detalhes-agendamento.png)  
 *Veja os detalhes de um agendamento existente.*
 
 A secção de catálogo permite pesquisar e ver produtos disponíveis.
 
-![Catálogo de Produtos](screenshots/catalogo-produtos1.png)  
+![Catálogo de Produtos](screenshots/catalogo-produtos.png)  
 *Pesquise e veja produtos (funcionalidade em desenvolvimento).*
 
 ### 6. Painel de Administração
 
 Painel de administração para gerir utilizadores, agendamentos e outras configurações.
 
-![Painel de Administração](screenshots/Admin-dashboard1.png)  
+![Painel de Administração](screenshots/Admin-dashboard.png)  
 *Veja o painel de administração.*
 
 ---
@@ -363,13 +363,13 @@ mkdir screenshots
 
 Tire capturas de ecrã das seguintes telas e guarde-as na pasta `screenshots/` com os nomes indicados:
 
-- `lista-agendamentos1.png`: Página inicial (`/agendamento`) com o calendário e a tabela de agendamentos recentes.
-- `modal-agendamento1.png`: Modal de agendamento ao clicar numa data no calendário.
-- `popup-feriado1.png`: Popup de erro ao tentar agendar num feriado (ex.: 01/05/2025).
-- `detalhes-agendamento1.png`: Popup de detalhes ao clicar num evento no calendário.
-- `catalogo-produtos1.png`: Página do catálogo (se disponível; caso contrário, use um *placeholder*).
-- `admin-dashboard1.png`: Painel de administração (se disponível).
-- `banner-techcare1.png`: *Banner* simples com o nome "Tech Care" (crie em ferramentas como Canva ou Figma).
+- `lista-agendamentos.png`: Página inicial (`/agendamento`) com o calendário e a tabela de agendamentos recentes.
+- `modal-agendamento.png`: Modal de agendamento ao clicar numa data no calendário.
+- `popup-feriado.png`: Popup de erro ao tentar agendar num feriado (ex.: 01/05/2025).
+- `detalhes-agendamento.png`: Popup de detalhes ao clicar num evento no calendário.
+- `catalogo-produtos.png`: Página do catálogo (se disponível; caso contrário, use um *placeholder*).
+- `admin-dashboard.png`: Painel de administração (se disponível).
+- `banner-techcare.png`: *Banner* simples com o nome "Tech Care" (crie em ferramentas como Canva ou Figma).
 
 ### 3. Faça *Commit* das Imagens
 
@@ -386,8 +386,8 @@ git push origin main
 - Acesse o repositório no GitHub (`https://github.com/smpsandro1239/techcare`).
 - Abra o ficheiro `README.md` e confirme se as imagens estão a ser apresentadas.
 - Se as imagens não carregarem, verifique:
-  - **Caminho Correcto**: O caminho no README deve ser relativo à raiz do repositório (ex.: `screenshots/lista-agendamentos1.png`).
-  - **Nome do Ficheiro**: Certifique-se de que os nomes dos ficheiros correspondem exactamente (incluindo maiúsculas/minúsculas, ex.: `Admin-dashboard1.png` é diferente de `admin-dashboard1.png`).
+  - **Caminho Correcto**: O caminho no README deve ser relativo à raiz do repositório (ex.: `screenshots/lista-agendamentos.png`).
+  - **Nome do Ficheiro**: Certifique-se de que os nomes dos ficheiros correspondem exactamente (incluindo maiúsculas/minúsculas, ex.: `Admin-dashboard.png` é diferente de `admin-dashboard.png`).
   - **Imagens no Repositório**: Confirme que as imagens foram enviadas ao repositório (use `git status` para verificar antes do *commit*).
 
 ### 5. Alternativa: Aloje as Imagens Externamente
@@ -395,7 +395,7 @@ git push origin main
 Se as imagens ainda não carregarem, pode alojá-las num serviço externo (ex.: ImgBB, GitHub Issues) e usar URLs absolutas no README. Exemplo:
 
 ```markdown
-![Página Inicial - Lista de Agendamentos](https://i.ibb.co/abc123/lista-agendamentos1.png)
+![Página Inicial - Lista de Agendamentos](https://i.ibb.co/abc123/lista-agendamentos.png)
 ```
 
 ---
