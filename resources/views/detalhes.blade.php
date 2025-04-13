@@ -8,17 +8,17 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card bg-dark text-light border-0 shadow-lg" style="border-radius: 10px;">
-                    
+
                     {{-- Imagem do Produto --}}
                     @if($product->images->isNotEmpty())
-                        <img src="{{ asset('storage/' . $product->images->first()->img_path) }}" 
-                             alt="{{ $product->product_name }}" 
-                             class="card-img-top" 
+                        <img src="{{ asset('storage/' . $product->images->first()->img_path) }}"
+                             alt="{{ $product->product_name }}"
+                             class="card-img-top"
                              style="border-top-left-radius: 10px; border-top-right-radius: 10px; height: 350px; object-fit: cover;">
                     @else
-                        <img src="https://via.placeholder.com/300x200" 
-                             alt="Imagem indisponível" 
-                             class="card-img-top" 
+                        <img src="https://via.placeholder.com/300x200"
+                             alt="Imagem indisponível"
+                             class="card-img-top"
                              style="border-top-left-radius: 10px; border-top-right-radius: 10px; height: 350px; object-fit: cover;">
                     @endif
 
@@ -45,3 +45,11 @@
         </div>
     </div>
 @endsection
+<style>
+    .container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+</style>
