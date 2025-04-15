@@ -23,6 +23,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />	
     
 <script src="https://cdn.jsdelivr.net/npm/feather-icons"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+
 	<style>
 		/* Cor de fundo preto e texto branco para toda a página */
 * {
@@ -185,7 +189,7 @@
 					</ul>
 				</div>
 			</nav>
-
+			@include('layouts.partials.navbar')
 			<main class="content">
 				<div class="container-fluid p-0">
 
@@ -211,6 +215,11 @@
 	</div>
 
 	<script src="{{asset('admin_asset/js/app.js')}}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+	
+
 <!-- Botão de Home (Ícone de Casa) -->
 <a href="/" class="btn btn-primary rounded-circle position-fixed bottom-0 end-0 m-3" style="font-size: 24px; background-color: #444; color: white; z-index: 999;">
     <i data-feather="home"></i> <!-- Corrigido para usar o atributo correto do Feather Icons -->
