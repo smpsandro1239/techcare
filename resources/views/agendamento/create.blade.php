@@ -62,6 +62,7 @@
 
     <div class="container mt-5">
         <h1 class="text-center text-success">Agendar Serviço</h1>
+    <a href="{{ route('agendamento.index') }}" class="btn btn-outline-light">Ver Agendamentos</a>
 
         <div class="text-center my-3">
             <button onclick="changeView('dayGridMonth')" class="btn btn-primary">Mensal</button>

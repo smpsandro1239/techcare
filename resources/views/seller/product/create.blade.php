@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card bg-dark text-light border-0 shadow-lg" style="border-radius: 15px;">
-                    <div class="card-header bg-success text-white">
+                    <div class="card-header text-white" style="background-color: #0056b3;">
                         <h5 class="card-title mb-0">Adicionar Produto</h5>
                     </div>
                     <div class="card-body">
@@ -55,10 +55,9 @@
                                 <div class="col-md-6">
                                     <label for="seller_id" class="form-label fw-bold text-white">Vendedor <span class="text-danger">*</span></label>
                                     <select class="form-control bg-secondary text-white border-0" id="seller_id" name="seller_id" required>
-                                    @foreach (\App\Models\User::where('role', 2)->get() as $seller)
-    <option value="{{ $seller->id }}" {{ old('seller_id') == $seller->id ? 'selected' : '' }}>{{ $seller->name }}</option>
-@endforeach
-
+                                        @foreach (\App\Models\User::where('role', 2)->get() as $seller)
+                                            <option value="{{ $seller->id }}" {{ old('seller_id') == $seller->id ? 'selected' : '' }}>{{ $seller->name }}</option>
+                                        @endforeach
                                     </select>
                                     @error('seller_id')
                                         <small class="text-danger">{{ $message }}</small>
@@ -94,7 +93,7 @@
                                 @enderror
                             </div>
 
-                            <button type="submit" class="btn btn-success w-100 mt-3">Adicionar Produto</button>
+                            <button type="submit" class="btn btn-primary custom-btn w-100 mt-3">Adicionar Produto</button>
                         </form>
                     </div>
                 </div>
@@ -116,20 +115,23 @@
 
             .form-control:focus, .form-select:focus {
                 background-color: #444 !important;
-                border-color: #28a745 !important;
-                box-shadow: 0 0 5px rgba(40, 167, 69, 0.5) !important;
+                border-color: #0056b3 !important;
+                box-shadow: 0 0 5px rgba(0, 86, 179, 0.5) !important;
             }
 
-            .btn-success {
-                background-color: #28a745;
-                border: none;
-                transition: all 0.3s ease;
+            .custom-btn {
+                background-color: #0056b3 !important;
+                border: none !important;
+                border-radius: 8px;
+                padding: 10px 20px;
+                font-weight: 500;
+                transition: background-color 0.3s ease, transform 0.1s ease;
             }
 
-            .btn-success:hover {
-                background-color: #218838;
+            .custom-btn:hover {
+                background-color: #0056b3  !important;
                 transform: translateY(-2px);
-                box-shadow: 0 5px 15px rgba(40, 167, 69, 0.5);
+                box-shadow: 0 5px 15px rgba(0, 86, 179, 0.5);
             }
 
             .alert-dismissible .btn-close {
