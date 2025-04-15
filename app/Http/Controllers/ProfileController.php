@@ -27,40 +27,41 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request)
-    {
-        /** @var User $user */
-        $user = Auth::user();
+{
+    /** @var User $user */
+    $user = Auth::user();
 
-        // Validação dos dados do formulário
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'phone' => 'nullable|string|max:20|regex:/^[+]?[0-9\s-]{8,}$/', // Ex.: +351 123 456 789
-            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Máximo 2MB
-        ]);
+    // Validação dos dados do formulário
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $user->id,
+        'phone' => 'nullable|string|max:20|regex:/^[+]?[0-9\s-]{8,}$/', // Ex.: +351 123 456 789
+        'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Máximo 2MB
+    ]);
 
-        // Verifica se o usuário fez upload de uma nova foto de perfil
-        if ($request->hasFile('profile_photo')) {
-            // Deleta a foto de perfil anterior, se existir
-            if ($user->profile_photo) {
-                Storage::disk('public')->delete($user->profile_photo);
-            }
-
-            // Salva a nova foto no diretório 'profile_photos'
-            $path = $request->file('profile_photo')->store('profile_photos', 'public');
-            $validated['profile_photo'] = $path;
+    // Verifica se o usuário fez upload de uma nova foto de perfil
+    if ($request->hasFile('profile_photo')) {
+        // Deleta a foto de perfil anterior, se existir
+        if ($user->profile_photo) {
+            Storage::disk('public')->delete($user->profile_photo);
         }
 
-        // Atualiza os dados do usuário
-        $user->update([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'phone' => $validated['phone'],
-            'profile_photo' => $validated['profile_photo'] ?? $user->profile_photo,
-        ]);
-
-        return redirect()->back()->with('success', 'Perfil atualizado com sucesso!');
+        // Salva a nova foto no diretório 'profile_photos'
+        $path = $request->file('profile_photo')->store('profile_photos', 'public');
+        $user->profile_photo = $path; // Atualiza diretamente o campo no modelo
     }
+
+    // Atualiza os dados do usuário
+    $user->update([
+        'name' => $validated['name'],
+        'email' => $validated['email'],
+        'phone' => $validated['phone'] ?? $user->phone,
+        // Usa a nova foto se enviada, senão mantém a anterior
+        'profile_photo' => $user->profile_photo ?? $user->profile_photo,
+    ]);
+
+    return redirect()->back()->with('success', 'Perfil atualizado com sucesso!');
+}
 
     /**
      * Atualiza a senha do usuário.
