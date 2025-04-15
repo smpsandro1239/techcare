@@ -21,7 +21,11 @@
                     <i class="fas fa-check-circle"></i> {{ session('message') }}
                 </div>
             @endif
-
+            @if (session('error'))
+            <div class="alert alert-danger my-3 mx-3">
+                <i class="fas fa-exclamation-triangle"></i> {{ session('error') }}
+            </div>
+        @endif
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">

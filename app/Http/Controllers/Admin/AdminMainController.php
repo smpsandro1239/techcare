@@ -138,24 +138,31 @@ class AdminMainController extends Controller
     }
 
     /**
-     * Deleta um agendamento específico.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(Order $order)
-    {
-        // Verifica se o pedido tem um agendamento associado e exclui
-        if ($order->agendamento) {
-            $order->agendamento->delete();
-        }
-
-        // Exclui o pedido
-        $order->delete();
-
+ * Deleta um agendamento específico.
+ *
+ * @param  \App\Models\Order  $order
+ * @return \Illuminate\Http\RedirectResponse
+ */
+public function destroy(Order $order)
+{
+    // Se houver relatórios, não permite exclusão
+    if ($order->reports()->exists()) {
         return redirect()->route('admin.order.history')
-            ->with('message', 'Ordem e agendamento cancelados com sucesso!');
+            ->with('error', 'Este agendamento não pode ser cancelado pois possui relatórios importantes associados.');
     }
+
+    // Remove o agendamento, se existir
+    if ($order->agendamento) {
+        $order->agendamento->delete();
+    }
+
+    // Remove o pedido
+    $order->delete();
+
+    return redirect()->route('admin.order.history')
+        ->with('message', 'Agendamento e ordem cancelados com sucesso!');
+}
+
 
     /**
      * Exibe o formulário para editar um agendamento específico.
@@ -275,7 +282,7 @@ class AdminMainController extends Controller
         // Criação do relatório
         $report = new Report();
         $report->order_id = $order->id;
-        $report->user_id = auth()->id;
+        $report->user_id = auth()->id();
         $report->content = $request->input('content');
         $report->save();
 

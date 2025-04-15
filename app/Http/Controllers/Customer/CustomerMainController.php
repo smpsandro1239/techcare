@@ -76,24 +76,30 @@ class CustomerMainController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Order $order)
-    {
-        if ($order->user_id !== auth()->id()) {
-            return redirect()->route('user.order.history')
-                ->with('error', 'Você não tem permissão para cancelar este agendamento.');
-        }
-    
-        // Verifica se há um agendamento associado e exclui
-        if ($order->agendamento) {
-            $order->agendamento->delete();
-        }
-    
-        // Exclui a ordem
-        $order->delete();
-    
+{
+    if ($order->user_id !== auth()->id()) {
         return redirect()->route('user.order.history')
-            ->with('message', 'Agendamento e ordem cancelados com sucesso!');
+            ->with('error', 'Você não tem permissão para cancelar este agendamento.');
     }
-    
+
+    // Se houver relatórios, não permite exclusão
+    if ($order->reports()->exists()) {
+        return redirect()->route('user.order.history')
+            ->with('error', 'Este agendamento não pode ser cancelado pois possui relatórios importantes associados.');
+    }
+
+    // Remove o agendamento, se existir
+    if ($order->agendamento) {
+        $order->agendamento->delete();
+    }
+
+    // Remove o pedido
+    $order->delete();
+
+    return redirect()->route('user.order.history')
+        ->with('message', 'Agendamento e ordem cancelados com sucesso!');
+}
+
 /**
      * Exibe o formulário para editar um agendamento específico.
      *
