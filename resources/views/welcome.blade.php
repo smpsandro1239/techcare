@@ -54,7 +54,7 @@
 
         .features .feature-item:hover {
             transform: translateY(-10px);
-            box-shadow: 0 8px 20px rgba(0, 255, 100, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.3);
         }
 
         .features .feature-item i {
@@ -249,7 +249,7 @@
     </div>
 
     <div class="container features">
-        <h2>Porquê a THECH CARE?</h2>
+        <h2>Porquê a TECH CARE?</h2>
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <div class="feature-item text-center">
