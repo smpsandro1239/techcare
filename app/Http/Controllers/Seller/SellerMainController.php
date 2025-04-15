@@ -58,18 +58,29 @@ class SellerMainController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Order $order)
-{
-    // Verifica se o pedido tem um agendamento associado e exclui
-    if ($order->agendamento) {
-        $order->agendamento->delete();
+    {
+        if ($order->user_id !== auth()->id()) {
+            return redirect()->route('vendor.order.history')
+                ->with('error', 'Você não tem permissão para cancelar este agendamento.');
+        }
+    
+        // Se houver relatórios, não permite exclusão
+        if ($order->reports()->exists()) {
+            return redirect()->route('vendor.order.history')
+                ->with('error', 'Este agendamento não pode ser cancelado pois possui relatórios importantes associados.');
+        }
+    
+        // Remove o agendamento, se existir
+        if ($order->agendamento) {
+            $order->agendamento->delete();
+        }
+    
+        // Remove o pedido
+        $order->delete();
+    
+        return redirect()->route('vendor.order.history')
+            ->with('message', 'Agendamento e ordem cancelados com sucesso!');
     }
-
-    // Exclui o pedido
-    $order->delete();
-
-    return redirect()->route('vendor.order.history')
-        ->with('message', 'Ordem e agendamento cancelados com sucesso!');
-}
 
 
     /**
