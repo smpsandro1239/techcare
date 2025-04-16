@@ -62,7 +62,7 @@
 
     <div class="container mt-5">
         <h1 class="text-center" style="color: #0dcaf0;">Agendar Serviço</h1>
-        <a href="{{ route('agendamento.index') }}" class="btn" style="background-color: #0dcaf0; color: white; border: 2px solid #0dcaf0;" onmouseover="this.style.backgroundColor='#31d8f2'" onmouseout="this.style.backgroundColor='#0dcaf0'">Ver Agendamentos</a>
+        <a href="{{ route('agendamento.index') }}" class="btn" style="background-color: #0dcaf023; color: white; border: 2px solid #0dcaf0;" onmouseover="this.style.backgroundColor='#31d8f2'" onmouseout="this.style.backgroundColor='#0dcaf023'">Ver Agendamentos</a>
 
         <div class="text-center my-3">
             <button onclick="changeView('dayGridMonth')" class="btn btn-primary">Mensal</button>
