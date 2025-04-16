@@ -44,8 +44,8 @@
         .btn {
             border-radius: 10px;
         }
-        .btn-primary { background-color: #28a745; border: none; }
-        .btn-primary:hover { background-color: #218838; }
+        .btn-primary { background-color: #0dcaf0; border: none; }
+        .btn-primary:hover { background-color: #31d8f2; }
         .btn-secondary { background-color: #555; border: none; }
         .btn-secondary:hover { background-color: #444; }
         .btn-danger { background-color: #dc3545; border: none; }
@@ -61,8 +61,8 @@
     @include('layouts.partials.navbar')
 
     <div class="container mt-5">
-        <h1 class="text-center text-success">Agendar Serviço</h1>
-    <a href="{{ route('agendamento.index') }}" class="btn btn-outline-light">Ver Agendamentos</a>
+        <h1 class="text-center" style="color: #0dcaf0;">Agendar Serviço</h1>
+        <a href="{{ route('agendamento.index') }}" class="btn" style="background-color: #0dcaf0; color: white; border: 2px solid #0dcaf0;" onmouseover="this.style.backgroundColor='#31d8f2'" onmouseout="this.style.backgroundColor='#0dcaf0'">Ver Agendamentos</a>
 
         <div class="text-center my-3">
             <button onclick="changeView('dayGridMonth')" class="btn btn-primary">Mensal</button>

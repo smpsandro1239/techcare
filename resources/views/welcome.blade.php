@@ -116,7 +116,7 @@
         }
 
         .banner-button:hover {
-            background-color: #28a745;
+            background-color: #0dcaf0;
             color: #fff;
         }
 
