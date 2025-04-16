@@ -10,12 +10,15 @@
                             $imagePath = $primaryImage ? $primaryImage->img_path : ($product->images->first()->img_path ?? 'default.jpg');
                         @endphp
                         <a href="{{ route('product.show', $product->slug) }}">
-                            <img src="{{ asset('storage/' . $imagePath) }}" alt="{{ $product->product_name }}" class="card-img-top">
+                            <img src="{{ asset('storage/' . $imagePath) }}" 
+                                 alt="{{ $product->product_name }}" 
+                                 class="card-img-top" 
+                                 style="height: 200px; object-fit: cover; border-top-left-radius: 10px; border-top-right-radius: 10px;">
                         </a>
 
                         <div class="card-body">
-                            <h5 class="card-title text-success">
-                                <a href="{{ route('product.show', $product->slug) }}" class="text-success text-decoration-none">
+                            <h5 class="card-title" style="color: #0dcaf0;">
+                                <a href="{{ route('product.show', $product->slug) }}" style="color: #0dcaf0; text-decoration: none;">
                                     {{ Str::limit($product->product_name, 50) }}
                                 </a>
                             </h5>
@@ -35,7 +38,8 @@
                                         <span class="price">Preço não disponível</span>
                                     @endif
                                 </div>
-                                <a href="{{ route('product.show', $product->slug) }}" class="btn btn-success btn-sm">Ver Detalhes</a>
+                                <!-- Botão atualizado para a cor azul -->
+                                <a href="{{ route('product.show', $product->slug) }}" class="btn" style="background-color: #0dcaf0; color: white; border: none;">Ver Detalhes</a>
                             </div>
                         </div>
                     </div>

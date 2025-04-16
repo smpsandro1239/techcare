@@ -28,8 +28,8 @@
         .btn {
             border-radius: 10px;
         }
-        .btn-primary { background-color: #28a745; border: none; }
-        .btn-primary:hover { background-color: #218838; }
+        .btn-primary { background-color: #0dcaf0; border: none; }
+        .btn-primary:hover { background-color: #0b98c8; }
         .btn-secondary { background-color: #555; border: none; }
         .btn-secondary:hover { background-color: #444; }
         .btn-danger { background-color: #dc3545; border: none; }
@@ -62,7 +62,7 @@
     @include('layouts.partials.navbar')
 
     <div class="container mt-5">
-        <h1 class="text-center text-success">Lista de Agendamentos</h1>
+        <h1 class="text-center" style="color: #0dcaf0;">Lista de Agendamentos</h1>
 
         <div class="text-center my-3">
             <button onclick="calendar.changeView('dayGridMonth')" class="btn btn-primary">Mensal</button>
@@ -74,7 +74,7 @@
             <div id="calendar"></div>
         </div>
 
-        <h2 class="text-success">Agendamentos Recentes</h2>
+        <h2 class="text-center" style="color: #0dcaf0;">Agendamentos Recentes</h2>
         <div class="table-responsive">
             <table class="table table-dark table-bordered">
                 <thead>
