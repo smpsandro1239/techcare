@@ -48,6 +48,8 @@ Manage Sub Category
                         </tbody>
                     </table>
                 </div>
+                {{$subcategories->appends(request()->query())->links()}}
+
             </div>
         </div>
     </div>

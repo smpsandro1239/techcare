@@ -10,12 +10,12 @@ use Illuminate\Http\Request;
 class SubCategoryController extends Controller
 {
     public function index(){
-        $categories = Category::all();
+        $categories = Category::paginate(4);
         return view('admin.sub_category.create', compact('categories'));
     }
 
     public function manage(){
-        $subcategories = Subcategory::all();
+        $subcategories = Subcategory::paginate(4);
         return view('admin.sub_category.manage', compact('subcategories'));
     }
 

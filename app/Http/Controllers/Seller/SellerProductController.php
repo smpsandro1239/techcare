@@ -25,7 +25,7 @@ class SellerProductController extends Controller
         $currentSeller = Auth::id();
         $products = Product::where('seller_id', $currentSeller)
             ->with(['images', 'category', 'subcategory'])
-            ->get();
+            ->paginate(4);
         return view('seller.product.manage', compact('products'));
     }
 

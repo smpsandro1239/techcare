@@ -97,6 +97,7 @@
                 </tbody>
             </table>
         </div>
+        {{$agendamentos->appends(request()->query())->links()}}
     </div>
 
     <footer class="text-center text-light mt-5 p-3 bg-dark">

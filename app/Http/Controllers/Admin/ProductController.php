@@ -25,7 +25,7 @@ class ProductController extends Controller
         $currentSeller = Auth::id();
         $products = Product::where('seller_id', $currentSeller)
             ->with(['images', 'category', 'subcategory'])
-            ->get();
+            ->paginate(4);
         return view('admin.product.manage', compact('products'));
     }
 
@@ -156,7 +156,7 @@ class ProductController extends Controller
             ->get();
     } else {
         // Se não houver termo de pesquisa, retorna todos os produtos
-        $products = Product::with(['images', 'category', 'subcategory'])->get();
+        $products = Product::with(['images', 'category', 'subcategory'])->paginate(1);
     }
 
     // Retorna os resultados para a view 'resultados.blade.php'

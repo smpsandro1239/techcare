@@ -52,6 +52,8 @@
                 </div>
             @endforeach
         </div>
+        {{ $products->links() }}
+
     @endif
 
     <a href="{{ route('catalogo') }}" class="btn mt-3" style="border: 1px solid #0dcaf0; color: #0dcaf0;">

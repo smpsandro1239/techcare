@@ -88,14 +88,14 @@ class AgendamentoController extends Controller
 
     public function index()
     {
-        $agendamentos = Agendamento::select('data', 'hora', 'servico', 'duracao', 'nome_cliente')->get();
+        $agendamentos = Agendamento::select('data', 'hora', 'servico', 'duracao', 'nome_cliente')->paginate(4);
         return view('agendamento.index', compact('agendamentos'));
     }
 
     public function getAgendamentos()
     {
         try {
-            $orders = Order::with('agendamento')->get();
+            $orders = Order::with('agendamento')->paginate(4);
 
             $events = $orders->map(function ($order) {
                 $start = Carbon::parse($order->scheduled_at); // Já em UTC

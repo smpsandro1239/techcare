@@ -50,5 +50,10 @@
                 </div>
             @endforelse
         </div>
+
+        <!-- Links de paginação -->
+        <div class="d-flex justify-content-center">
+            {{ $products->links() }} <!-- Gera os links de navegação da paginação -->
+        </div>
     </div>
 </div> <!-- Fim da tag raiz -->

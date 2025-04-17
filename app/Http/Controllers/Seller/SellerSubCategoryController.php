@@ -12,14 +12,14 @@ class SellerSubCategoryController extends Controller
     // Exibe o formulário para criar uma nova subcategoria
     public function index()
     {
-        $categories = Category::all();  // Obtém todas as categorias
+        $categories = Category::paginate(4);  // Obtém todas as categorias
         return view('seller.sub_category.create', compact('categories'));  // Passa as categorias para a view
     }
 
     // Exibe todas as subcategorias
     public function manage()
     {
-        $subcategories = Subcategory::all();  // Obtém todas as subcategorias
+        $subcategories = Subcategory::paginate(4);  // Obtém todas as subcategorias
         return view('seller.sub_category.manage', compact('subcategories'));  // Passa as subcategorias para a view
     }
 
