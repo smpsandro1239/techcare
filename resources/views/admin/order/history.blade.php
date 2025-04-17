@@ -111,13 +111,6 @@
                     </table>
                 </div>
             </div>
-
-            <!-- Paginação (se aplicável) -->
-            @if ($orders instanceof \Illuminate\Pagination\LengthAwarePaginator)
-                <div class="card-footer bg-light">
-                    {{ $orders->links('pagination::bootstrap-5') }}
-                </div>
-            @endif
         </div>
     </div>
 </div>

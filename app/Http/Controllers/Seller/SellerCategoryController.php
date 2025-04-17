@@ -17,7 +17,7 @@ class SellerCategoryController extends Controller
     // Exibe todas as categorias existentes
     public function manage()
     {
-        $categories = Category::all(); // Obtém todas as categorias
+        $categories = Category::paginate(4); // Obtém todas as categorias
         return view('seller.category.manage', compact('categories')); // Exibe as categorias
     }
 

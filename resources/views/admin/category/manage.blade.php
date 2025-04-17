@@ -46,6 +46,7 @@ Manage Category
                         </tbody>
                     </table>
                 </div>
+                {{$categories->appends(request()->query())->links()}}
             </div>
         </div>
     </div>

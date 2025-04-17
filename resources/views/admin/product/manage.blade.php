@@ -71,14 +71,8 @@
                         </tbody>
                     </table>
                 </div>
+                {{$products->appends(request()->query())->links()}}
             </div>
-
-            <!-- Paginação (se aplicável) -->
-            @if ($products instanceof \Illuminate\Pagination\LengthAwarePaginator)
-                <div class="card-footer bg-light">
-                    {{ $products->links('pagination::bootstrap-5') }}
-                </div>
-            @endif
         </div>
     </div>
 </div>

@@ -15,7 +15,7 @@ class CategoryController extends Controller
 
     public function manage()
     {
-        $categories = Category::all(); // Obtém todas as categorias
+        $categories = Category::paginate(4); // Obtém todas as categorias
         return view('admin.category.manage', compact('categories')); // Exibe as categorias
     }
 
