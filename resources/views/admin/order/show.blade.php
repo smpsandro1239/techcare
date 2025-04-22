@@ -3,7 +3,6 @@
 @extends('admin.layouts.layout')
 
 @section('admin_layout')
-@include('layouts.partials.navbar')
     <div class="container">
         <h1>Detalhes do Pedido</h1>
 

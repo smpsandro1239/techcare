@@ -4,7 +4,6 @@ Manage Sub Category
 @endsection
 
 @section('admin_layout')
-@include('layouts.partials.navbar')
 <div class="row">
     <div class="col-12">
         <div class="card">

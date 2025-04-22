@@ -5,7 +5,6 @@
 @endsection
 
 @section('admin_layout')
-@include('layouts.partials.navbar')
     <h3>Create Category Page</h3>
     <div class="row">
         <div class="col-12">
