@@ -89,6 +89,11 @@
 .dropdown-menu {
     background-color: black !important;
     border-color: #444 !important;
+    display: none; /* Inicialmente escondido */
+}
+
+.dropdown-menu.show {
+    display: block; /* Mostrar quando tiver a classe show */
 }
 
 .dropdown-item {
@@ -131,7 +136,31 @@
     color: white !important;
 }
 
+/* Estilos para o menu responsivo */
+@media (max-width: 991.98px) {
+    .nav-links {
+        display: none !important;
+    }
+    .mobile-nav-links {
+        display: block !important;
+    }
+}
 
+@media (min-width: 992px) {
+    .mobile-nav-links {
+        display: none !important;
+    }
+}
+
+/* Estilo para animação do ícone */
+.animate-spin {
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 	</style>
 </head>
 
@@ -216,28 +245,74 @@
 </nav>
 
 <div class="main">
-<nav class="navbar navbar-expand navbar-light navbar-bg">
-<a class="sidebar-toggle js-sidebar-toggle">
-<i class="hamburger align-self-center"></i>
-</a>
+    <!-- Nova barra de navegação superior -->
+    <nav class="navbar navbar-expand navbar-light navbar-bg">
+        <a class="sidebar-toggle js-sidebar-toggle">
+            <i class="hamburger align-self-center"></i>
+        </a>
+        <!-- Logo/Brand com ícone animado -->
+        <a class="navbar-brand d-flex align-items-center" href="/">
+            <i class="fas fa-tools animate-spin me-2"></i>
+            Tech Care
+        </a>
+        <div class="navbar-collapse collapse">
+            <!-- Links de navegação (visíveis em desktop) -->
+            <ul class="navbar-nav nav-links">
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="/">
+                        <i class="fas fa-home me-1"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('catalogo') ? 'active' : '' }}" href="/catalogo">
+                        <i class="fas fa-list me-1"></i> Catálogo
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('agendamento*') ? 'active' : '' }}" href="/agendamento">
+                        <i class="fas fa-calendar-alt me-1"></i> Agendamento
+                    </a>
+                </li>
+            </ul>
 
-<div class="navbar-collapse collapse">
-    <ul class="navbar-nav navbar-align">
-        <li class="nav-item dropdown">
-        </li>
-            <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-            </a>
-            <div class="dropdown-menu dropdown-menu-end">
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <input type="submit" value="Logout" class="ms-3 btn btn-warning">
-            </form>
-            </div>
-        </li>
-    </ul>
-</div>
-</nav>
-@include('layouts.partials.navbar')
+            <ul class="navbar-nav ms-auto navbar-align">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ auth()->user()->profile_photo ? asset('storage/' . auth()->user()->profile_photo) : asset('images/default-profile.png') }}" alt="Foto de Perfil" class="rounded-circle" width="30" height="30" style="object-fit: cover; margin-right: 8px;">
+                        <span class="ms-1">{{ auth()->user()->name }}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="userDropdown">
+                        <!-- Links de navegação (visíveis em mobile) -->
+                        <div class="mobile-nav-links">
+                            <li><a class="dropdown-item {{ request()->is('/') ? 'active' : '' }}" href="/">
+                                <i class="fas fa-home me-1"></i> Home
+                            </a></li>
+                            <li><a class="dropdown-item {{ request()->is('catalogo') ? 'active' : '' }}" href="/catalogo">
+                                <i class="fas fa-list me-1"></i> Catálogo
+                            </a></li>
+                            <li><a class="dropdown-item {{ request()->is('agendamento*') ? 'active' : '' }}" href="/agendamento">
+                                <i class="fas fa-calendar-alt me-1"></i> Agendamento
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                        </div>
+                        <li><a class="dropdown-item" href="/perfil">
+                            <i class="fas fa-user-circle me-1"></i> Meu Perfil
+                        </a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt me-1"></i> Sair
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
 <main class="content">
 <div class="container-fluid p-0">
 
@@ -273,7 +348,36 @@
 <!-- Script para garantir que os ícones sejam carregados -->
 <script>
   feather.replace(); // Este comando substitui todos os elementos <i data-feather="..."> com os ícones adequados
+  
+  // Controle manual do dropdown
+  document.addEventListener('DOMContentLoaded', function() {
+      const dropdownToggle = document.querySelector('.dropdown-toggle');
+      const dropdownMenu = document.querySelector('.dropdown-menu');
+      
+      if(dropdownToggle && dropdownMenu) {
+          dropdownToggle.addEventListener('click', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              
+              // Fecha todos os outros dropdowns abertos
+              document.querySelectorAll('.dropdown-menu.show').forEach(function(openMenu) {
+                  if(openMenu !== dropdownMenu) {
+                      openMenu.classList.remove('show');
+                  }
+              });
+              
+              // Alterna o menu atual
+              dropdownMenu.classList.toggle('show');
+          });
+          
+          // Fecha o dropdown ao clicar fora
+          document.addEventListener('click', function(e) {
+              if(!dropdownMenu.contains(e.target) {
+                  dropdownMenu.classList.remove('show');
+              }
+          });
+      }
+  });
 </script>
 </body>
-
 </html>
