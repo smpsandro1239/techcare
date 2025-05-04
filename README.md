@@ -1,5 +1,6 @@
 
-# Tech Care - Sistema de Agendamento e Administração de Serviços
+# Tech Care - 
+##Sistema de Agendamento e Administração de Serviços
 
 ![Banner do Tech Care](screenshots/banner-techcare.png)  
 _Sistema de agendamento e administração de serviços técnicos para simplificar a sua rotina._
