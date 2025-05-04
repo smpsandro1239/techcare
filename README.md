@@ -2,7 +2,7 @@
 
 # Tech Care - Sistema de Agendamento e Administração de Serviços
 
-![Banner do Tech Care](screenshots/banner-techcare.png)
+![Banner do Tech Care](screenshots/banner-techcare.png)  
 _Sistema de agendamento e administração de serviços técnicos para simplificar a sua rotina._
 
 O **Tech Care** é uma aplicação web moderna e eficiente, desenvolvida para facilitar o agendamento e a administração de serviços técnicos, como a instalação de sistemas operativos, a manutenção de hardware e a configuração de redes. Com uma interface intuitiva e funcionalidades robustas, o Tech Care é ideal para empresas ou profissionais que desejam organizar os seus agendamentos de forma prática e fiável.
@@ -29,49 +29,49 @@ Abaixo estão capturas de ecrã que ilustram as principais funcionalidades do Te
 
 A página de agendamento apresenta um calendário interactivo para visualizar e gerir agendamentos, com opções para ver agendamentos existentes e escolher entre vistas mensal, semanal ou diária.
 
-![Página de Agendamento](screenshots/lista-agendamentos.png)
+![Página de Agendamento](screenshots/lista-agendamentos.png)  
 _Veja todos os agendamentos no calendário interactivo e escolha a vista desejada (mensal, semanal ou diária)._
 
 ### 2. Perfil do Utilizador
 
 A secção "O Meu Perfil" permite aos utilizadores visualizar e actualizar os seus dados pessoais, incluindo nome, e-mail, número de telemóvel e fotografia de perfil, além de alterar a senha.
 
-![Perfil do Utilizador](screenshots/perfil-utilizador.png)
+![Perfil do Utilizador](screenshots/perfil-utilizador.png)  
 _Gerencie os seus dados pessoais e actualize a fotografia ou senha no perfil._
 
 ### 3. Catálogo de Produtos
 
 O catálogo exibe uma lista de produtos disponíveis, com imagens, nomes, categorias, subcategorias e preços, além de uma opção para ver detalhes e navegar entre páginas.
 
-![Catálogo de Produtos](screenshots/catalogo-produtos.png)
+![Catálogo de Produtos](screenshots/catalogo-produtos.png)  
 _Explore o catálogo de produtos e veja detalhes como preço e categoria._
 
 ### 4. Criação de Agendamento
 
 Clique numa data no calendário para abrir o modal de agendamento, onde pode seleccionar o horário e o serviço.
 
-![Modal de Agendamento](screenshots/modal-agendamento.png)
+![Modal de Agendamento](screenshots/modal-agendamento.png)  
 _Seleccione a data, o horário e o serviço para agendar um atendimento._
 
 ### 5. Validação de Feriados
 
 Ao tentar agendar num feriado, é apresentado um popup informativo, explicando o motivo da restrição.
 
-![Popup de Feriado](screenshots/popup-feriado.png)
+![Popup de Feriado](screenshots/popup-feriado.png)  
 _Notificação de erro ao tentar agendar num feriado (ex.: Dia do Trabalhador)._
 
 ### 6. Detalhes do Agendamento
 
 Clique num evento no calendário para ver os detalhes, incluindo a data, o horário, o cliente e o serviço.
 
-![Popup de Detalhes do Agendamento](screenshots/detalhes-agendamento.png)
+![Popup de Detalhes do Agendamento](screenshots/detalhes-agendamento.png)  
 _Veja os detalhes de um agendamento existente._
 
 ### 7. Painel de Administração
 
 Painel de administração para gerir utilizadores, agendamentos e outras configurações (se implementado).
 
-![Painel de Administração](screenshots/Admin-dashboard.png)
+![Painel de Administração](screenshots/Admin-dashboard.png)  
 _Veja o painel de administração._
 
 ---
@@ -82,13 +82,13 @@ O Tech Care utiliza tecnologias modernas para garantir desempenho, escalabilidad
 
 - **Backend**: Laravel 10.x
 - **Frontend**:
-    - HTML, CSS, JavaScript
-    - Bootstrap 5 (design responsivo)
-    - FullCalendar 6.1.11 (calendário interactivo)
+  - HTML, CSS, JavaScript
+  - Bootstrap 5 (design responsivo)
+  - FullCalendar 6.1.11 (calendário interactivo)
 - **Frameworks e Bibliotecas**:
-    - Livewire (componentes dinâmicos)
-    - SweetAlert2 (notificações e popups)
-    - Luxon (manipulação de fusos horários)
+  - Livewire (componentes dinâmicos)
+  - SweetAlert2 (notificações e popups)
+  - Luxon (manipulação de fusos horários)
 - **Base de Dados**: MySQL (gerido via migrações do Laravel)
 - **Ambiente de Desenvolvimento**: Laragon (recomendado), compatível com XAMPP, WAMP ou Docker
 
@@ -99,11 +99,11 @@ O Tech Care utiliza tecnologias modernas para garantir desempenho, escalabilidad
 A estrutura do projecto segue o padrão do Laravel, com pastas organizadas para facilitar a manutenção e a colaboração:
 
 - `app/`: Controladores, modelos e _middlewares_.
-    - `app/Http/Controllers/AgendamentoController.php`: Lógica de agendamentos.
-    - `app/Models/Agendamento.php`, `app/Models/Order.php`: Modelos principais.
+  - `app/Http/Controllers/AgendamentoController.php`: Lógica de agendamentos.
+  - `app/Models/Agendamento.php`, `app/Models/Order.php`: Modelos principais.
 - `resources/views/`: Modelos Blade.
-    - `agendamento/create.blade.php`: Criação de agendamentos.
-    - `agendamento/index.blade.php`: Lista de agendamentos com calendário.
+  - `agendamento/create.blade.php`: Criação de agendamentos.
+  - `agendamento/index.blade.php`: Lista de agendamentos com calendário.
 - `database/migrations/`: Definições das tabelas (`agendamentos`, `orders`).
 - `routes/web.php`: Rotas da aplicação.
 - `public/`: Ficheiros estáticos (CSS, JS, imagens).
@@ -128,90 +128,90 @@ Siga os passos abaixo para configurar o Tech Care na sua máquina local.
 
 1. **Clone o Repositório**
 
-    ```bash
-    git clone https://github.com/smpsandro1239/techcare.git
-    cd techcare
-    ```
+   ```bash
+   git clone https://github.com/smpsandro1239/techcare.git
+   cd techcare
+   ```
 
 2. **Instale as Dependências**
 
-    - Dependências do PHP:
+   - Dependências do PHP:
 
-        ```bash
-        composer install
-        ```
+     ```bash
+     composer install
+     ```
 
-    - (Opcional) Dependências JavaScript:
+   - (Opcional) Dependências JavaScript:
 
-        ```bash
-        npm install && npm run dev
-        ```
+     ```bash
+     npm install && npm run dev
+     ```
 
 3. **Configure o Ambiente**
 
-    - Renomeie o ficheiro `.env.example` para `.env`:
+   - Renomeie o ficheiro `.env.example` para `.env`:
 
-        ```bash
-        cp .env.example .env
-        ```
+     ```bash
+     cp .env.example .env
+     ```
 
-    - Edite o ficheiro `.env` com as suas configurações:
+   - Edite o ficheiro `.env` com as suas configurações:
 
-        ```env
-        APP_NAME="Tech Care"
-        APP_URL=http://localhost:8000
-        APP_TIMEZONE=Europe/Lisbon
-        DB_CONNECTION=mysql
-        DB_HOST=127.0.0.1
-        DB_PORT=3306
-        DB_DATABASE=techcare_db
-        DB_USERNAME=root
-        DB_PASSWORD=
-        ```
+     ```env
+     APP_NAME="Tech Care"
+     APP_URL=http://localhost:8000
+     APP_TIMEZONE=Europe/Lisbon
+     DB_CONNECTION=mysql
+     DB_HOST=127.0.0.1
+     DB_PORT=3306
+     DB_DATABASE=techcare_db
+     DB_USERNAME=root
+     DB_PASSWORD=
+     ```
 
-    - Gere a chave da aplicação:
+   - Gere a chave da aplicação:
 
-        ```bash
-        php artisan key:generate
-        ```
+     ```bash
+     php artisan key:generate
+     ```
 
 4. **Configure a Base de Dados**
 
-    - Crie uma base de dados MySQL chamada `techcare_db` (ou o nome definido no `.env`).
-    - Execute as migrações para criar as tabelas:
+   - Crie uma base de dados MySQL chamada `techcare_db` (ou o nome definido no `.env`).
+   - Execute as migrações para criar as tabelas:
 
-        ```bash
-        php artisan migrate
-        ```
+     ```bash
+     php artisan migrate
+     ```
 
-    - (Opcional) Preencha a base de dados com dados de exemplo:
+   - (Opcional) Preencha a base de dados com dados de exemplo:
 
-        ```bash
-        php artisan db:seed
-        ```
+     ```bash
+     php artisan db:seed
+     ```
 
 5. **Inicie o Servidor**
 
-    - Use o servidor embutido do Laravel:
+   - Use o servidor embutido do Laravel:
 
-        ```bash
-        php artisan serve
-        ```
+     ```bash
+     php artisan serve
+     ```
 
-    - Ou configure um _virtual host_ no Laragon/XAMPP/WAMP.
-    - Acesse o projecto em `http://localhost:8000`.
+   - Ou configure um _virtual host_ no Laragon/XAMPP/WAMP.
+   - Acesse o projecto em `http://localhost:8000`.
 
 6. **Autenticação Inicial**
 
-    - Registe um novo utilizador em `http://localhost:8000/register`.
-    - Ou crie um utilizador admin via Artisan:
+   - Registe um novo utilizador em `http://localhost:8000/register`.
+   - Ou crie um utilizador admin via Artisan:
 
-        ```bash
-        php artisan tinker
-        User::create(['name' => 'Admin', 'email' => 'admin@techcare.com', 'password' => bcrypt('password'), 'role' => 1])
-        ```
+     ```bash
+     php artisan tinker
+     User::create(['name' => 'Admin', 'email' => 'admin@techcare.com', 'password' => bcrypt('password'), 'role' => 1])
+     ```
 
-    - Faça login com as credenciais criadas.
+   - Faça login com as credenciais criadas.
 
 ---
 
@@ -256,28 +256,28 @@ O Tech Care é um projecto de código aberto, e a sua contribuição é muito be
 
 1. **Crie uma _Branch_**
 
-    ```bash
-    git checkout -b feature/nova-funcionalidade
-    ```
+   ```bash
+   git checkout -b feature/nova-funcionalidade
+   ```
 
 2. **Faça _Commit_**
 
-    ```bash
-    git add .
-    git commit -m "feat: adiciona nova funcionalidade"
-    ```
+   ```bash
+   git add .
+   git commit -m "feat: adiciona nova funcionalidade"
+   ```
 
 3. **Push**
 
-    ```bash
-    git push origin feature/nova-funcionalidade
-    ```
+   ```bash
+   git push origin feature/nova-funcionalidade
+   ```
 
 4. **Abra um Pull Request**
 
-    - Descreva as alterações no PR.
-    - Peça revisão a pelo menos um colega.
-    - Teste localmente antes de submeter.
+   - Descreva as alterações no PR.
+   - Peça revisão a pelo menos um colega.
+   - Teste localmente antes de submeter.
 
 ---
 
@@ -320,17 +320,17 @@ O Tech Care é um projecto de código aberto, e a sua contribuição é muito be
 
 ## ❓ Perguntas Frequentes
 
-**1. Por que o calendário não carrega os eventos?**
+**1. Por que o calendário não carrega os eventos?**  
 Verifique se o método `getAgendamentos` está a funcionar. Inspecione o console do navegador para erros e confirme se a base de dados está preenchida.
 
-**2. Como configurar o fuso horário correctamente?**
+**2. Como configurar o fuso horário correctamente?**  
 No `.env`, defina `APP_TIMEZONE=Europe/Lisbon`. No MySQL, execute:
 
 ```sql
 SET GLOBAL time_zone = 'Europe/Lisbon';
 ```
 
-**3. Posso usar outra base de dados?**
+**3. Posso usar outra base de dados?**  
 Sim! O Laravel suporta PostgreSQL, SQLite, entre outros. Actualize o `DB_CONNECTION` no `.env` e ajuste as configurações.
 
 ---
@@ -404,9 +404,9 @@ git push origin main
 - Acesse o repositório no GitHub (`https://github.com/smpsandro1239/techcare`).
 - Abra o ficheiro `README.md` e confirme se as imagens estão a ser apresentadas.
 - Se as imagens não carregarem, verifique:
-    - **Caminho Correcto**: O caminho no README deve ser relativo à raiz do repositório (ex.: `screenshots/lista-agendamentos.png`).
-    - **Nome do Ficheiro**: Certifique-se de que os nomes dos ficheiros correspondem exactamente.
-    - **Imagens no Repositório**: Confirme que as imagens foram enviadas.
+  - **Caminho Correcto**: O caminho no README deve ser relativo à raiz do repositório (ex.: `screenshots/lista-agendamentos.png`).
+  - **Nome do Ficheiro**: Certifique-se de que os nomes dos ficheiros correspondem exactamente.
+  - **Imagens no Repositório**: Confirme que as imagens foram enviadas.
 
 ### 5. Alternativa: Aloje as Imagens Externamente
 
@@ -434,3 +434,5 @@ Se as imagens ainda não carregarem, aloje-as num serviço externo (ex.: ImgBB) 
 ---
 
 Aproveite o **Tech Care**! 🚀
+
+---
