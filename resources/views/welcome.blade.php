@@ -361,8 +361,8 @@
                         </div>
                         <!-- Verso do card -->
                         <div class="card-back">
-                            <h4>Testemunho</h4>
-                            <p>"Os técnicos da Tech Care salvaram meu computador! Excelente serviço."</p>
+                            <h4>João Costa</h4>
+                            <p>"Os técnicos da Tech Care, <br> salvaram o meu computador!<br> Excelente serviço."</p>
                         </div>
                     </div>
                 </div>
@@ -376,8 +376,10 @@
                             <p>Clientes satisfeitos, confiabilidade absoluta nos serviços prestados.</p>
                         </div>
                         <div class="card-back">
-                            <h4>Testemunho</h4>
-                            <p>"Confio na Tech Care há anos. Sempre impecáveis!"</p>
+                            <h4>Paula Fernandes</h4>
+                            <p>"Confio na Tech Care,
+                                <br> há muitos anos.
+                                <br> Sempre impecáveis!"</p>
                         </div>
                     </div>
                 </div>
@@ -391,8 +393,8 @@
                             <p>Líderes incontestáveis. <br> Taxa de satisfação de 99,9%.</p>
                         </div>
                         <div class="card-back">
-                            <h4>Testemunho</h4>
-                            <p>"A Tech Care é a melhor escolha para qualquer reparo técnico."</p>
+                            <h4>Mariana Silva</h4>
+                            <p>"A Tech Care <br> é a melhor escolha <br>para qualquer reparação técnica."</p>
                         </div>
                     </div>
                 </div>
