@@ -23,7 +23,7 @@ Desenvolvido com o _framework_ **Laravel** e integrado com o **FullCalendar**, o
 
 ## 📸 Demonstração do Sistema
 
-Abaixo estão capturas de ecrã que ilustram as principais funcionalidades do Tech Care. Certifique-se de que as imagens estão na pasta `screenshots/` no repositório.
+Abaixo estão capturas de ecrã que ilustram as principais funcionalidades do Tech Care.
 
 ### 1. Página de Agendamento
 
@@ -283,8 +283,6 @@ O Tech Care é um projecto de código aberto, e a sua contribuição é muito be
 
 ## ⚠️ Problemas Conhecidos
 
-- Erro 500 no Modal de Agendamento: Ocorre ao carregar horários disponíveis (em correcção).
-- Catálogo Incompleto: Integração pendente para pesquisa e apresentação de produtos.
 - Fuso Horário: Certifique-se de que `APP_TIMEZONE=Europe/Lisbon` no `.env` e que o MySQL está configurado para o mesmo fuso horário.
 
 ---
@@ -361,56 +359,6 @@ Sim! O Laravel suporta PostgreSQL, SQLite, entre outros. Actualize o `DB_CONNECT
 ## 📄 Licença
 
 Este projecto está licenciado sob a [Licença MIT](LICENSE). Veja o ficheiro `LICENSE` para mais detalhes.
-
----
-
-## 📸 Instruções para Adicionar e Verificar Imagens
-
-Se as imagens não estão a carregar no GitHub, siga estas instruções para corrigir o problema.
-
-### 1. Crie a Pasta `screenshots/`
-
-Na raiz do projecto, crie uma pasta chamada `screenshots/`:
-
-```bash
-mkdir screenshots
-```
-
-### 2. Adicione as Imagens
-
-Tire capturas de ecrã das seguintes telas e guarde-as na pasta `screenshots/` com os nomes indicados:
-
-- `lista-agendamentos.png`: Página de agendamento com o calendário interactivo.
-- `perfil-utilizador.png`: Secção "O Meu Perfil" para gerir dados pessoais.
-- `catalogo-produtos.png`: Página do catálogo com lista de produtos.
-- `modal-agendamento.png`: Modal de agendamento ao clicar numa data no calendário.
-- `popup-feriado.png`: Popup de erro ao tentar agendar num feriado.
-- `detalhes-agendamento.png`: Popup de detalhes ao clicar num evento no calendário.
-- `admin-dashboard.png`: Painel de administração.
-- `banner-techcare.png`: _Banner_ simples com o nome "Tech Care".
-
-### 3. Faça _Commit_ das Imagens
-
-Adicione as imagens ao repositório:
-
-```bash
-git add screenshots/*
-git commit -m "docs: adiciona capturas de ecrã ao README"
-git push origin main
-```
-
-### 4. Verifique se as Imagens Carregam no GitHub
-
-- Acesse o repositório no GitHub (`https://github.com/smpsandro1239/techcare`).
-- Abra o ficheiro `README.md` e confirme se as imagens estão a ser apresentadas.
-- Se as imagens não carregarem, verifique:
-  - **Caminho Correcto**: O caminho no README deve ser relativo à raiz do repositório (ex.: `screenshots/lista-agendamentos.png`).
-  - **Nome do Ficheiro**: Certifique-se de que os nomes dos ficheiros correspondem exactamente.
-  - **Imagens no Repositório**: Confirme que as imagens foram enviadas.
-
-### 5. Alternativa: Aloje as Imagens Externamente
-
-Se as imagens ainda não carregarem, aloje-as num serviço externo (ex.: ImgBB) e use URLs absolutas no README.
 
 ---
 
