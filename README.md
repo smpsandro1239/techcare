@@ -1,5 +1,3 @@
-Vou ajustar o `README.md` para incluir as três novas imagens fornecidas (lista de agendamentos, perfil do utilizador e catálogo de produtos), além de atualizar o texto para refletir o conteúdo visual dessas capturas de ecrã. Vou manter a estrutura existente, corrigir os erros `MD025` e `MD007` mencionados anteriormente, e garantir que o texto esteja em português de Portugal, com consistência e legibilidade.
-
 ---
 
 # Tech Care - Sistema de Agendamento e Administração de Serviços
@@ -73,7 +71,7 @@ _Veja os detalhes de um agendamento existente._
 
 Painel de administração para gerir utilizadores, agendamentos e outras configurações (se implementado).
 
-![Painel de Administração](screenshots/admin-dashboard.png)
+![Painel de Administração](screenshots/Admin-dashboard.png)
 _Veja o painel de administração._
 
 ---
